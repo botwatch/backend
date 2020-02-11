@@ -1,4 +1,4 @@
 git pull
 dotnet build
 dotnet publish
-dotnet run -p /botwat.ch/
+dotnet run --project ./botwat.ch/botwat.ch.csproj
