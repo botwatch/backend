@@ -11,40 +11,6 @@
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="botwat.ch.csproj" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\@babel\parser" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\@babel\types" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\@jest\console" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\@jest\fake-timers" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\@jest\source-map" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\@jest\test-result" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\@jest\types" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\@types" t="IncludeRecursive">
-          <e p="babel__generator" t="IncludeRecursive" />
-          <e p="babel__template" t="IncludeRecursive" />
-          <e p="babel__traverse" t="IncludeRecursive" />
-          <e p="istanbul-lib-coverage" t="IncludeRecursive" />
-          <e p="istanbul-lib-report" t="IncludeRecursive" />
-        </e>
-        <e p="ClientApp\node_modules\babel-jest" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\chalk" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\cross-env" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\dotenv-expand" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\jest" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\jest-haste-map" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\jest-message-util" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\jest-mock" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\jest-resolve" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\jest-serializer" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\jest-util" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\jest-worker" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\react" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\react-dom" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\react-router-dom" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\react-scripts" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\realpath-native" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\source-map" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\typescript" t="IncludeRecursive" />
-        <e p="ClientApp\node_modules\worker-farm" t="IncludeRecursive" />
         <e p="Controllers" t="Include">
           <e p="InteractionController.cs" t="Include" />
         </e>
@@ -55,7 +21,7 @@
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
-            <e p="netcoreapp3.0" t="Include">
+            <e p="netcoreapp3.1" t="Include">
               <e p="botwat.ch.AssemblyInfo.cs" t="Include" />
               <e p="botwat.ch.RazorAssemblyInfo.cs" t="Include" />
             </e>
@@ -73,6 +39,40 @@
         <e p="Startup.cs" t="Include" />
         <e p="Web" t="Include">
           <e p=".gitignore" t="Include" />
+          <e p="node_modules\@babel\parser" t="IncludeRecursive" />
+          <e p="node_modules\@babel\types" t="IncludeRecursive" />
+          <e p="node_modules\@jest\console" t="IncludeRecursive" />
+          <e p="node_modules\@jest\fake-timers" t="IncludeRecursive" />
+          <e p="node_modules\@jest\source-map" t="IncludeRecursive" />
+          <e p="node_modules\@jest\test-result" t="IncludeRecursive" />
+          <e p="node_modules\@jest\types" t="IncludeRecursive" />
+          <e p="node_modules\@types" t="IncludeRecursive">
+            <e p="babel__generator" t="IncludeRecursive" />
+            <e p="babel__template" t="IncludeRecursive" />
+            <e p="babel__traverse" t="IncludeRecursive" />
+            <e p="istanbul-lib-coverage" t="IncludeRecursive" />
+            <e p="istanbul-lib-report" t="IncludeRecursive" />
+          </e>
+          <e p="node_modules\babel-jest" t="IncludeRecursive" />
+          <e p="node_modules\chalk" t="IncludeRecursive" />
+          <e p="node_modules\cross-env" t="IncludeRecursive" />
+          <e p="node_modules\dotenv-expand" t="IncludeRecursive" />
+          <e p="node_modules\jest" t="IncludeRecursive" />
+          <e p="node_modules\jest-haste-map" t="IncludeRecursive" />
+          <e p="node_modules\jest-message-util" t="IncludeRecursive" />
+          <e p="node_modules\jest-mock" t="IncludeRecursive" />
+          <e p="node_modules\jest-resolve" t="IncludeRecursive" />
+          <e p="node_modules\jest-serializer" t="IncludeRecursive" />
+          <e p="node_modules\jest-util" t="IncludeRecursive" />
+          <e p="node_modules\jest-worker" t="IncludeRecursive" />
+          <e p="node_modules\react" t="IncludeRecursive" />
+          <e p="node_modules\react-dom" t="IncludeRecursive" />
+          <e p="node_modules\react-router-dom" t="IncludeRecursive" />
+          <e p="node_modules\react-scripts" t="IncludeRecursive" />
+          <e p="node_modules\realpath-native" t="IncludeRecursive" />
+          <e p="node_modules\source-map" t="IncludeRecursive" />
+          <e p="node_modules\typescript" t="IncludeRecursive" />
+          <e p="node_modules\worker-farm" t="IncludeRecursive" />
           <e p="package-lock.json" t="Include" />
           <e p="package.json" t="Include" />
           <e p="public" t="Include">
@@ -80,7 +80,6 @@
             <e p="index.html" t="Include" />
             <e p="logo192.png" t="Include" />
             <e p="logo512.png" t="Include" />
-            <e p="manifest.json" t="Include" />
             <e p="robots.txt" t="Include" />
           </e>
           <e p="README.md" t="Include" />
