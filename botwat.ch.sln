@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "botwat.ch", "botwat.ch\botwat.ch.csproj", "{EB0D086C-93BE-4BFE-BFE5-A3DDB48C6304}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB0D086C-93BE-4BFE-BFE5-A3DDB48C6304}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB0D086C-93BE-4BFE-BFE5-A3DDB48C6304}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB0D086C-93BE-4BFE-BFE5-A3DDB48C6304}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB0D086C-93BE-4BFE-BFE5-A3DDB48C6304}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

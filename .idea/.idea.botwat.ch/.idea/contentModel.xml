@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\timd.SIQINC\.Rider2019.3\config\scratches" t="IncludeRecursive" />
+    <e p="C:\Users\timd.SIQINC\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\timd.SIQINC\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_botwat.ch.-981483987.00" t="ExcludeRecursive" />
+    <e p="C:\Users\timd.SIQINC\Development\botwat.ch" t="IncludeFlat">
+      <e p="botwat.ch" t="IncludeRecursive">
+        <e p=".gitignore" t="Include" />
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="botwat.ch.csproj" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\@babel\parser" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\@babel\types" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\@jest\console" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\@jest\fake-timers" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\@jest\source-map" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\@jest\test-result" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\@jest\types" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\@types" t="IncludeRecursive">
+          <e p="babel__generator" t="IncludeRecursive" />
+          <e p="babel__template" t="IncludeRecursive" />
+          <e p="babel__traverse" t="IncludeRecursive" />
+          <e p="istanbul-lib-coverage" t="IncludeRecursive" />
+          <e p="istanbul-lib-report" t="IncludeRecursive" />
+        </e>
+        <e p="ClientApp\node_modules\babel-jest" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\chalk" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\cross-env" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\dotenv-expand" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\jest" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\jest-haste-map" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\jest-message-util" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\jest-mock" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\jest-resolve" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\jest-serializer" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\jest-util" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\jest-worker" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\react" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\react-dom" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\react-router-dom" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\react-scripts" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\realpath-native" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\source-map" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\typescript" t="IncludeRecursive" />
+        <e p="ClientApp\node_modules\worker-farm" t="IncludeRecursive" />
+        <e p="Controllers" t="Include">
+          <e p="InteractionController.cs" t="Include" />
+        </e>
+        <e p="data" t="Include">
+          <e p="Action.cs" t="Include" />
+          <e p="DatabaseContext.cs" t="Include" />
+          <e p="DBProvider.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.0" t="Include">
+              <e p="botwat.ch.AssemblyInfo.cs" t="Include" />
+              <e p="botwat.ch.RazorAssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Pages" t="Include">
+          <e p="_ViewImports.cshtml" t="Include" />
+          <e p="Error.cshtml" t="Include" />
+          <e p="Error.cshtml.cs" t="Include" />
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Startup.cs" t="Include" />
+        <e p="Web" t="Include">
+          <e p=".gitignore" t="Include" />
+          <e p="package-lock.json" t="Include" />
+          <e p="package.json" t="Include" />
+          <e p="public" t="Include">
+            <e p="favicon.ico" t="Include" />
+            <e p="index.html" t="Include" />
+            <e p="logo192.png" t="Include" />
+            <e p="logo512.png" t="Include" />
+            <e p="manifest.json" t="Include" />
+            <e p="robots.txt" t="Include" />
+          </e>
+          <e p="README.md" t="Include" />
+          <e p="src" t="Include">
+            <e p="App.css" t="Include" />
+            <e p="App.tsx" t="Include" />
+            <e p="components" t="Include">
+              <e p="MachineComponent.tsx" t="Include" />
+              <e p="NavigationBar.tsx" t="Include" />
+              <e p="TicketList.tsx" t="Include" />
+            </e>
+            <e p="data" t="Include">
+              <e p="Comment.ts" t="Include" />
+              <e p="Machine.ts" t="Include" />
+              <e p="Ticket.ts" t="Include" />
+            </e>
+            <e p="index.css" t="Include" />
+            <e p="index.tsx" t="Include" />
+            <e p="Pages" t="Include">
+              <e p="CreateTicket.tsx" t="Include" />
+              <e p="MachineGrid.tsx" t="Include" />
+              <e p="TicketGrid.tsx" t="Include" />
+            </e>
+            <e p="react-app-env.d.ts" t="Include" />
+            <e p="utilities" t="Include">
+              <e p="Api.ts" t="Include" />
+              <e p="styles.ts" t="Include" />
+            </e>
+          </e>
+          <e p="tsconfig.json" t="Include" />
+        </e>
+      </e>
+      <e p="botwat.ch.sln" t="IncludeFlat" />
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
