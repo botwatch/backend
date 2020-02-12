@@ -3,22 +3,15 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:80",
+      "applicationUrl": "http://*:80",
       "sslPort": 21
     }
   },
   "profiles": {
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
     "botwat.ch": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:80;http://localhost:8080",
+      "applicationUrl": "https://*:443;http://*:80",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

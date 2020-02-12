@@ -22,8 +22,6 @@
         <Content Remove="$(SpaRoot)**" />
         <Content Include="Web\public\favicon.ico" />
         <Content Include="Web\public\index.html" />
-        <Content Include="Web\public\logo192.png" />
-        <Content Include="Web\public\logo512.png" />
         <Content Include="Web\public\robots.txt" />
         <Content Include="Web\src\App.css" />
         <Content Include="Web\src\index.css" />

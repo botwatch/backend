@@ -180,12 +180,11 @@
           </e>
           <e p="node_modules\upath" t="IncludeRecursive" />
           <e p="node_modules\worker-farm" t="IncludeRecursive" />
+          <e p="package-lock.json" t="Include" />
           <e p="package.json" t="Include" />
           <e p="public" t="Include">
             <e p="favicon.ico" t="Include" />
             <e p="index.html" t="Include" />
-            <e p="logo192.png" t="Include" />
-            <e p="logo512.png" t="Include" />
             <e p="robots.txt" t="Include" />
           </e>
           <e p="README.md" t="Include" />
