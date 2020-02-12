@@ -1,3 +1,4 @@
+using System.IO;
 using botwat.ch.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,6 +21,7 @@ namespace botwat.ch
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLetsEncrypt();
             services.AddControllersWithViews();
             services.AddControllers().AddNewtonsoftJson(x =>
             {
@@ -35,8 +37,6 @@ namespace botwat.ch
             DbProvider.Context.Database.EnsureCreated();
             if (env.IsDevelopment())
             {
-                //we wont re-direct prod until it works...
-                app.UseHttpsRedirection();
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -46,6 +46,7 @@ namespace botwat.ch
                 app.UseHsts();
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
