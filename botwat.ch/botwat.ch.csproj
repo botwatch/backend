@@ -27,6 +27,7 @@
         <Content Include="Web\public\robots.txt" />
         <Content Include="Web\src\App.css" />
         <Content Include="Web\src\index.css" />
+        <Content Include="Web\src\resources\logo.png" />
         <Content Include="Web\tsconfig.json" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
@@ -34,19 +35,15 @@
 
     <ItemGroup>
       <TypeScriptCompile Include="Web\src\App.tsx" />
-      <TypeScriptCompile Include="Web\src\components\MachineComponent.tsx" />
       <TypeScriptCompile Include="Web\src\components\NavigationBar.tsx" />
-      <TypeScriptCompile Include="Web\src\components\TicketList.tsx" />
-      <TypeScriptCompile Include="Web\src\data\Comment.ts" />
-      <TypeScriptCompile Include="Web\src\data\Machine.ts" />
-      <TypeScriptCompile Include="Web\src\data\Ticket.ts" />
       <TypeScriptCompile Include="Web\src\index.tsx" />
-      <TypeScriptCompile Include="Web\src\pages\CreateTicket.tsx" />
-      <TypeScriptCompile Include="Web\src\pages\MachineGrid.tsx" />
-      <TypeScriptCompile Include="Web\src\pages\TicketGrid.tsx" />
       <TypeScriptCompile Include="Web\src\react-app-env.d.ts" />
       <TypeScriptCompile Include="Web\src\utilities\Api.ts" />
       <TypeScriptCompile Include="Web\src\utilities\styles.ts" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Web\src\pages" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

@@ -41,23 +41,63 @@
           <e p=".gitignore" t="Include" />
           <e p="node_modules\@babel\parser" t="IncludeRecursive" />
           <e p="node_modules\@babel\types" t="IncludeRecursive" />
+          <e p="node_modules\@emotion\hash" t="IncludeRecursive" />
           <e p="node_modules\@jest\console" t="IncludeRecursive" />
           <e p="node_modules\@jest\fake-timers" t="IncludeRecursive" />
           <e p="node_modules\@jest\source-map" t="IncludeRecursive" />
           <e p="node_modules\@jest\test-result" t="IncludeRecursive" />
           <e p="node_modules\@jest\types" t="IncludeRecursive" />
+          <e p="node_modules\@material-ui\core" t="IncludeRecursive" />
+          <e p="node_modules\@material-ui\icons" t="IncludeRecursive" />
+          <e p="node_modules\@material-ui\lab" t="IncludeRecursive" />
+          <e p="node_modules\@material-ui\styles" t="IncludeRecursive" />
+          <e p="node_modules\@material-ui\system" t="IncludeRecursive" />
+          <e p="node_modules\@material-ui\types" t="IncludeRecursive" />
+          <e p="node_modules\@material-ui\utils" t="IncludeRecursive" />
+          <e p="node_modules\@mrmlnc\readdir-enhanced" t="IncludeRecursive" />
+          <e p="node_modules\@nodelib\fs.stat" t="IncludeRecursive" />
+          <e p="node_modules\@testing-library\jest-dom" t="IncludeRecursive" />
+          <e p="node_modules\@testing-library\react" t="IncludeRecursive" />
+          <e p="node_modules\@testing-library\user-event" t="IncludeRecursive" />
           <e p="node_modules\@types" t="IncludeRecursive">
             <e p="babel__generator" t="IncludeRecursive" />
             <e p="babel__template" t="IncludeRecursive" />
             <e p="babel__traverse" t="IncludeRecursive" />
+            <e p="events" t="IncludeRecursive" />
+            <e p="history" t="IncludeRecursive" />
             <e p="istanbul-lib-coverage" t="IncludeRecursive" />
             <e p="istanbul-lib-report" t="IncludeRecursive" />
+            <e p="jest" t="IncludeRecursive" />
+            <e p="match-sorter" t="IncludeRecursive" />
+            <e p="material-ui" t="IncludeRecursive" />
+            <e p="minimatch" t="IncludeRecursive" />
+            <e p="node" t="IncludeRecursive" />
+            <e p="prop-types" t="IncludeRecursive" />
+            <e p="react" t="IncludeRecursive" />
+            <e p="react-addons-linked-state-mixin" t="IncludeRecursive" />
+            <e p="react-dom" t="IncludeRecursive" />
+            <e p="react-router" t="IncludeRecursive" />
+            <e p="react-router-dom" t="IncludeRecursive" />
+            <e p="testing-library__dom" t="IncludeRecursive" />
+            <e p="yargs-parser" t="IncludeRecursive" />
           </e>
+          <e p="node_modules\@typescript-eslint\experimental-utils" t="IncludeRecursive" />
+          <e p="node_modules\@typescript-eslint\parser" t="IncludeRecursive" />
+          <e p="node_modules\@typescript-eslint\typescript-estree" t="IncludeRecursive" />
           <e p="node_modules\babel-jest" t="IncludeRecursive" />
           <e p="node_modules\chalk" t="IncludeRecursive" />
+          <e p="node_modules\chokidar" t="IncludeRecursive" />
+          <e p="node_modules\clsx" t="IncludeRecursive" />
           <e p="node_modules\cross-env" t="IncludeRecursive" />
+          <e p="node_modules\csstype" t="IncludeRecursive" />
+          <e p="node_modules\diff-sequences" t="IncludeRecursive" />
+          <e p="node_modules\dotenv" t="IncludeRecursive" />
           <e p="node_modules\dotenv-expand" t="IncludeRecursive" />
+          <e p="node_modules\fast-glob" t="IncludeRecursive" />
+          <e p="node_modules\is-in-browser" t="IncludeRecursive" />
           <e p="node_modules\jest" t="IncludeRecursive" />
+          <e p="node_modules\jest-diff" t="IncludeRecursive" />
+          <e p="node_modules\jest-get-type" t="IncludeRecursive" />
           <e p="node_modules\jest-haste-map" t="IncludeRecursive" />
           <e p="node_modules\jest-message-util" t="IncludeRecursive" />
           <e p="node_modules\jest-mock" t="IncludeRecursive" />
@@ -65,15 +105,81 @@
           <e p="node_modules\jest-serializer" t="IncludeRecursive" />
           <e p="node_modules\jest-util" t="IncludeRecursive" />
           <e p="node_modules\jest-worker" t="IncludeRecursive" />
+          <e p="node_modules\jss" t="IncludeRecursive" />
+          <e p="node_modules\jss-plugin-camel-case" t="IncludeRecursive" />
+          <e p="node_modules\jss-plugin-default-unit" t="IncludeRecursive" />
+          <e p="node_modules\jss-plugin-global" t="IncludeRecursive" />
+          <e p="node_modules\jss-plugin-nested" t="IncludeRecursive" />
+          <e p="node_modules\jss-plugin-props-sort" t="IncludeRecursive" />
+          <e p="node_modules\jss-plugin-rule-value-function" t="IncludeRecursive" />
+          <e p="node_modules\jss-plugin-vendor-prefixer" t="IncludeRecursive" />
+          <e p="node_modules\material-ui" t="IncludeRecursive" />
+          <e p="node_modules\normalize-scroll-left" t="IncludeRecursive" />
+          <e p="node_modules\popper.js" t="IncludeRecursive" />
+          <e p="node_modules\pretty-format" t="IncludeRecursive" />
           <e p="node_modules\react" t="IncludeRecursive" />
           <e p="node_modules\react-dom" t="IncludeRecursive" />
           <e p="node_modules\react-router-dom" t="IncludeRecursive" />
           <e p="node_modules\react-scripts" t="IncludeRecursive" />
           <e p="node_modules\realpath-native" t="IncludeRecursive" />
           <e p="node_modules\source-map" t="IncludeRecursive" />
-          <e p="node_modules\typescript" t="IncludeRecursive" />
+          <e p="node_modules\tiny-warning" t="IncludeRecursive" />
+          <e p="node_modules\typescript" t="IncludeRecursive">
+            <e p="lib\lib.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.dom.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.dom.iterable.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2015.collection.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2015.core.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2015.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2015.generator.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2015.iterable.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2015.promise.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2015.proxy.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2015.reflect.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2015.symbol.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2015.symbol.wellknown.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2016.array.include.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2016.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2016.full.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2017.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2017.full.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2017.intl.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2017.object.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2017.sharedmemory.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2017.string.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2017.typedarrays.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2018.asyncgenerator.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2018.asynciterable.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2018.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2018.full.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2018.intl.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2018.promise.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2018.regexp.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2019.array.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2019.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2019.full.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2019.object.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2019.string.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2019.symbol.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2020.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2020.full.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2020.string.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es2020.symbol.wellknown.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es5.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.es6.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.esnext.array.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.esnext.asynciterable.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.esnext.bigint.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.esnext.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.esnext.full.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.esnext.intl.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.esnext.symbol.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.scripthost.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.webworker.d.ts" t="IncludeRecursive" />
+            <e p="lib\lib.webworker.importscripts.d.ts" t="IncludeRecursive" />
+          </e>
+          <e p="node_modules\upath" t="IncludeRecursive" />
           <e p="node_modules\worker-farm" t="IncludeRecursive" />
-          <e p="package-lock.json" t="Include" />
           <e p="package.json" t="Include" />
           <e p="public" t="Include">
             <e p="favicon.ico" t="Include" />
@@ -87,23 +193,15 @@
             <e p="App.css" t="Include" />
             <e p="App.tsx" t="Include" />
             <e p="components" t="Include">
-              <e p="MachineComponent.tsx" t="Include" />
               <e p="NavigationBar.tsx" t="Include" />
-              <e p="TicketList.tsx" t="Include" />
-            </e>
-            <e p="data" t="Include">
-              <e p="Comment.ts" t="Include" />
-              <e p="Machine.ts" t="Include" />
-              <e p="Ticket.ts" t="Include" />
             </e>
             <e p="index.css" t="Include" />
             <e p="index.tsx" t="Include" />
-            <e p="Pages" t="Include">
-              <e p="CreateTicket.tsx" t="Include" />
-              <e p="MachineGrid.tsx" t="Include" />
-              <e p="TicketGrid.tsx" t="Include" />
-            </e>
+            <e p="Pages" t="Include" />
             <e p="react-app-env.d.ts" t="Include" />
+            <e p="resources" t="Include">
+              <e p="logo.png" t="Include" />
+            </e>
             <e p="utilities" t="Include">
               <e p="Api.ts" t="Include" />
               <e p="styles.ts" t="Include" />
