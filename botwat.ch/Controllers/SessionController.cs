@@ -10,11 +10,11 @@ namespace botwat.ch.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class InteractionController : ControllerBase
+    public class SessionController : ControllerBase
     {
         private readonly ILogger<InteractionController> _logger;
 
-        public InteractionController(ILogger<InteractionController> logger)
+        public SessionController(ILogger<InteractionController> logger)
         {
             _logger = logger;
         }
