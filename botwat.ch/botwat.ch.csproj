@@ -36,7 +36,9 @@
 
     <ItemGroup>
       <TypeScriptCompile Include="Web\src\App.tsx" />
+      <TypeScriptCompile Include="Web\src\components\Home.tsx" />
       <TypeScriptCompile Include="Web\src\components\NavigationBar.tsx" />
+      <TypeScriptCompile Include="Web\src\components\PrivateRoute.tsx" />
       <TypeScriptCompile Include="Web\src\index.tsx" />
       <TypeScriptCompile Include="Web\src\pages\Login.tsx" />
       <TypeScriptCompile Include="Web\src\pages\Register.tsx" />

@@ -6,10 +6,11 @@ import Login from "./pages/Login";
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link
+    Route
 } from "react-router-dom";
 import Register from "./pages/Register";
+import PrivateRoute from "./components/PrivateRoute";
+import Home from "./components/Home";
 
 
 function App() {
@@ -32,12 +33,9 @@ function App() {
             <NavigationBar/>
             <Router>
                 <Switch>
-                    <Route path="/login">
-                        <Login/>
-                    </Route>
-                    <Route path="/register">
-                        <Register/>
-                    </Route>
+                    <Route path="/login" component={Login}/>
+                    <Route path="/register" component={Register}/>
+                    <PrivateRoute path="/" component={Home}/>
                 </Switch>
             </Router>
         </MuiThemeProvider>

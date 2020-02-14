@@ -207,7 +207,9 @@
             <e p="App.css" t="Include" />
             <e p="App.tsx" t="Include" />
             <e p="components" t="Include">
+              <e p="Home.tsx" t="Include" />
               <e p="NavigationBar.tsx" t="Include" />
+              <e p="PrivateRoute.tsx" t="Include" />
             </e>
             <e p="index.css" t="Include" />
             <e p="index.tsx" t="Include" />

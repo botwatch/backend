@@ -5,7 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Avatar from "@material-ui/core/Avatar";
-import {purple} from "@material-ui/core/colors";
+import {red} from "@material-ui/core/colors";
 import hiveImage from '../resources/hive.png';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         icon: {
             marginRight: theme.spacing(1),
+            width: 32,
+            height: 32,
+            resizeMode: 'stretch'
         },
         bar: {
             backgroundColor: theme.palette.primary.main,
@@ -24,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         purpleAvatar: {
             color: '#fff',
-            backgroundColor: purple[500],
+            backgroundColor: red[500],
         },
         title: {
             flexGrow: 1,
@@ -53,7 +56,7 @@ export default function NavigationBar() {
         <div className={classes.root}>
             <AppBar position="sticky" elevation={0} className={classes.bar}>
                 <Toolbar>
-                    <img src={hiveImage} alt="logo"/>
+                    <img src={hiveImage} className={classes.icon} alt="logo"/>
                     <Typography variant="h6" className={classes.title}>
                         Botwatch
                     </Typography>
