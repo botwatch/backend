@@ -10,7 +10,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Discord.OAuth2.AspNetCore" Version="3.0.0" />
         <PackageReference Include="McMaster.AspNetCore.LetsEncrypt" Version="0.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.1" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.1" />
         <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
@@ -36,13 +38,11 @@
       <TypeScriptCompile Include="Web\src\App.tsx" />
       <TypeScriptCompile Include="Web\src\components\NavigationBar.tsx" />
       <TypeScriptCompile Include="Web\src\index.tsx" />
+      <TypeScriptCompile Include="Web\src\pages\Login.tsx" />
+      <TypeScriptCompile Include="Web\src\pages\Register.tsx" />
       <TypeScriptCompile Include="Web\src\react-app-env.d.ts" />
       <TypeScriptCompile Include="Web\src\utilities\Api.ts" />
       <TypeScriptCompile Include="Web\src\utilities\styles.ts" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Web\src\pages" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

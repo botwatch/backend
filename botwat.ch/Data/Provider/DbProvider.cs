@@ -1,6 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-
-namespace botwat.ch.Data
+namespace botwat.ch.Data.Provider
 {
     public static class DbProvider
     {

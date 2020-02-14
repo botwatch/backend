@@ -19,6 +19,9 @@
           <e p="BotClient.cs" t="Include" />
           <e p="Experience.cs" t="Include" />
           <e p="Interaction.cs" t="Include" />
+          <e p="Internal" t="Include">
+            <e p="Credentials.cs" t="Include" />
+          </e>
           <e p="OldSchoolAccount.cs" t="Include" />
           <e p="Permissions.cs" t="Include" />
           <e p="Provider" t="Include">
@@ -44,6 +47,9 @@
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
           <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Services" t="Include">
+          <e p="UserService.cs" t="Include" />
         </e>
         <e p="Startup.cs" t="Include" />
         <e p="Web" t="Include">
@@ -205,7 +211,10 @@
             </e>
             <e p="index.css" t="Include" />
             <e p="index.tsx" t="Include" />
-            <e p="Pages" t="Include" />
+            <e p="Pages" t="Include">
+              <e p="Login.tsx" t="Include" />
+              <e p="Register.tsx" t="Include" />
+            </e>
             <e p="react-app-env.d.ts" t="Include" />
             <e p="resources" t="Include">
               <e p="logo.png" t="Include" />

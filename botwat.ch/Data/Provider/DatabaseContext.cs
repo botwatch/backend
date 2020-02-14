@@ -2,7 +2,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace botwat.ch.Data
+namespace botwat.ch.Data.Provider
 {
     public class DatabaseContext : DbContext
     {

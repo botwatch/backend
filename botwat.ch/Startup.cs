@@ -1,11 +1,16 @@
 using System.IO;
+using System.Text;
 using botwat.ch.Data;
+using botwat.ch.Data.Provider;
+using botwat.ch.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 
 namespace botwat.ch
 {
@@ -27,6 +32,15 @@ namespace botwat.ch
             {
                 x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
+            /*services.AddAuthentication()
+                .AddDiscord(x =>
+                {
+                    x.AppId = Configuration["Discord:AppId"];
+                    x.AppSecret = Configuration["Discord:AppSecret"];
+                    x.Scope.Add("guilds");
+                });*/
+           
+
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "Web/build"; });
         }
@@ -51,6 +65,8 @@ namespace botwat.ch
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

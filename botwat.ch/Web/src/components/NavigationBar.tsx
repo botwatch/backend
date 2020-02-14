@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Avatar from "@material-ui/core/Avatar";
 import {purple} from "@material-ui/core/colors";
+import {Icon} from "@material-ui/core";
+import EmojiNatureIcon from '@material-ui/icons/EmojiNature';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -13,8 +15,11 @@ const useStyles = makeStyles((theme: Theme) =>
         root: {
             flexGrow: 1,
         },
+        icon: {
+            marginRight: theme.spacing(1),
+        },
         bar: {
-            background: 'primary'
+            backgroundColor: theme.palette.primary.main,
         },
         menuButton: {
             marginRight: theme.spacing(2),
@@ -48,8 +53,9 @@ export default function NavigationBar() {
 
     return (
         <div className={classes.root}>
-            <AppBar position="fixed" className={classes.bar}>
+            <AppBar position="sticky" elevation={0} className={classes.bar}>
                 <Toolbar>
+                    <EmojiNatureIcon className={classes.icon}/>
                     <Typography variant="h6" className={classes.title}>
                         Botwatch
                     </Typography>
