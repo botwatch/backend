@@ -8,15 +8,15 @@
     }
   },
   "profiles": {
-    "production": {
-      "commandName": "Executable",
+    "Production": {
+      "commandName": "Project",
       "launchBrowser": false,
       "applicationUrl": "https://*:443;http://*:80",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Production"
       }
     },
-    "dev": {
+    "Development": {
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "https://*:443;http://*:80",
