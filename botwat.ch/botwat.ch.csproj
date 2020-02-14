@@ -28,7 +28,7 @@
         <Content Include="Web\public\robots.txt" />
         <Content Include="Web\src\App.css" />
         <Content Include="Web\src\index.css" />
-        <Content Include="Web\src\resources\logo.png" />
+        <Content Include="Web\src\resources\hive.png" />
         <Content Include="Web\tsconfig.json" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />

@@ -6,9 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Avatar from "@material-ui/core/Avatar";
 import {purple} from "@material-ui/core/colors";
-import {Icon} from "@material-ui/core";
-import EmojiNatureIcon from '@material-ui/icons/EmojiNature';
-
+import hiveImage from '../resources/hive.png';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -55,7 +53,7 @@ export default function NavigationBar() {
         <div className={classes.root}>
             <AppBar position="sticky" elevation={0} className={classes.bar}>
                 <Toolbar>
-                    <EmojiNatureIcon className={classes.icon}/>
+                    <img src={hiveImage} alt="logo"/>
                     <Typography variant="h6" className={classes.title}>
                         Botwatch
                     </Typography>
