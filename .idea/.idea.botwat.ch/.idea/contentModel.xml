@@ -32,7 +32,7 @@
           <e p="User.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
-          <e p="Debug" t="Include">
+          <e p="Release" t="Include">
             <e p="netcoreapp3.1" t="Include">
               <e p="botwat.ch.AssemblyInfo.cs" t="Include" />
               <e p="botwat.ch.RazorAssemblyInfo.cs" t="Include" />

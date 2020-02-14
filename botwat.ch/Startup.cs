@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using botwat.ch.Data;
@@ -26,7 +27,7 @@ namespace botwat.ch
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddLetsEncrypt();
+            if (!Debugger.IsAttached)  services.AddLetsEncrypt();
             services.AddControllersWithViews();
             services.AddControllers().AddNewtonsoftJson(x =>
             {
@@ -52,7 +53,7 @@ namespace botwat.ch
             }
 
             app.UseHttpsRedirection();
-            
+
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
