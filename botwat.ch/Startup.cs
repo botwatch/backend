@@ -32,7 +32,6 @@ namespace botwat.ch
             {
                 x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
-            services.AddHttpsRedirection(options => { options.HttpsPort = 443; });
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "Web/build"; });
         }
@@ -53,6 +52,7 @@ namespace botwat.ch
             }
 
             app.UseHttpsRedirection();
+            
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 

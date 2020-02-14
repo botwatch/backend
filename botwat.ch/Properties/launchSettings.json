@@ -9,6 +9,14 @@
   },
   "profiles": {
     "botwat.ch": {
+      "commandName": "Executable",
+      "launchBrowser": false,
+      "applicationUrl": "https://*:443;http://*:80",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      }
+    },
+    "botwat.ch-dev": {
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "https://*:443;http://*:80",
