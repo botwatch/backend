@@ -1,4 +1,2 @@
 git pull
-dotnet build
-dotnet publish
-dotnet run --project ./botwat.ch/botwat.ch.csproj
+dotnet run --project ./botwat.ch/botwat.ch.csproj --launch-profile production --configuration Release
