@@ -32,15 +32,7 @@ namespace botwat.ch
             {
                 x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
-            /*services.AddAuthentication()
-                .AddDiscord(x =>
-                {
-                    x.AppId = Configuration["Discord:AppId"];
-                    x.AppSecret = Configuration["Discord:AppSecret"];
-                    x.Scope.Add("guilds");
-                });*/
-           
-
+            services.AddHttpsRedirection(options => { options.HttpsPort = 443; });
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "Web/build"; });
         }
