@@ -134,7 +134,6 @@
           <e p="node_modules\pretty-format" t="IncludeRecursive" />
           <e p="node_modules\react" t="IncludeRecursive" />
           <e p="node_modules\react-dom" t="IncludeRecursive" />
-          <e p="node_modules\react-icons" t="IncludeRecursive" />
           <e p="node_modules\react-router-dom" t="IncludeRecursive" />
           <e p="node_modules\react-scripts" t="IncludeRecursive" />
           <e p="node_modules\realpath-native" t="IncludeRecursive" />
