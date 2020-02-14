@@ -1,3 +1,3 @@
 git pull
-dotnet publish -c Release --output ./production
-dotnet run ./production/botwat.ch.dll
+dotnet publish -c Release -p:PublishDir=production
+dotnet ./production/botwat.ch.dll
