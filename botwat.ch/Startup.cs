@@ -37,7 +37,7 @@ namespace botwat.ch
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "Web/build/";
+                configuration.RootPath = "Web/build/"; 
             });
         }
 
