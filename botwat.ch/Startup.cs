@@ -77,10 +77,10 @@ namespace botwat.ch
             {
                 spa.Options.SourcePath = "Web";
 
-                /*if (env.IsDevelopment())
+                if (env.IsDevelopment())
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
-                }*/
+                }
             });
         }
     }
