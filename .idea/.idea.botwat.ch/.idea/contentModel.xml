@@ -54,6 +54,29 @@
         <e p="Startup.cs" t="Include" />
         <e p="Web" t="Include">
           <e p=".gitignore" t="Include" />
+          <e p="build" t="Include">
+            <e p="asset-manifest.json" t="Include" />
+            <e p="favicon.ico" t="Include" />
+            <e p="index.html" t="Include" />
+            <e p="precache-manifest.9e82ecad408b1cb6552348d63e599474.js" t="Include" />
+            <e p="robots.txt" t="Include" />
+            <e p="service-worker.js" t="Include" />
+            <e p="static" t="Include">
+              <e p="css" t="Include">
+                <e p="main.631b5118.chunk.css" t="Include" />
+                <e p="main.631b5118.chunk.css.map" t="Include" />
+              </e>
+              <e p="js" t="Include">
+                <e p="2.7c4bb338.chunk.js" t="Include" />
+                <e p="2.7c4bb338.chunk.js.LICENSE" t="Include" />
+                <e p="2.7c4bb338.chunk.js.map" t="Include" />
+                <e p="main.b34fb441.chunk.js" t="Include" />
+                <e p="main.b34fb441.chunk.js.map" t="Include" />
+                <e p="runtime-main.c0627188.js" t="Include" />
+                <e p="runtime-main.c0627188.js.map" t="Include" />
+              </e>
+            </e>
+          </e>
           <e p="node_modules\@babel\parser" t="IncludeRecursive" />
           <e p="node_modules\@babel\types" t="IncludeRecursive" />
           <e p="node_modules\@emotion\hash" t="IncludeRecursive" />
@@ -134,6 +157,7 @@
           <e p="node_modules\pretty-format" t="IncludeRecursive" />
           <e p="node_modules\react" t="IncludeRecursive" />
           <e p="node_modules\react-dom" t="IncludeRecursive" />
+          <e p="node_modules\react-icons" t="IncludeRecursive" />
           <e p="node_modules\react-router-dom" t="IncludeRecursive" />
           <e p="node_modules\react-scripts" t="IncludeRecursive" />
           <e p="node_modules\realpath-native" t="IncludeRecursive" />

@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -27,20 +28,24 @@ namespace botwat.ch
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            if (!Debugger.IsAttached)  services.AddLetsEncrypt();
+            //if (!Debugger.IsAttached)  services.AddLetsEncrypt();
             services.AddControllersWithViews();
             services.AddControllers().AddNewtonsoftJson(x =>
             {
                 x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
             // In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "Web/build"; });
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "Web/build/";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             DbProvider.Context.Database.EnsureCreated();
+            app.UseDeveloperExceptionPage();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -72,10 +77,10 @@ namespace botwat.ch
             {
                 spa.Options.SourcePath = "Web";
 
-                if (env.IsDevelopment())
+                /*if (env.IsDevelopment())
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
-                }
+                }*/
             });
         }
     }
