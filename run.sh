@@ -1,5 +1,5 @@
 git pull
 dotnet publish -c Release --output ./production
-cp -a /botwat.ch/Web/build/. /production/Web/build/
 cd production
-dotnet ./botwat.ch.dll
+kill $(ps aux | grep 'botwat.ch.dll' | awk '{print $2}')
+dotnet ./botwat.ch.dll &
