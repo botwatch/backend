@@ -13,14 +13,17 @@
     "@types/jest": "^24.0.0",
     "@types/material-ui": "^0.21.7",
     "@types/node": "^12.0.0",
+    "@types/node-fetch": "latest",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "@types/crypto-js": "latest",
     "material-ui": "^0.20.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
     "react-icons": "latest",
+    "crypto-js": "latest",
     "typescript": "~3.7.2"
   },
   "scripts": {

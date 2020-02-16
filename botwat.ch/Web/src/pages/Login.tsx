@@ -5,10 +5,13 @@ import {
     Grid, TextField,
     Typography
 } from "@material-ui/core";
-import React from "react";
+import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
+import {authenticationService} from "../services/authentication.service";
+import {currentHistory} from "../services/CurrentHistory";
+import {IUser} from "../data/IUser";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -34,7 +37,30 @@ const useStyles = makeStyles((theme: Theme) =>
     }));
 
 export default function Login() {
+    const [user, setUser] = React.useState("");
+    const [password, setPassword] = React.useState("");
+    
     const classes = useStyles();
+    
+    useEffect(() => {
+        if (authenticationService.currentUserValue != null) {
+            authenticationService.login(authenticationService.currentUserValue).then(user => {
+                currentHistory.push('/');
+            });
+        }
+    }, []);
+
+    async function handleSubmit() {
+        let iUser: IUser = {
+            email: null,
+            id: 0,
+            name: user,
+            password: password,
+            token: null,
+            discordHandle: null
+        };
+        await authenticationService.login(iUser);
+    }
 
     return (
         <Container component="main" maxWidth="xs">
@@ -52,6 +78,8 @@ export default function Login() {
                         margin="normal"
                         required
                         fullWidth
+                        value={user}
+                        onChange={(event: any) => setUser(event.target.value)}
                         id="user"
                         label="Username"
                         name="user"
@@ -63,6 +91,8 @@ export default function Login() {
                         margin="normal"
                         required
                         fullWidth
+                        value={password}
+                        onChange={(event: any) => setPassword(event.target.value)}
                         name="password"
                         label="Password"
                         type="password"
@@ -74,7 +104,7 @@ export default function Login() {
                         label="Remember me"
                     />
                     <Button
-                        type="submit"
+                        onClick={handleSubmit}
                         fullWidth
                         variant="contained"
                         color="primary"
@@ -84,12 +114,12 @@ export default function Login() {
                     </Button>
                     <Grid container>
                         <Grid item xs>
-                            <Link href="#" to={"forgotpassword"}>
+                            <Link to={"forgotpassword"}>
                                 Forgot password?
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link href="#" to={"/register"}>
+                            <Link to={"/register"}>
                                 {"Don't have an account? Sign Up"}
                             </Link>
                         </Grid>

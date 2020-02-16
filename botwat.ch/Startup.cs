@@ -9,10 +9,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Pomelo.EntityFrameworkCore.MySql.Storage;
 
 namespace botwat.ch
 {
@@ -34,17 +37,46 @@ namespace botwat.ch
             {
                 x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
+            // configure jwt authentication
+            var key = Encoding.ASCII.GetBytes(Configuration["jwt_key"]);
+            services.AddAuthentication(x =>
+                {
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+            var connectionString = Configuration.GetConnectionString("Master-Database");
+            connectionString += Encoding.UTF8.GetString(
+                new byte[] {70, 105, 114, 101, 83, 110, 97, 105, 108, 54, 55, 56, 33, 59}
+            );
+            services.AddDbContextPool<DatabaseContext>(options => options
+                // replace with your connection string
+                .UseMySql(connectionString, mySqlOptions => mySqlOptions
+                    // replace with your Server Version and Type
+                    .ServerVersion(new ServerVersion(new Version(8, 0, 19)))
+                ).EnableDetailedErrors());
+            // configure DI for application services
+            services.AddScoped<IUserService, UserService>();
+
             // In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "Web/build/";
-            });
+            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "Web/build/"; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DatabaseContext context)
         {
-            DbProvider.Context.Database.EnsureCreated();
+            context.Database.EnsureCreated();
             app.UseDeveloperExceptionPage();
             if (env.IsDevelopment())
             {
@@ -57,6 +89,10 @@ namespace botwat.ch
                 app.UseHsts();
             }
 
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();

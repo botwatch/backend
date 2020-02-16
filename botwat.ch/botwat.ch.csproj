@@ -39,11 +39,15 @@
       <TypeScriptCompile Include="Web\src\components\Home.tsx" />
       <TypeScriptCompile Include="Web\src\components\NavigationBar.tsx" />
       <TypeScriptCompile Include="Web\src\components\PrivateRoute.tsx" />
+      <TypeScriptCompile Include="Web\src\data\IUser.ts" />
       <TypeScriptCompile Include="Web\src\index.tsx" />
       <TypeScriptCompile Include="Web\src\pages\Login.tsx" />
       <TypeScriptCompile Include="Web\src\pages\Register.tsx" />
       <TypeScriptCompile Include="Web\src\react-app-env.d.ts" />
-      <TypeScriptCompile Include="Web\src\utilities\Api.ts" />
+      <TypeScriptCompile Include="Web\src\services\auth.header.ts" />
+      <TypeScriptCompile Include="Web\src\services\authentication.service.ts" />
+      <TypeScriptCompile Include="Web\src\services\CurrentHistory.ts" />
+      <TypeScriptCompile Include="Web\src\utilities\api.ts" />
       <TypeScriptCompile Include="Web\src\utilities\styles.ts" />
     </ItemGroup>
 

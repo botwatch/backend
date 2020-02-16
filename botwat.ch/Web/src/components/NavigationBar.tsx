@@ -7,6 +7,8 @@ import Button from '@material-ui/core/Button';
 import Avatar from "@material-ui/core/Avatar";
 import {red} from "@material-ui/core/colors";
 import hiveImage from '../resources/hive.png';
+import {authenticationService} from "../services/authentication.service";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -42,12 +44,14 @@ export default function NavigationBar() {
         if (loggedIn)
             return (
                 <Avatar className={classes.purpleAvatar}>
-                    A
+                    {authenticationService.currentUserValue.name.charAt(0).toUpperCase()}
                 </Avatar>
             );
         return (
             <Button color="inherit">
-                Login
+                <Link to="/login">
+                    Login
+                </Link>               
             </Button>
         );
     }
@@ -60,7 +64,7 @@ export default function NavigationBar() {
                     <Typography variant="h6" className={classes.title}>
                         Botwatch
                     </Typography>
-                    <RenderLogin loggedIn={false}/>
+                    <RenderLogin loggedIn={authenticationService.currentUser}/>
                 </Toolbar>
             </AppBar>
         </div>

@@ -14,19 +14,20 @@ namespace botwat.ch.Controllers
     public class SessionController : ControllerBase
     {
         private readonly ILogger<InteractionController> _logger;
-
-        public SessionController(ILogger<InteractionController> logger)
+        private readonly DatabaseContext _context;
+        public SessionController(ILogger<InteractionController> logger, DatabaseContext context)
         {
+            _context = context;
             _logger = logger;
         }
 
         [HttpPost]
         public IActionResult Path([FromBody] Interaction interaction)
         {
-            DbProvider.Context.Interactions.Add(interaction);
+            _context.Interactions.Add(interaction);
             try
             {
-                DbProvider.Context.SaveChanges();
+               _context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -40,10 +41,10 @@ namespace botwat.ch.Controllers
         [HttpGet("{id}")]
         public async Task<Interaction> ForId(int id)
         {
-            return await DbProvider.Context.Interactions.FirstAsync(action => action.Id == id);
+            return await _context.Interactions.FirstAsync(action => action.Id == id);
         }
 
         [HttpGet]
-        public IAsyncEnumerable<Interaction> Get() => DbProvider.Context.Interactions.AsAsyncEnumerable();
+        public IAsyncEnumerable<Interaction> Get() => _context.Interactions.AsAsyncEnumerable();
     }
 }

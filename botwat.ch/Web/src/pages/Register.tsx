@@ -10,6 +10,9 @@ import Container from '@material-ui/core/Container';
 import {Link} from "react-router-dom";
 import React from "react";
 import {FaDiscord} from "react-icons/fa";
+import {IUser} from "../data/IUser";
+import CryptoJS from 'crypto-js';
+import {authenticationService} from "../services/authentication.service";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -33,6 +36,22 @@ const useStyles = makeStyles((theme: Theme) =>
     }));
 
 export default function Register() {
+    const [email, setEmail] = React.useState("");
+    const [user, setUser] = React.useState("");
+    const [password, setPassword] = React.useState("");
+
+    async function handleSubmit() {
+        let iUser: IUser = {
+            id: 0,
+            email: email,
+            name: user,
+            password: password,
+            token: null,
+            discordHandle: null
+        };
+        await authenticationService.create(iUser);
+    }
+
     const classes = useStyles();
 
     return (
@@ -51,6 +70,8 @@ export default function Register() {
                             <TextField
                                 autoComplete="user"
                                 name="user"
+                                value={user}
+                                onChange={(event: any) => setUser(event.target.value)}
                                 variant="outlined"
                                 required
                                 fullWidth
@@ -63,6 +84,8 @@ export default function Register() {
                             <TextField
                                 variant="outlined"
                                 required
+                                value={email}
+                                onChange={(event: any) => setEmail(event.target.value)}
                                 fullWidth
                                 id="email"
                                 label="Email Address"
@@ -75,6 +98,8 @@ export default function Register() {
                                 variant="outlined"
                                 required
                                 fullWidth
+                                value={password}
+                                onChange={(event: any) => setPassword(event.target.value)}
                                 name="password"
                                 label="Password"
                                 type="password"
@@ -88,13 +113,13 @@ export default function Register() {
                                 fullWidth
                                 variant="contained"
                                 color="secondary">
-                                <FaDiscord />
-                                  Register with Discord
+                                <FaDiscord/>
+                                Register with Discord
                             </Button>
                         </Grid>
                     </Grid>
                     <Button
-                        type="submit"
+                        onClick={handleSubmit}
                         fullWidth
                         variant="contained"
                         color="primary"

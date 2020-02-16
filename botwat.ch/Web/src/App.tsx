@@ -1,6 +1,6 @@
 import './App.css';
 import NavigationBar from "./components/NavigationBar";
-import React from "react";
+import React, {useEffect} from "react";
 import {createMuiTheme, CssBaseline, Grid, MuiThemeProvider} from "@material-ui/core";
 import Login from "./pages/Login";
 import {
@@ -11,10 +11,11 @@ import {
 import Register from "./pages/Register";
 import PrivateRoute from "./components/PrivateRoute";
 import Home from "./components/Home";
+import {authenticationService} from "./services/authentication.service";
 
 
 function App() {
-
+    const [currentUser, setCurrentUser] = React.useState(null);
     const darkTheme = createMuiTheme({
         palette: {
             type: 'light',
@@ -26,6 +27,10 @@ function App() {
             }
         }
     });
+    
+    useEffect(() => {
+        authenticationService.currentUser.subscribe(x => setCurrentUser(x));
+    }, []);
 
     return (
         <MuiThemeProvider theme={darkTheme}>
