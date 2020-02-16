@@ -46,8 +46,5 @@ namespace botwat.ch.Controllers
                 return Ok(result);
             return BadRequest(credentials);
         }
-
-        [HttpGet]
-        public IAsyncEnumerable<User> Get() => _context.Users.AsAsyncEnumerable();
     }
 }
