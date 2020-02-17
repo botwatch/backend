@@ -31,7 +31,8 @@ namespace botwat.ch
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddLetsEncrypt();
+            if (!Debugger.IsAttached)
+                services.AddLetsEncrypt();
             services.AddControllersWithViews();
             services.AddControllers().AddNewtonsoftJson(x =>
             {
@@ -67,10 +68,21 @@ namespace botwat.ch
                     .ServerVersion(new ServerVersion(new Version(8, 0, 19)))
                 ).EnableDetailedErrors());
             // configure DI for application services
-            services.AddScoped<IUserService, UserService>();
-
+            ConfigureDi(services);
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "Web/build/"; });
+        }
+
+        private static void ConfigureDi(IServiceCollection services)
+        {
+            services.AddScoped<IServicesPool, ServicesPool>();
+            services.AddScoped<IBotClientService, BotClientService>();
+            services.AddScoped<IExperienceService, ExperienceService>();
+            services.AddScoped<IInteractionService, InteractionService>();
+            services.AddScoped<IOldSchoolAccountService, OldSchoolAccountService>();
+            services.AddScoped<IPermissionService, PermissionService>();
+            services.AddScoped<ISessionService, SessionService>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

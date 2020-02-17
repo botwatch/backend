@@ -49,6 +49,13 @@
           <e p="launchSettings.json" t="Include" />
         </e>
         <e p="Services" t="Include">
+          <e p="BotClientService.cs" t="Include" />
+          <e p="ExperienceService.cs" t="Include" />
+          <e p="InteractionService.cs" t="Include" />
+          <e p="OldSchoolAccountService.cs" t="Include" />
+          <e p="PermissionService.cs" t="Include" />
+          <e p="ServicesPool.cs" t="Include" />
+          <e p="SessionService.cs" t="Include" />
           <e p="UserService.cs" t="Include" />
         </e>
         <e p="Startup.cs" t="Include" />

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using botwat.ch.Data;
 using botwat.ch.Data.Provider;
+using botwat.ch.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -15,10 +17,13 @@ namespace botwat.ch.Controllers
     {
         private readonly ILogger<InteractionController> _logger;
         private readonly DatabaseContext _context;
-        public SessionController(ILogger<InteractionController> logger, DatabaseContext context)
+        private readonly IServicesPool _service;
+
+        public SessionController(ILogger<InteractionController> logger, DatabaseContext context, IServicesPool service)
         {
             _context = context;
             _logger = logger;
+            _service = service;
         }
 
         [HttpPost]
@@ -27,7 +32,7 @@ namespace botwat.ch.Controllers
             _context.Interactions.Add(interaction);
             try
             {
-               _context.SaveChanges();
+                _context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -37,14 +42,38 @@ namespace botwat.ch.Controllers
             return Ok();
         }
 
-
-        [HttpGet("{id}")]
-        public async Task<Interaction> ForId(int id)
+        [Authorize]
+        [HttpPost("create")]
+        public async Task<ActionResult<Session>> Create([FromBody] Session session) //TODO make DTO not include entire session 
         {
-            return await _context.Interactions.FirstAsync(action => action.Id == id);
+            //TODO infer user from JWT
+            var localUser = await _service.UserService.Find(session.User);
+            var localClient = await _service.BotClientService.Find(session.Client);
+            var localAccount = await _service.OldSchoolAccountService.Find(session.Account);
+            if (localUser == null)
+            {
+                return null;
+            }
+            else if (localClient == null)
+            {
+                return null;
+            }
+            else if (localAccount == null)
+            {
+                return null;
+            }
+            else
+            {
+                var localSession = new Session
+                {
+                    Id = 0,
+                    Start = DateTime.Now,
+                    Account = localAccount,
+                    Client = localClient,
+                    User = localUser
+                };
+                return await _service.SessionService.Create(localSession);
+            }
         }
-
-        [HttpGet]
-        public IAsyncEnumerable<Interaction> Get() => _context.Interactions.AsAsyncEnumerable();
     }
 }

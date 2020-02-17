@@ -19,6 +19,7 @@ namespace botwat.ch.Services
     {
         Task<User> Authenticate(User user);
         Task<User> Create(User user);
+        Task<User> Find(User user);
     }
 
     public class UserService : IUserService
@@ -40,7 +41,7 @@ namespace botwat.ch.Services
         {
             var error = await RespondCreateError(user);
             if (error != null) throw new ArgumentException(error);
-            
+
             var result = await Find(user);
             if (result == null)
             {
@@ -74,7 +75,7 @@ namespace botwat.ch.Services
             return null;
         }
 
-        private async Task<User> Find(User user) => await _context.Users.FirstOrDefaultAsync(x =>
+        public async Task<User> Find(User user) => await _context.Users.FirstOrDefaultAsync(x =>
             x.Name == user.Name && (
                 x.Password == user.Password ||
                 x.Token != null &&

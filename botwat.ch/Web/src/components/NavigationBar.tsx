@@ -84,13 +84,15 @@ export default function NavigationBar() {
     return (
         <div className={classes.root}>
             <AppBar position="sticky" elevation={0} className={classes.bar}>
-                <Toolbar>
-                    <img src={hiveImage} className={classes.icon} alt="logo"/>
-                    <Typography variant="h6" className={classes.title}>
-                        Botwatch
-                    </Typography>
-                    <RenderLogin loggedIn={authenticationService.currentUserValue != null}/>
-                </Toolbar>
+                <Link to="/" style={{color: 'inherit', textDecoration: 'inherit'}}>
+                    <Toolbar>
+                        <img src={hiveImage} className={classes.icon} alt="logo"/>
+                        <Typography variant="h6" className={classes.title}>
+                            Botwatch
+                        </Typography>
+                        <RenderLogin loggedIn={authenticationService.currentUserValue != null}/>
+                    </Toolbar>
+                </Link>
             </AppBar>
         </div>
     );

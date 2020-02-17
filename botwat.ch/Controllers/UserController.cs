@@ -17,10 +17,10 @@ namespace botwat.ch.Controllers
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
-        private readonly IUserService _service;
+        private readonly IServicesPool _service;
         private readonly DatabaseContext _context;
 
-        public UserController(ILogger<UserController> logger, IUserService service, DatabaseContext context)
+        public UserController(ILogger<UserController> logger, IServicesPool service, DatabaseContext context)
         {
             _context = context;
             _logger = logger;
@@ -31,7 +31,7 @@ namespace botwat.ch.Controllers
         [HttpPost("authenticate")]
         public async Task<ActionResult<User>> Authenticate([FromBody] User user)
         {
-            var result = await _service.Authenticate(user);
+            var result = await _service.UserService.Authenticate(user);
             if (result != null)
                 return Ok(result);
             return NotFound("Invalid Username or Password. Please try again.");
@@ -43,7 +43,7 @@ namespace botwat.ch.Controllers
         {
             try
             {
-                return Ok(await _service.Create(credentials));
+                return Ok(await _service.UserService.Create(credentials));
             }
             catch (ArgumentException ex)
             {
