@@ -101,6 +101,7 @@
             <e p="babel__generator" t="IncludeRecursive" />
             <e p="babel__template" t="IncludeRecursive" />
             <e p="babel__traverse" t="IncludeRecursive" />
+            <e p="crypto-js" t="IncludeRecursive" />
             <e p="events" t="IncludeRecursive" />
             <e p="history" t="IncludeRecursive" />
             <e p="istanbul-lib-coverage" t="IncludeRecursive" />
@@ -110,6 +111,7 @@
             <e p="material-ui" t="IncludeRecursive" />
             <e p="minimatch" t="IncludeRecursive" />
             <e p="node" t="IncludeRecursive" />
+            <e p="node-fetch" t="IncludeRecursive" />
             <e p="prop-types" t="IncludeRecursive" />
             <e p="react" t="IncludeRecursive" />
             <e p="react-addons-linked-state-mixin" t="IncludeRecursive" />
@@ -127,6 +129,7 @@
           <e p="node_modules\chokidar" t="IncludeRecursive" />
           <e p="node_modules\clsx" t="IncludeRecursive" />
           <e p="node_modules\cross-env" t="IncludeRecursive" />
+          <e p="node_modules\crypto-js" t="IncludeRecursive" />
           <e p="node_modules\csstype" t="IncludeRecursive" />
           <e p="node_modules\diff-sequences" t="IncludeRecursive" />
           <e p="node_modules\dotenv" t="IncludeRecursive" />
@@ -158,6 +161,7 @@
           <e p="node_modules\react" t="IncludeRecursive" />
           <e p="node_modules\react-dom" t="IncludeRecursive" />
           <e p="node_modules\react-icons" t="IncludeRecursive" />
+          <e p="node_modules\react-material-ui-form-validator" t="IncludeRecursive" />
           <e p="node_modules\react-router-dom" t="IncludeRecursive" />
           <e p="node_modules\react-scripts" t="IncludeRecursive" />
           <e p="node_modules\realpath-native" t="IncludeRecursive" />
@@ -231,6 +235,7 @@
             <e p="App.css" t="Include" />
             <e p="App.tsx" t="Include" />
             <e p="components" t="Include">
+              <e p="AnonymousRoute.tsx" t="Include" />
               <e p="Home.tsx" t="Include" />
               <e p="NavigationBar.tsx" t="Include" />
               <e p="PrivateRoute.tsx" t="Include" />

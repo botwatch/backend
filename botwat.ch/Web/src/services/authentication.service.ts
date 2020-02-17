@@ -22,11 +22,13 @@ async function create(user: IUser) {
             'Content-Type': 'application/json'
         },
     });
+
+    if (!response.ok)
+        return response.text();
     let responseUser: IUser = await response.json();
     localStorage.setItem('currentUser', JSON.stringify(responseUser));
     currentUserSubject.next(responseUser);
-    return user;
-
+    return responseUser;
 }
 
 async function login(user: IUser) {
@@ -38,11 +40,12 @@ async function login(user: IUser) {
             'Content-Type': 'application/json'
         },
     });
+    if (!response.ok)
+        return response.text();
     let responseUser: IUser = await response.json();
     localStorage.setItem('currentUser', JSON.stringify(responseUser));
     currentUserSubject.next(responseUser);
-    return user;
-
+    return responseUser;
 }
 
 function logout() {

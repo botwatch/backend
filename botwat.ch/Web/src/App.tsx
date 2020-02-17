@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import Register from "./pages/Register";
 import PrivateRoute from "./components/PrivateRoute";
+import AnonymousRoute from "./components/AnonymousRoute";
 import Home from "./components/Home";
 import {authenticationService} from "./services/authentication.service";
 
@@ -34,12 +35,12 @@ function App() {
 
     return (
         <MuiThemeProvider theme={darkTheme}>
-            <CssBaseline/>
-            <NavigationBar/>
             <Router>
+            <CssBaseline/>
+            <NavigationBar/>           
                 <Switch>
-                    <Route path="/login" component={Login}/>
-                    <Route path="/register" component={Register}/>
+                    <AnonymousRoute path="/login" component={Login}/>
+                    <AnonymousRoute path="/register" component={Register}/>
                     <PrivateRoute path="/" component={Home}/>
                 </Switch>
             </Router>

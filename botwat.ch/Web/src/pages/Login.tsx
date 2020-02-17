@@ -2,7 +2,7 @@ import {
     Avatar, Button,
     Checkbox, Container,
     CssBaseline, FormControlLabel,
-    Grid, TextField,
+    Grid, Snackbar, TextField,
     Typography
 } from "@material-ui/core";
 import React, {useEffect} from "react";
@@ -12,6 +12,8 @@ import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import {authenticationService} from "../services/authentication.service";
 import {currentHistory} from "../services/CurrentHistory";
 import {IUser} from "../data/IUser";
+import {Alert} from "@material-ui/lab";
+import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -39,10 +41,19 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function Login() {
     const [user, setUser] = React.useState("");
     const [password, setPassword] = React.useState("");
-    
+    const [error, setError] = React.useState<null | string>(null);
     const classes = useStyles();
-    
+
+    const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setError(null);
+    };
+
     useEffect(() => {
+        ValidatorForm.addValidationRule('isPassword', value => value.length > 6);
         if (authenticationService.currentUserValue != null) {
             authenticationService.login(authenticationService.currentUserValue).then(user => {
                 currentHistory.push('/');
@@ -59,12 +70,18 @@ export default function Login() {
             token: null,
             discordHandle: null
         };
-        await authenticationService.login(iUser);
+        let response = await authenticationService.login(iUser);
+        if (typeof response === "string") setError(response as string);
     }
 
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline/>
+            <Snackbar open={error != null} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="error">
+                    {error}
+                </Alert>
+            </Snackbar>
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon/>
@@ -72,8 +89,12 @@ export default function Login() {
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-                <form className={classes.form} noValidate>
-                    <TextField
+                <ValidatorForm
+                    className={classes.form}
+                    onSubmit={handleSubmit}
+                    onError={errors => console.log(errors)}
+                >
+                    <TextValidator
                         variant="outlined"
                         margin="normal"
                         required
@@ -85,8 +106,10 @@ export default function Login() {
                         name="user"
                         autoComplete="user"
                         autoFocus
+                        validators={['required']}
+                        errorMessages={['this field is required']}
                     />
-                    <TextField
+                    <TextValidator
                         variant="outlined"
                         margin="normal"
                         required
@@ -98,14 +121,12 @@ export default function Login() {
                         type="password"
                         id="password"
                         autoComplete="current-password"
-                    />
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary"/>}
-                        label="Remember me"
+                        validators={['required', 'isPassword']}
+                        errorMessages={['this field is required', 'Password must be at least 7 characters']}
                     />
                     <Button
-                        onClick={handleSubmit}
                         fullWidth
+                        type="submit"
                         variant="contained"
                         color="primary"
                         className={classes.submit}
@@ -124,7 +145,7 @@ export default function Login() {
                             </Link>
                         </Grid>
                     </Grid>
-                </form>
+                </ValidatorForm>
             </div>
         </Container>
     );

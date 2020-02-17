@@ -9,6 +9,7 @@ import {red} from "@material-ui/core/colors";
 import hiveImage from '../resources/hive.png';
 import {authenticationService} from "../services/authentication.service";
 import {Link} from "react-router-dom";
+import {Fade, Menu, MenuItem} from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -41,17 +42,41 @@ export default function NavigationBar() {
     const classes = useStyles({});
 
     function RenderLogin({loggedIn}) {
+        const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+        const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+            setAnchorEl(event.currentTarget);
+        };
+
+        const handleClose = () => {
+            setAnchorEl(null);
+            authenticationService.logout();
+        };
         if (loggedIn)
             return (
-                <Avatar className={classes.purpleAvatar}>
-                    {authenticationService.currentUserValue.name.charAt(0).toUpperCase()}
-                </Avatar>
+                <div>
+                    <Button aria-controls="fade-menu" aria-haspopup="true" onClick={handleClick}>
+                        <Avatar className={classes.purpleAvatar}>
+                            {authenticationService.currentUserValue.name.charAt(0).toUpperCase()}
+                        </Avatar>
+                    </Button>
+                    <Menu
+                        id="fade-menu"
+                        anchorEl={anchorEl}
+                        keepMounted
+                        getContentAnchorEl={null}
+                        anchorOrigin={{vertical: "bottom", horizontal: "center"}}
+                        transformOrigin={{vertical: "top", horizontal: "center"}}
+                        open={anchorEl != null}
+                        TransitionComponent={Fade}
+                    >
+                        <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    </Menu>
+                </div>
             );
         return (
-            <Button color="inherit">
-                <Link to="/login">
-                    Login
-                </Link>               
+            <Button component={Link} to="/login" variant="contained" color="primary" style={{boxShadow: "none"}}>
+                Login
             </Button>
         );
     }
@@ -64,7 +89,7 @@ export default function NavigationBar() {
                     <Typography variant="h6" className={classes.title}>
                         Botwatch
                     </Typography>
-                    <RenderLogin loggedIn={authenticationService.currentUser}/>
+                    <RenderLogin loggedIn={authenticationService.currentUserValue != null}/>
                 </Toolbar>
             </AppBar>
         </div>

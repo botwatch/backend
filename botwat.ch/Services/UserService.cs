@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using botwat.ch.Data;
 using botwat.ch.Data.Internal;
 using botwat.ch.Data.Provider;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -16,8 +17,8 @@ namespace botwat.ch.Services
 {
     public interface IUserService
     {
-        Task<User> Authenticate(User credentials);
-        Task<User> Create(User credentials);
+        Task<User> Authenticate(User user);
+        Task<User> Create(User user);
     }
 
     public class UserService : IUserService
@@ -29,41 +30,55 @@ namespace botwat.ch.Services
             _context = context;
         }
 
-        public async Task<User> Authenticate(User credentials)
+        public async Task<User> Authenticate(User user)
         {
-            var user = await Find(credentials);
-            return user?.WithoutPassword();
+            var result = await Find(user);
+            return result?.WithoutPassword();
         }
 
-        public async Task<User> Create(User credentials)
+        public async Task<User> Create(User user)
         {
-            var user = await Find(credentials);
-            if (user == null)
+            var error = await RespondCreateError(user);
+            if (error != null) throw new ArgumentException(error);
+            
+            var result = await Find(user);
+            if (result == null)
             {
                 await _context.Users.AddAsync(new User
                 {
-                    Email = credentials.Email,
-                    Name = credentials.Name,
-                    Password = credentials.Password
+                    Email = user.Email,
+                    Name = user.Name,
+                    Password = user.Password
                 });
                 await _context.SaveChangesAsync();
-                user = await Find(credentials);
-                if (user != null)
+                result = await Find(user);
+                if (result != null)
                 {
-                    user.Token = GenerateToken(user);
+                    result.Token = GenerateToken(result);
                     await _context.SaveChangesAsync();
-                    return user.WithoutPassword();
+                    return result.WithoutPassword();
                 }
             }
 
             return null;
         }
 
-        private async Task<User> Find(User credentials) => await _context.Users.FirstOrDefaultAsync(x =>
-            x.Name == credentials.Name && (
-                x.Password == credentials.Password ||
+        private async Task<string> RespondCreateError(ICredentials user)
+        {
+            if (user.Password.Length < 7)
+                return "Password must be at least 7 characters.";
+            if (await _context.Users.AnyAsync(u => u.Name == user.Name))
+                return "Username already exists. Please choose another one.";
+            if (await _context.Users.AnyAsync(u => u.Email == user.Email))
+                return "Email already in use. Please use a different email.";
+            return null;
+        }
+
+        private async Task<User> Find(User user) => await _context.Users.FirstOrDefaultAsync(x =>
+            x.Name == user.Name && (
+                x.Password == user.Password ||
                 x.Token != null &&
-                x.Token == credentials.Token
+                x.Token == user.Token
             )
         );
 

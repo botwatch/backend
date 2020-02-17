@@ -1,18 +1,20 @@
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Link} from "react-router-dom";
-import React from "react";
+import React, {useEffect} from "react";
 import {FaDiscord} from "react-icons/fa";
 import {IUser} from "../data/IUser";
-import CryptoJS from 'crypto-js';
+import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import {authenticationService} from "../services/authentication.service";
+import {Snackbar} from "@material-ui/core";
+import {Alert} from "@material-ui/lab";
+import {currentHistory} from "../services/CurrentHistory";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -39,6 +41,7 @@ export default function Register() {
     const [email, setEmail] = React.useState("");
     const [user, setUser] = React.useState("");
     const [password, setPassword] = React.useState("");
+    const [error, setError] = React.useState<null | string>(null);
 
     async function handleSubmit() {
         let iUser: IUser = {
@@ -49,14 +52,30 @@ export default function Register() {
             token: null,
             discordHandle: null
         };
-        await authenticationService.create(iUser);
+        let response = await authenticationService.create(iUser);
+        if (typeof response === "string") setError(response as string);
     }
 
-    const classes = useStyles();
+    useEffect(() => {
+        ValidatorForm.addValidationRule('isPassword', value => value.length > 6)
+    }, []);
+    
+    const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
 
+        setError(null);
+    };
+    const classes = useStyles();
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline/>
+            <Snackbar open={error != null} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="error">
+                    {error}
+                </Alert>
+            </Snackbar>
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon/>
@@ -64,47 +83,57 @@ export default function Register() {
                 <Typography component="h1" variant="h5">
                     Sign up
                 </Typography>
-                <form className={classes.form} noValidate>
+                <ValidatorForm
+                    className={classes.form}
+                    onSubmit={handleSubmit}
+                    onError={errors => console.log(errors)}
+                >
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <TextField
-                                autoComplete="user"
-                                name="user"
-                                value={user}
-                                onChange={(event: any) => setUser(event.target.value)}
+                            <TextValidator
                                 variant="outlined"
                                 required
+                                onChange={(event: any) => setUser(event.target.value)}
                                 fullWidth
                                 id="user"
                                 label="Username"
-                                autoFocus
+                                name="user"
+                                autoComplete="user"
+                                value={user}
+                                validators={['required']}
+                                errorMessages={['this field is required']}
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField
+                            <TextValidator
                                 variant="outlined"
                                 required
-                                value={email}
                                 onChange={(event: any) => setEmail(event.target.value)}
                                 fullWidth
                                 id="email"
                                 label="Email Address"
                                 name="email"
+                                type="email"
                                 autoComplete="email"
+                                value={email}
+                                validators={['required', 'isEmail']}
+                                errorMessages={['this field is required', 'email is not valid']}
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField
+                            <TextValidator
                                 variant="outlined"
                                 required
-                                fullWidth
-                                value={password}
                                 onChange={(event: any) => setPassword(event.target.value)}
-                                name="password"
-                                label="Password"
-                                type="password"
+                                fullWidth
                                 id="password"
+                                label="Password"
+                                name="password"
+                                type="password"
                                 autoComplete="current-password"
+                                value={password}
+                                validators={['required', 'isPassword']}
+                                errorMessages={['this field is required', 'Password must be at least 7 characters']}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -119,7 +148,7 @@ export default function Register() {
                         </Grid>
                     </Grid>
                     <Button
-                        onClick={handleSubmit}
+                        type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
@@ -134,7 +163,7 @@ export default function Register() {
                             </Link>
                         </Grid>
                     </Grid>
-                </form>
+                </ValidatorForm>
             </div>
         </Container>
     );

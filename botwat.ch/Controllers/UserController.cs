@@ -34,17 +34,21 @@ namespace botwat.ch.Controllers
             var result = await _service.Authenticate(user);
             if (result != null)
                 return Ok(result);
-            return NotFound(user.Name);
+            return NotFound("Invalid Username or Password. Please try again.");
         }
 
         [AllowAnonymous]
         [HttpPost("create")]
         public async Task<ActionResult<User>> Create([FromBody] User credentials)
         {
-            var result = await _service.Create(credentials);
-            if (result != null)
-                return Ok(result);
-            return BadRequest(credentials);
+            try
+            {
+                return Ok(await _service.Create(credentials));
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
