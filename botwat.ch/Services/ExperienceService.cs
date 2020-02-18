@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
 using botwat.ch.Data;
+using botwat.ch.Data.Provider;
+using Microsoft.EntityFrameworkCore;
 
 namespace botwat.ch.Services
 {
@@ -9,16 +11,22 @@ namespace botwat.ch.Services
         Task<Experience> Find(Experience experience);
     }
 
-    public class ExperienceService : IExperienceService
+    public class ExperienceService : BaseService,IExperienceService
     {
-        public Task<Experience> Create(Experience experience)
+        public ExperienceService(DatabaseContext context) : base(context)
         {
-            throw new System.NotImplementedException();
         }
 
-        public Task<Experience> Find(Experience experience)
+        public async Task<Experience> Create(Experience experience)
         {
-            throw new System.NotImplementedException();
+            if (await Find(experience) != null) return null;
+            var result = await _context.Experiences.AddAsync(experience);
+            return result.IsKeySet ? result.Entity : null;
+        }
+
+        public async Task<Experience> Find(Experience experience)
+        {
+            return await _context.Experiences.FirstOrDefaultAsync(x => x.Id == experience.Id);
         }
     }
 }

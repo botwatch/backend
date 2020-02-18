@@ -12,7 +12,10 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="botwat.ch.csproj" t="IncludeRecursive" />
         <e p="Controllers" t="Include">
+          <e p="BotClientController.cs" t="Include" />
+          <e p="ExperienceController.cs" t="Include" />
           <e p="InteractionController.cs" t="Include" />
+          <e p="OldSchoolAccountController.cs" t="Include" />
           <e p="SessionController.cs" t="Include" />
           <e p="UserController.cs" t="Include" />
         </e>
@@ -49,11 +52,11 @@
           <e p="launchSettings.json" t="Include" />
         </e>
         <e p="Services" t="Include">
+          <e p="BaseService.cs" t="Include" />
           <e p="BotClientService.cs" t="Include" />
           <e p="ExperienceService.cs" t="Include" />
           <e p="InteractionService.cs" t="Include" />
           <e p="OldSchoolAccountService.cs" t="Include" />
-          <e p="PermissionService.cs" t="Include" />
           <e p="ServicesPool.cs" t="Include" />
           <e p="SessionService.cs" t="Include" />
           <e p="UserService.cs" t="Include" />
@@ -243,7 +246,6 @@
             <e p="App.tsx" t="Include" />
             <e p="components" t="Include">
               <e p="AnonymousRoute.tsx" t="Include" />
-              <e p="Home.tsx" t="Include" />
               <e p="NavigationBar.tsx" t="Include" />
               <e p="PrivateRoute.tsx" t="Include" />
             </e>
@@ -253,6 +255,7 @@
             <e p="index.css" t="Include" />
             <e p="index.tsx" t="Include" />
             <e p="Pages" t="Include">
+              <e p="Home.tsx" t="Include" />
               <e p="Login.tsx" t="Include" />
               <e p="Register.tsx" t="Include" />
             </e>

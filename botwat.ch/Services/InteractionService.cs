@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
 using botwat.ch.Data;
+using botwat.ch.Data.Provider;
+using Microsoft.EntityFrameworkCore;
 
 namespace botwat.ch.Services
 {
@@ -9,16 +11,24 @@ namespace botwat.ch.Services
         Task<Interaction> Find(Interaction interaction);
     }
 
-    public class InteractionService : IInteractionService
+    public class InteractionService : BaseService, IInteractionService
     {
-        public Task<Interaction> Create(Interaction interaction)
+        public InteractionService(DatabaseContext context) : base(context)
         {
-            throw new System.NotImplementedException();
         }
 
-        public Task<Interaction> Find(Interaction interaction)
+        public async Task<Interaction> Create(Interaction interaction)
         {
-            throw new System.NotImplementedException();
+            if (await Find(interaction) != null) return null;
+            var result = await _context.Interactions.AddAsync(interaction);
+            return result.IsKeySet ? result.Entity : null;
+        }
+
+        public async Task<Interaction> Find(Interaction interaction)
+        {
+            return await _context.Interactions.FirstOrDefaultAsync(
+                x => x.Id == interaction.Id
+            );
         }
     }
 }

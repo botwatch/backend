@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
 using botwat.ch.Data;
+using botwat.ch.Data.Provider;
+using Microsoft.EntityFrameworkCore;
 
 namespace botwat.ch.Services
 {
@@ -9,16 +11,25 @@ namespace botwat.ch.Services
         Task<BotClient> Find(BotClient client);
     }
 
-    public class BotClientService : IBotClientService
+    public class BotClientService : BaseService, IBotClientService
     {
-        public Task<BotClient> Create(BotClient client)
+        public BotClientService(DatabaseContext context) : base(context)
         {
-            throw new System.NotImplementedException();
         }
 
-        public Task<BotClient> Find(BotClient client)
+        public async Task<BotClient> Create(BotClient client)
         {
-            throw new System.NotImplementedException();
+            if (await Find(client) != null) return null;
+            var result = await _context.BotClients.AddAsync(client);
+            return result.IsKeySet ? result.Entity : null;
+        }
+
+        public async Task<BotClient> Find(BotClient client)
+        {
+            return await _context.BotClients.FirstOrDefaultAsync(
+                x => x.Id == client.Id ||
+                     x.Name == client.Name
+            );
         }
     }
 }

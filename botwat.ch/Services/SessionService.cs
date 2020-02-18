@@ -1,5 +1,8 @@
+using System;
 using System.Threading.Tasks;
 using botwat.ch.Data;
+using botwat.ch.Data.Provider;
+using Microsoft.EntityFrameworkCore;
 
 namespace botwat.ch.Services
 {
@@ -10,21 +13,32 @@ namespace botwat.ch.Services
         Task<Session> End(Session session);
     }
 
-    public class SessionService : ISessionService
+    public class SessionService : BaseService, ISessionService
     {
-        public Task<Session> Create(Session session)
+        public SessionService(DatabaseContext context) : base(context)
         {
-            throw new System.NotImplementedException();
         }
 
-        public Task<Session> Find(Session session)
+        public async Task<Session> Create(Session session)
         {
-            throw new System.NotImplementedException();
+            if (await Find(session) != null) return null;
+            var result = await _context.Sessions.AddAsync(session);
+            return result.IsKeySet ? result.Entity : null;
         }
 
-        public Task<Session> End(Session session)
+        public async Task<Session> Find(Session session)
         {
-            throw new System.NotImplementedException();
+            return await _context.Sessions.FirstOrDefaultAsync(x => x.Id == session.Id);
+        }
+
+        public async Task<Session> End(Session session)
+        {
+            var validSession = await Find(session);
+            if (validSession == null) return null;
+            //End session
+            validSession.End = DateTime.Now;
+            await _context.SaveChangesAsync();
+            return validSession;
         }
     }
 }

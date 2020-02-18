@@ -1,24 +1,34 @@
 using System.Threading.Tasks;
 using botwat.ch.Data;
+using botwat.ch.Data.Provider;
+using Microsoft.EntityFrameworkCore;
 
 namespace botwat.ch.Services
 {
     public interface IOldSchoolAccountService
     {
-        Task<OldSchoolAccount> Create(OldSchoolAccount oldSchoolAccount);
-        Task<OldSchoolAccount> Find(OldSchoolAccount oldSchoolAccount);
+        Task<OldSchoolAccount> Create(OldSchoolAccount account);
+        Task<OldSchoolAccount> Find(OldSchoolAccount account);
     }
 
-    public class OldSchoolAccountService : IOldSchoolAccountService
+    public class OldSchoolAccountService : BaseService,IOldSchoolAccountService
     {
-        public Task<OldSchoolAccount> Create(OldSchoolAccount oldSchoolAccount)
+        public OldSchoolAccountService(DatabaseContext context) : base(context)
         {
-            throw new System.NotImplementedException();
+        }
+        public async Task<OldSchoolAccount> Create(OldSchoolAccount account)
+        {
+            if (await Find(account) != null) return null;
+            var result = await _context.Accounts.AddAsync(account);
+            return result.IsKeySet ? result.Entity : null;
         }
 
-        public Task<OldSchoolAccount> Find(OldSchoolAccount oldSchoolAccount)
+        public async Task<OldSchoolAccount> Find(OldSchoolAccount account)
         {
-            throw new System.NotImplementedException();
+            return await _context.Accounts.FirstOrDefaultAsync(
+                x => x.Id == account.Id ||
+                     x.Alias == account.Alias
+            );
         }
     }
 }

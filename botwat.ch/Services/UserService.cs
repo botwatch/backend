@@ -22,13 +22,10 @@ namespace botwat.ch.Services
         Task<User> Find(User user);
     }
 
-    public class UserService : IUserService
+    public class UserService : BaseService, IUserService
     {
-        private readonly DatabaseContext _context;
-
-        public UserService(DatabaseContext context)
+        public UserService(DatabaseContext context) : base(context)
         {
-            _context = context;
         }
 
         public async Task<User> Authenticate(User user)

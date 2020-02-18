@@ -18,11 +18,9 @@ namespace botwat.ch.Controllers
     {
         private readonly ILogger<UserController> _logger;
         private readonly IServicesPool _service;
-        private readonly DatabaseContext _context;
 
-        public UserController(ILogger<UserController> logger, IServicesPool service, DatabaseContext context)
+        public UserController(ILogger<UserController> logger, IServicesPool service)
         {
-            _context = context;
             _logger = logger;
             _service = service;
         }

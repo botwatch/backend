@@ -37,11 +37,11 @@
     <ItemGroup>
       <TypeScriptCompile Include="Web\src\App.tsx" />
       <TypeScriptCompile Include="Web\src\components\AnonymousRoute.tsx" />
-      <TypeScriptCompile Include="Web\src\components\Home.tsx" />
       <TypeScriptCompile Include="Web\src\components\NavigationBar.tsx" />
       <TypeScriptCompile Include="Web\src\components\PrivateRoute.tsx" />
       <TypeScriptCompile Include="Web\src\data\IUser.ts" />
       <TypeScriptCompile Include="Web\src\index.tsx" />
+      <TypeScriptCompile Include="Web\src\pages\Home.tsx" />
       <TypeScriptCompile Include="Web\src\pages\Login.tsx" />
       <TypeScriptCompile Include="Web\src\pages\Register.tsx" />
       <TypeScriptCompile Include="Web\src\react-app-env.d.ts" />

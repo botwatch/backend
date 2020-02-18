@@ -80,7 +80,6 @@ namespace botwat.ch
             services.AddScoped<IExperienceService, ExperienceService>();
             services.AddScoped<IInteractionService, InteractionService>();
             services.AddScoped<IOldSchoolAccountService, OldSchoolAccountService>();
-            services.AddScoped<IPermissionService, PermissionService>();
             services.AddScoped<ISessionService, SessionService>();
             services.AddScoped<IUserService, UserService>();
         }

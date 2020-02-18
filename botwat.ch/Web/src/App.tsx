@@ -11,7 +11,7 @@ import {
 import Register from "./pages/Register";
 import PrivateRoute from "./components/PrivateRoute";
 import AnonymousRoute from "./components/AnonymousRoute";
-import Home from "./components/Home";
+import Home from "./pages/Home";
 import {authenticationService} from "./services/authentication.service";
 
 

@@ -6,7 +6,6 @@ namespace botwat.ch.Services
         public IExperienceService ExperienceService { get; set; }
         public IInteractionService InteractionService { get; set; }
         public IOldSchoolAccountService OldSchoolAccountService { get; set; }
-        public IPermissionService PermissionService { get; set; }
         public ISessionService SessionService { get; set; }
         public IUserService UserService { get; set; }
     }
@@ -18,7 +17,6 @@ namespace botwat.ch.Services
             IExperienceService experienceService,
             IInteractionService interactionService,
             IOldSchoolAccountService oldSchoolAccountService,
-            IPermissionService permissionService,
             ISessionService sessionService,
             IUserService userService
         )
@@ -27,7 +25,6 @@ namespace botwat.ch.Services
             ExperienceService = experienceService;
             InteractionService = interactionService;
             OldSchoolAccountService = oldSchoolAccountService;
-            PermissionService = permissionService;
             SessionService = sessionService;
             UserService = userService;
         }
@@ -36,7 +33,6 @@ namespace botwat.ch.Services
         public IExperienceService ExperienceService { get; set; }
         public IInteractionService InteractionService { get; set; }
         public IOldSchoolAccountService OldSchoolAccountService { get; set; }
-        public IPermissionService PermissionService { get; set; }
         public ISessionService SessionService { get; set; }
         public IUserService UserService { get; set; }
     }
