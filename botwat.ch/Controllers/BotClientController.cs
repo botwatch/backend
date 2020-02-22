@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using botwat.ch.Data;
 using botwat.ch.Data.Provider;
+using botwat.ch.Data.Transport.Request.Client;
 using botwat.ch.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,15 +27,28 @@ namespace botwat.ch.Controllers
         }
 
         [Authorize]
-        [HttpPost("create")]
-        public async Task<ActionResult<BotClient>> Create([FromBody] BotClient client)
+        [HttpGet("/")]
+        public IAsyncEnumerable<BotClient> GetAll()
         {
-            if (_service.BotClientService.Find(client) != null) return null;
-            var localClient = new BotClient
+            return _service.BotClientService.FindAll();
+        }
+
+        [Authorize]
+        [HttpPost("create")]
+        public async Task<ActionResult<BotClient>> Create([FromBody] BotClientCreateRequest request)
+        {
+            try
             {
-                Created = DateTime.Now, Name = client.Name, Description = client.Description, Url = client.Url
-            };
-            return await _service.BotClientService.Create(localClient);
+                return await _service.BotClientService.Create(request);
+            }
+            catch (DataException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (Exception)
+            {
+                return BadRequest("Unable to create client!");
+            }
         }
     }
 }

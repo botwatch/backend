@@ -1,4 +1,3 @@
-
 namespace botwat.ch.Data
 {
     public class User
@@ -8,6 +7,7 @@ namespace botwat.ch.Data
         public string Email { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }
+        public string IpAddress { get; set; }
         public string Token { get; set; }
         public Permissions Permissions { get; set; }
 
@@ -17,6 +17,12 @@ namespace botwat.ch.Data
             return this;
         }
 
-        public User WithoutPassword() => ((User) MemberwiseClone()).set_password(null);
+        private User set_ip(string ip)
+        {
+            IpAddress = ip;
+            return this;
+        }
+
+        public User Safe() => ((User) MemberwiseClone()).set_password(null).set_ip(null);
     }
 }

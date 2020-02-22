@@ -31,18 +31,27 @@
           <e p="Session.cs" t="Include" />
           <e p="Transport" t="Include">
             <e p="Request" t="Include">
+              <e p="Account" t="Include">
+                <e p="OldSchoolAccountCreateRequest.cs" t="Include" />
+              </e>
               <e p="Client" t="Include">
                 <e p="BotClientCreateRequest.cs" t="Include" />
               </e>
-              <e p="IExperienceCreateRequest.cs" t="Include" />
-              <e p="IOldSchoolAccountCreateRequest.cs" t="Include" />
-              <e p="ISessionCreateRequest.cs" t="Include" />
+              <e p="Experience" t="Include">
+                <e p="ExperienceCreateRequest.cs" t="Include" />
+              </e>
+              <e p="Session" t="Include">
+                <e p="SessionCreateRequest.cs" t="Include" />
+              </e>
               <e p="User" t="Include">
                 <e p="UserAuthenticateRequest.cs" t="Include" />
                 <e p="UserCreateRequest.cs" t="Include" />
               </e>
             </e>
             <e p="Response" t="Include">
+              <e p="Session" t="Include">
+                <e p="SessionCreateResponse.cs" t="Include" />
+              </e>
               <e p="User" t="Include">
                 <e p="UserAuthenticateResponse.cs" t="Include" />
                 <e p="UserCreateResponse.cs" t="Include" />

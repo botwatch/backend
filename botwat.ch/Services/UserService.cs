@@ -20,6 +20,7 @@ namespace botwat.ch.Services
         Task<UserAuthenticateResponse> Authenticate(UserAuthenticateRequest user);
         Task<UserCreateResponse> Create(UserCreateRequest user);
         Task<User> Find(User user);
+        Task<User> Find(string name);
     }
 
     public class UserService : BaseService, IUserService
@@ -57,8 +58,8 @@ namespace botwat.ch.Services
                     await _context.SaveChangesAsync();
                     return new UserCreateResponse
                     {
-                        Id = result.Id, 
-                        Name = result.Name, 
+                        Id = result.Id,
+                        Name = result.Name,
                         Email = result.Email,
                         DiscordHandle = result.DiscordHandle,
                         Token = result.Token
@@ -91,6 +92,8 @@ namespace botwat.ch.Services
         public async Task<User> Find(User user) => await _context.Users.FirstOrDefaultAsync(x =>
             x.Name == user.Name && x.Email == user.Email && x.Token == user.Token
         );
+
+        public Task<User> Find(string name) => _context.Users.FirstOrDefaultAsync(user => user.Name == name);
 
         private static string GenerateToken(int id)
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using botwat.ch.Data;
 using botwat.ch.Data.Provider;
+using botwat.ch.Data.Transport.Request.Account;
 using botwat.ch.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,11 +27,11 @@ namespace botwat.ch.Controllers
 
         [Authorize]
         [HttpPost("create")]
-        public async Task<ActionResult<OldSchoolAccount>> Create([FromBody] OldSchoolAccount account)
+        public async Task<ActionResult<OldSchoolAccount>> Create([FromBody] OldSchoolAccountCreateRequest request)
         {
-            if (_service.OldSchoolAccountService.Find(account) != null) return null;
-            var localAccount = new OldSchoolAccount {Alias = account.Alias, Owner = account.Owner, Banned = false};
-            return await _service.OldSchoolAccountService.Create(localAccount);
+            var name = User.Identity.Name;
+            var localUser = await _service.UserService.Find(name);
+            return await _service.OldSchoolAccountService.Create(request, localUser);
         }
     }
 }

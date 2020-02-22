@@ -1,6 +1,6 @@
-namespace botwat.ch.Data.Transport.Request
+namespace botwat.ch.Data.Transport.Request.Experience
 {
-    public interface IExperienceCreateRequest
+    public class ExperienceCreateRequest
     {
         public string AccountAlias { get; set; }
         public string BotClientName { get; set; }

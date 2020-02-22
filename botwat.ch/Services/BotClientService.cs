@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using botwat.ch.Data;
 using botwat.ch.Data.Provider;
@@ -12,6 +14,7 @@ namespace botwat.ch.Services
     {
         Task<BotClient> Create(BotClientCreateRequest request);
         Task<BotClient> Find(string name);
+        IAsyncEnumerable<BotClient> FindAll();
     }
 
     public class BotClientService : BaseService, IBotClientService
@@ -32,7 +35,7 @@ namespace botwat.ch.Services
         {
             return new BotClient
             {
-                //TODO map valid users...
+                Authors = _context.Users.Where(user => request.AuthorNames.Contains(user.Name)).ToList(),
                 Name = request.Name,
                 Created = DateTime.Now,
                 Description = request.Description,
@@ -45,6 +48,11 @@ namespace botwat.ch.Services
             return await _context.BotClients.FirstOrDefaultAsync(
                 x => x.Name == name
             );
+        }
+
+        public IAsyncEnumerable<BotClient> FindAll()
+        {
+            return _context.BotClients.AsAsyncEnumerable();
         }
     }
 }
