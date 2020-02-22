@@ -1,14 +1,17 @@
+using System;
+using System.Data;
 using System.Threading.Tasks;
 using botwat.ch.Data;
 using botwat.ch.Data.Provider;
+using botwat.ch.Data.Transport.Request.Client;
 using Microsoft.EntityFrameworkCore;
 
 namespace botwat.ch.Services
 {
     public interface IBotClientService
     {
-        Task<BotClient> Create(BotClient client);
-        Task<BotClient> Find(BotClient client);
+        Task<BotClient> Create(BotClientCreateRequest request);
+        Task<BotClient> Find(string name);
     }
 
     public class BotClientService : BaseService, IBotClientService
@@ -17,18 +20,30 @@ namespace botwat.ch.Services
         {
         }
 
-        public async Task<BotClient> Create(BotClient client)
+        public async Task<BotClient> Create(BotClientCreateRequest request)
         {
-            if (await Find(client) != null) return null;
-            var result = await _context.BotClients.AddAsync(client);
+            var client = await Find(request.Name);
+            if (client != null) throw new DataException($"Client named {request.Name} already exists.");
+            var result = await _context.BotClients.AddAsync(BuildClient(request));
             return result.IsKeySet ? result.Entity : null;
         }
 
-        public async Task<BotClient> Find(BotClient client)
+        private BotClient BuildClient(BotClientCreateRequest request)
+        {
+            return new BotClient
+            {
+                //TODO map valid users...
+                Name = request.Name,
+                Created = DateTime.Now,
+                Description = request.Description,
+                Url = request.Url
+            };
+        }
+
+        public async Task<BotClient> Find(string name)
         {
             return await _context.BotClients.FirstOrDefaultAsync(
-                x => x.Id == client.Id ||
-                     x.Name == client.Name
+                x => x.Name == name
             );
         }
     }

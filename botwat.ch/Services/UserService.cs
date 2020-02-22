@@ -1,24 +1,24 @@
 using System;
-using System.Collections.Generic;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using botwat.ch.Data;
-using botwat.ch.Data.Internal;
 using botwat.ch.Data.Provider;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+using botwat.ch.Data.Transport.Request;
+using botwat.ch.Data.Transport.Request.User;
+using botwat.ch.Data.Transport.Response;
+using botwat.ch.Data.Transport.Response.User;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace botwat.ch.Services
 {
     public interface IUserService
     {
-        Task<User> Authenticate(User user);
-        Task<User> Create(User user);
+        Task<UserAuthenticateResponse> Authenticate(UserAuthenticateRequest user);
+        Task<UserCreateResponse> Create(UserCreateRequest user);
         Task<User> Find(User user);
     }
 
@@ -28,16 +28,17 @@ namespace botwat.ch.Services
         {
         }
 
-        public async Task<User> Authenticate(User user)
+        public async Task<UserAuthenticateResponse> Authenticate(UserAuthenticateRequest request)
         {
-            var result = await Find(user);
-            return result?.WithoutPassword();
+            var result = await Find(request);
+            if (result == null) throw new DataException("Credentials invalid.");
+            return new UserAuthenticateResponse {Name = result.Name, Token = request.Token};
         }
 
-        public async Task<User> Create(User user)
+        public async Task<UserCreateResponse> Create(UserCreateRequest user)
         {
             var error = await RespondCreateError(user);
-            if (error != null) throw new ArgumentException(error);
+            if (error != null) throw new DataException(error);
 
             var result = await Find(user);
             if (result == null)
@@ -52,16 +53,23 @@ namespace botwat.ch.Services
                 result = await Find(user);
                 if (result != null)
                 {
-                    result.Token = GenerateToken(result);
+                    result.Token = GenerateToken(result.Id);
                     await _context.SaveChangesAsync();
-                    return result.WithoutPassword();
+                    return new UserCreateResponse
+                    {
+                        Id = result.Id, 
+                        Name = result.Name, 
+                        Email = result.Email,
+                        DiscordHandle = result.DiscordHandle,
+                        Token = result.Token
+                    };
                 }
             }
 
-            return null;
+            throw new DataException("Unable to create user: unknown reason");
         }
 
-        private async Task<string> RespondCreateError(ICredentials user)
+        private async Task<string> RespondCreateError(UserCreateRequest user)
         {
             if (user.Password.Length < 7)
                 return "Password must be at least 7 characters.";
@@ -72,16 +80,19 @@ namespace botwat.ch.Services
             return null;
         }
 
-        public async Task<User> Find(User user) => await _context.Users.FirstOrDefaultAsync(x =>
-            x.Name == user.Name && (
-                x.Password == user.Password ||
-                x.Token != null &&
-                x.Token == user.Token
-            )
+        public async Task<User> Find(UserAuthenticateRequest user) => await _context.Users.FirstOrDefaultAsync(x =>
+            x.Name == user.Name && x.Token == user.Token
         );
 
+        public async Task<User> Find(UserCreateRequest user) => await _context.Users.FirstOrDefaultAsync(x =>
+            x.Name == user.Name || x.Email == user.Email
+        );
 
-        private static string GenerateToken(User user)
+        public async Task<User> Find(User user) => await _context.Users.FirstOrDefaultAsync(x =>
+            x.Name == user.Name && x.Email == user.Email && x.Token == user.Token
+        );
+
+        private static string GenerateToken(int id)
         {
             // authentication successful so generate jwt token
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -90,7 +101,7 @@ namespace botwat.ch.Services
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                    new Claim(ClaimTypes.Name, id.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddDays(30),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),

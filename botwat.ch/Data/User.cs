@@ -1,8 +1,7 @@
-using botwat.ch.Data.Internal;
 
 namespace botwat.ch.Data
 {
-    public class User : ICredentials
+    public class User
     {
         public int Id { get; set; }
         public string DiscordHandle { get; set; }

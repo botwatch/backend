@@ -1,13 +1,11 @@
 using System;
-using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
-using botwat.ch.Data;
-using botwat.ch.Data.Internal;
-using botwat.ch.Data.Provider;
+using botwat.ch.Data.Transport.Request.User;
+using botwat.ch.Data.Transport.Response.User;
 using botwat.ch.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace botwat.ch.Controllers
@@ -27,25 +25,35 @@ namespace botwat.ch.Controllers
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public async Task<ActionResult<User>> Authenticate([FromBody] User user)
+        public async Task<ActionResult<UserAuthenticateResponse>> Authenticate(
+            [FromBody] UserAuthenticateRequest request)
         {
-            var result = await _service.UserService.Authenticate(user);
-            if (result != null)
+            try
+            {
+                var result = await _service.UserService.Authenticate(request);
                 return Ok(result);
-            return NotFound("Invalid Username or Password. Please try again.");
+            }
+            catch
+            {
+                return NotFound("Invalid Username or Password. Please try again.");
+            }
         }
 
         [AllowAnonymous]
         [HttpPost("create")]
-        public async Task<ActionResult<User>> Create([FromBody] User credentials)
+        public async Task<ActionResult<UserCreateResponse>> Create([FromBody] UserCreateRequest request)
         {
             try
             {
-                return Ok(await _service.UserService.Create(credentials));
+                return Ok(await _service.UserService.Create(request));
             }
-            catch (ArgumentException ex)
+            catch (DataException ex)
             {
                 return BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
+                return BadRequest("User Creation Failed!");
             }
         }
     }

@@ -23,15 +23,32 @@
           <e p="BotClient.cs" t="Include" />
           <e p="Experience.cs" t="Include" />
           <e p="Interaction.cs" t="Include" />
-          <e p="Internal" t="Include">
-            <e p="ICredentials.cs" t="Include" />
-          </e>
           <e p="OldSchoolAccount.cs" t="Include" />
           <e p="Permissions.cs" t="Include" />
           <e p="Provider" t="Include">
             <e p="DatabaseContext.cs" t="Include" />
           </e>
           <e p="Session.cs" t="Include" />
+          <e p="Transport" t="Include">
+            <e p="Request" t="Include">
+              <e p="Client" t="Include">
+                <e p="BotClientCreateRequest.cs" t="Include" />
+              </e>
+              <e p="IExperienceCreateRequest.cs" t="Include" />
+              <e p="IOldSchoolAccountCreateRequest.cs" t="Include" />
+              <e p="ISessionCreateRequest.cs" t="Include" />
+              <e p="User" t="Include">
+                <e p="UserAuthenticateRequest.cs" t="Include" />
+                <e p="UserCreateRequest.cs" t="Include" />
+              </e>
+            </e>
+            <e p="Response" t="Include">
+              <e p="User" t="Include">
+                <e p="UserAuthenticateResponse.cs" t="Include" />
+                <e p="UserCreateResponse.cs" t="Include" />
+              </e>
+            </e>
+          </e>
           <e p="User.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -68,7 +85,7 @@
             <e p="asset-manifest.json" t="Include" />
             <e p="favicon.ico" t="Include" />
             <e p="index.html" t="Include" />
-            <e p="precache-manifest.3ccc8e128cd2bc6c26ceb9bcefb5ed1d.js" t="Include" />
+            <e p="precache-manifest.47114635eb8b6342d87df5da03345b70.js" t="Include" />
             <e p="robots.txt" t="Include" />
             <e p="service-worker.js" t="Include" />
             <e p="static" t="Include">
@@ -77,11 +94,11 @@
                 <e p="main.631b5118.chunk.css.map" t="Include" />
               </e>
               <e p="js" t="Include">
-                <e p="2.7c4bb338.chunk.js" t="Include" />
-                <e p="2.7c4bb338.chunk.js.LICENSE" t="Include" />
-                <e p="2.7c4bb338.chunk.js.map" t="Include" />
-                <e p="main.b34fb441.chunk.js" t="Include" />
-                <e p="main.b34fb441.chunk.js.map" t="Include" />
+                <e p="2.d5d29485.chunk.js" t="Include" />
+                <e p="2.d5d29485.chunk.js.LICENSE" t="Include" />
+                <e p="2.d5d29485.chunk.js.map" t="Include" />
+                <e p="main.3cd6e2ec.chunk.js" t="Include" />
+                <e p="main.3cd6e2ec.chunk.js.map" t="Include" />
                 <e p="runtime-main.2e928bae.js" t="Include" />
                 <e p="runtime-main.2e928bae.js.map" t="Include" />
               </e>
