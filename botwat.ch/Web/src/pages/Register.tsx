@@ -125,19 +125,7 @@ export default function Register() {
                                 validators={['required', 'isPassword']}
                                 errorMessages={['this field is required', 'Password must be at least 7 characters']}
                             />
-                        </Grid>
-                    {/*    <Grid item xs={12}>
-                            <a href={"https://discordapp.com/api/oauth2/authorize?client_id=683318843434991617&redirect_uri=https%3A%2F%2Flocalhost%2Fsignin-discord&response_type=code&scope=identify%20email%20guilds"}>
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    color="secondary">
-                                    <FaDiscord/>
-                                    Register with Discord
-                                </Button>
-                            </a>
-                        </Grid>*/}
+                        </Grid>                    
                     </Grid>
                     <Button
                         type="submit"
