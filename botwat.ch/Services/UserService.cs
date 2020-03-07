@@ -26,11 +26,12 @@ namespace botwat.ch.Services
     public class UserService : BaseService, IUserService
     {
         private readonly IActionContextAccessor _accessor;
+
         public UserService(DatabaseContext context, IActionContextAccessor accessor) : base(context)
         {
             _accessor = accessor;
         }
-        
+
         public async Task<string> GetTokenAsync()
         {
             var httpContext = _accessor.ActionContext.HttpContext;
@@ -65,7 +66,7 @@ namespace botwat.ch.Services
                 result = addResult.Entity;
                 if (result != null)
                 {
-                    result.Token = GenerateToken(result.Id);
+                    result.Token = GenerateToken(result);
                     result.IpAddress = _accessor.ActionContext.HttpContext.Connection.RemoteIpAddress.ToString();
                     await _context.SaveChangesAsync();
                     return result;
@@ -92,7 +93,7 @@ namespace botwat.ch.Services
 
         public Task<User> Find(string name) => _context.Users.FirstOrDefaultAsync(user => user.Name == name);
 
-        private static string GenerateToken(int id)
+        private static string GenerateToken(User user)
         {
             // authentication successful so generate jwt token
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -101,7 +102,9 @@ namespace botwat.ch.Services
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.Name, id.ToString())
+                    new Claim(ClaimTypes.Sid, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.Name),
+                    new Claim(ClaimTypes.Email, user.Email)
                 }),
                 Expires = DateTime.UtcNow.AddDays(30),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),

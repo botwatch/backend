@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 namespace botwat.ch.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("client")]
     public class BotClientController : ControllerBase
     {
         private readonly ILogger<InteractionController> _logger;
@@ -24,12 +24,22 @@ namespace botwat.ch.Controllers
         }
 
         [Authorize]
+        [HttpPost("all")]
+        public async Task<ActionResult<BotClient>> Get()
+        {
+            var name = User.Identity.Name;
+            var localUser = await _service.UserService.Find(name);
+            if (localUser != null) return Ok(_service.BotClientService.All());
+            return BadRequest("Must be logged in to view clients.");
+        }
+
+        [Authorize]
         [HttpPost("create")]
         public async Task<ActionResult<BotClient>> Create(string name, string description, string url, string authors)
         {
             try
             {
-                return await _service.BotClientService.Create(name, description,url, authors);
+                return Ok(await _service.BotClientService.Create(name, description, url, authors));
             }
             catch (DataException e)
             {

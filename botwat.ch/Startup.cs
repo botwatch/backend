@@ -43,23 +43,23 @@ namespace botwat.ch
             {
                 x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
-            services.AddAuthentication(opt =>
+            var key = Encoding.ASCII.GetBytes(Configuration["jwt_key"]);
+            services.AddAuthentication(x =>
                 {
-                    opt.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    opt.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    opt.DefaultChallengeScheme = DiscordDefaults.AuthenticationScheme;
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
-                .AddCookie()
-                .AddDiscord(x =>
+                .AddJwtBearer(x =>
                 {
-                    x.AppId = Configuration["Discord:AppId"];
-                    x.AppSecret = Configuration["Discord:AppSecret"];
-                    x.Scope.Add("id");
-                    x.Scope.Add("email");
-                    x.Scope.Add("guilds");
-
-                    //Required for accessing the oauth2 token in order to make requests on the user's behalf, ie. accessing the user's guild list
-                    x.SaveTokens = true;
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
                 });
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             

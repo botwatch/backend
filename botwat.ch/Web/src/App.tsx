@@ -42,7 +42,6 @@ function App() {
                 <Switch>
                     <AnonymousRoute path="/login" component={Login}/>
                     <AnonymousRoute path="/register" component={Register}/>
-                    <PrivateRoute path="/accounts" component={Accounts}/>
                     <PrivateRoute path="/" component={Home}/>
                 </Switch>
             </Router>

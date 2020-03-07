@@ -15,20 +15,30 @@ namespace botwat.ch.Controllers
         private readonly ILogger<InteractionController> _logger;
         private readonly IServicesPool _service;
 
-        public SessionController(ILogger<InteractionController> logger,  IServicesPool service)
+        public SessionController(ILogger<InteractionController> logger, IServicesPool service)
         {
             _logger = logger;
             _service = service;
         }
 
         [Authorize]
-        [HttpPost("create")]
-        public async Task<ActionResult<Session>> Create(string clientName, string aliasName) 
+        [HttpPost("all")]
+        public async Task<ActionResult<Session>> Get()
         {
             var name = User.Identity.Name;
             var localUser = await _service.UserService.Find(name);
-            var localClient = await _service.BotClientService.Find(clientName);
-            var localAccount = await _service.OldSchoolAccountService.Find(aliasName);
+            if (localUser != null) return Ok(_service.SessionService.All(localUser));
+            return BadRequest("No accounts for current user.");
+        }
+
+        [Authorize]
+        [HttpPost("create")]
+        public async Task<ActionResult<Session>> Create(string client, string alias)
+        {
+            var name = User.Identity.Name;
+            var localUser = await _service.UserService.Find(name);
+            var localClient = await _service.BotClientService.Find(client);
+            var localAccount = await _service.OldSchoolAccountService.Find(alias);
             if (localUser == null)
             {
                 return NotFound($"User does not exist.");
@@ -36,12 +46,12 @@ namespace botwat.ch.Controllers
 
             if (localClient == null)
             {
-                return NotFound($"{clientName} does not exist.");
+                return NotFound($"{client} does not exist.");
             }
 
             if (localAccount == null)
             {
-                return NotFound($"{aliasName} does not exist.");
+                return NotFound($"{alias} does not exist.");
             }
 
             var localSession = new Session
@@ -52,7 +62,9 @@ namespace botwat.ch.Controllers
                 Client = localClient,
                 User = localUser
             };
-            return await _service.SessionService.Create(localSession);
+            var result = await _service.SessionService.Create(localSession);
+            if (result != null) return Ok(result);
+            return BadRequest("UNKNOWN FAILURE CREATING SESSION");
         }
     }
 }

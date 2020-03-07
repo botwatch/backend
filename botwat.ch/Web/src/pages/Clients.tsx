@@ -15,6 +15,7 @@ import {Alert} from "@material-ui/lab";
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import {accountService} from "../services/account.service";
 import {IOldSchoolAccount} from "../data/dto/account/IOldSchoolAccount";
+import {IClient} from "../data/dto/client/IClient";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -39,11 +40,16 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }));
 
-export default function Accounts() {
-    const [alias, setAlias] = React.useState("");
+export default function Clients() {
+    const [name, setName] = React.useState("");
+    const [description, setDescription] = React.useState("");
+    const [url, setUrl] = React.useState("");
+    const [authors, setAuthors] = React.useState<string>("");
+    
     const [error, setError] = React.useState<null | string>(null);
     const classes = useStyles();
-    const [accounts, setAccounts] = React.useState<string | IOldSchoolAccount[]>("NONE");
+    
+    const [clients, setClients] = React.useState<string | IClient[]>("NONE");
 
     const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
         if (reason === 'clickaway') {
@@ -55,7 +61,7 @@ export default function Accounts() {
 
     useEffect(() => {
         ValidatorForm.addValidationRule('isPassword', value => value.length > 6);
-        accountService.getAccounts().then(a => setAccounts(a));
+        accountService.getClients().then(a => setClients(a));
         let user = authenticationService.currentUserValue;
         if (user != null) {
             if (user.token != null) {
@@ -67,7 +73,7 @@ export default function Accounts() {
     }, []);
 
     async function handleSubmit() {
-        let response = await accountService.createAccount(alias);
+        let response = await accountService.createClient(name, description, url, authors);
         if (typeof response === "string") setError(response as string);
     }
 
@@ -84,7 +90,7 @@ export default function Accounts() {
                     <LockOutlinedIcon/>
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Create Account
+                    Create Client
                 </Typography>
                 <ValidatorForm
                     className={classes.form}
@@ -96,12 +102,57 @@ export default function Accounts() {
                         margin="normal"
                         required
                         fullWidth
-                        value={alias}
-                        onChange={(event: any) => setAlias(event.target.value)}
-                        id="user"
-                        label="Username"
-                        name="user"
-                        autoComplete="user"
+                        value={name}
+                        onChange={(event: any) => setName(event.target.value)}
+                        id="name"
+                        label="Name"
+                        name="name"
+                        autoComplete="name"
+                        autoFocus
+                        validators={['required']}
+                        errorMessages={['this field is required']}
+                    />
+                    <TextValidator
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        value={description}
+                        onChange={(event: any) => setDescription(event.target.value)}
+                        id="desc"
+                        label="Description"
+                        name="desc"
+                        autoComplete="desc"
+                        autoFocus
+                        validators={['required']}
+                        errorMessages={['this field is required']}
+                    />
+                    <TextValidator
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        value={url}
+                        onChange={(event: any) => setUrl(event.target.value)}
+                        id="url"
+                        label="url"
+                        name="url"
+                        autoComplete="url"
+                        autoFocus
+                        validators={['required']}
+                        errorMessages={['this field is required']}
+                    />
+                    <TextValidator
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        value={authors}
+                        onChange={(event: any) => setAuthors(event.target.value)}
+                        id="authors"
+                        label="authors"
+                        name="authors"
+                        autoComplete="authors"
                         autoFocus
                         validators={['required']}
                         errorMessages={['this field is required']}
@@ -113,12 +164,12 @@ export default function Accounts() {
                         color="primary"
                         className={classes.submit}
                     >
-                        Create Account
+                        Create Client
                     </Button>
                 </ValidatorForm>
             </div>
             {
-                typeof accounts !== "string" ? accounts?.map((acc) => <p>{acc.alias}</p>) : <p>none</p>
+                typeof clients !== "string" ? clients?.map((client) => <p>{client.name}</p>) : <p>none</p>
             }
         </Container>
     );

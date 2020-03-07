@@ -15,6 +15,7 @@ import {Alert} from "@material-ui/lab";
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import {accountService} from "../services/account.service";
 import {IOldSchoolAccount} from "../data/dto/account/IOldSchoolAccount";
+import {ISession} from "../data/dto/session/ISession";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -39,11 +40,14 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }));
 
-export default function Accounts() {
+export default function Sessions() {
     const [alias, setAlias] = React.useState("");
+    const [client, setClient] = React.useState("");
+    
     const [error, setError] = React.useState<null | string>(null);
     const classes = useStyles();
-    const [accounts, setAccounts] = React.useState<string | IOldSchoolAccount[]>("NONE");
+    
+    const [sessions, setSessions] = React.useState<string | ISession[]>("NONE");
 
     const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
         if (reason === 'clickaway') {
@@ -55,7 +59,7 @@ export default function Accounts() {
 
     useEffect(() => {
         ValidatorForm.addValidationRule('isPassword', value => value.length > 6);
-        accountService.getAccounts().then(a => setAccounts(a));
+        accountService.getSessions().then(a => setSessions(a));
         let user = authenticationService.currentUserValue;
         if (user != null) {
             if (user.token != null) {
@@ -67,7 +71,7 @@ export default function Accounts() {
     }, []);
 
     async function handleSubmit() {
-        let response = await accountService.createAccount(alias);
+        let response = await accountService.createSession(client, alias);
         if (typeof response === "string") setError(response as string);
     }
 
@@ -84,7 +88,7 @@ export default function Accounts() {
                     <LockOutlinedIcon/>
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Create Account
+                    Create Session
                 </Typography>
                 <ValidatorForm
                     className={classes.form}
@@ -96,12 +100,27 @@ export default function Accounts() {
                         margin="normal"
                         required
                         fullWidth
+                        value={client}
+                        onChange={(event: any) => setClient(event.target.value)}
+                        id="client"
+                        label="client"
+                        name="client"
+                        autoComplete="client"
+                        autoFocus
+                        validators={['required']}
+                        errorMessages={['this field is required']}
+                    />
+                    <TextValidator
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
                         value={alias}
                         onChange={(event: any) => setAlias(event.target.value)}
-                        id="user"
-                        label="Username"
-                        name="user"
-                        autoComplete="user"
+                        id="alias"
+                        label="alias"
+                        name="alias"
+                        autoComplete="alias"
                         autoFocus
                         validators={['required']}
                         errorMessages={['this field is required']}
@@ -113,12 +132,12 @@ export default function Accounts() {
                         color="primary"
                         className={classes.submit}
                     >
-                        Create Account
+                        Create Session
                     </Button>
                 </ValidatorForm>
             </div>
             {
-                typeof accounts !== "string" ? accounts?.map((acc) => <p>{acc.alias}</p>) : <p>none</p>
+                typeof sessions !== "string" ? sessions?.map((session) => <p>{session.start.toString()}</p>) : <p>none</p>
             }
         </Container>
     );

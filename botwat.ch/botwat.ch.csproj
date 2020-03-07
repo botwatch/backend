@@ -39,16 +39,21 @@
       <TypeScriptCompile Include="Web\src\components\AnonymousRoute.tsx" />
       <TypeScriptCompile Include="Web\src\components\NavigationBar.tsx" />
       <TypeScriptCompile Include="Web\src\components\PrivateRoute.tsx" />
+      <TypeScriptCompile Include="Web\src\data\dto\account\IOldSchoolAccount.ts" />
+      <TypeScriptCompile Include="Web\src\data\dto\client\IClient.ts" />
+      <TypeScriptCompile Include="Web\src\data\dto\session\ISession.ts" />
       <TypeScriptCompile Include="Web\src\data\dto\user\IUser.ts" />
       <TypeScriptCompile Include="Web\src\index.tsx" />
       <TypeScriptCompile Include="Web\src\pages\Accounts.tsx" />
+      <TypeScriptCompile Include="Web\src\pages\Clients.tsx" />
       <TypeScriptCompile Include="Web\src\pages\Home.tsx" />
       <TypeScriptCompile Include="Web\src\pages\Login.tsx" />
       <TypeScriptCompile Include="Web\src\pages\Register.tsx" />
+      <TypeScriptCompile Include="Web\src\pages\Sessions.tsx" />
       <TypeScriptCompile Include="Web\src\react-app-env.d.ts" />
       <TypeScriptCompile Include="Web\src\services\authentication.service.ts" />
       <TypeScriptCompile Include="Web\src\services\CurrentHistory.ts" />
-      <TypeScriptCompile Include="Web\src\services\session.service.ts" />
+      <TypeScriptCompile Include="Web\src\services\account.service.ts" />
       <TypeScriptCompile Include="Web\src\utilities\styles.ts" />
     </ItemGroup>
 

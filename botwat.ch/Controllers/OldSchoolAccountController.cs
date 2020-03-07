@@ -20,15 +20,22 @@ namespace botwat.ch.Controllers
             _logger = logger;
             _service = service;
         }
-        
-        [HttpGet]
-        public IAsyncEnumerable<OldSchoolAccount> Get() => _service.OldSchoolAccountService.All();
+
+        [Authorize]
+        [HttpPost("all")]
+        public async Task<ActionResult<OldSchoolAccount>> Get()
+        {
+            var name = User.Identity.Name;
+            var localUser = await _service.UserService.Find(name);
+            if (localUser != null) return Ok(_service.OldSchoolAccountService.All(localUser));
+            return BadRequest("No accounts for current user.");
+        }
 
         [Authorize]
         [HttpPost("create")]
         public async Task<ActionResult<OldSchoolAccount>> Create(string alias)
         {
-            var name = "test";//User.Identity.Name;
+            var name = User.Identity.Name;
             var localUser = await _service.UserService.Find(name);
             if (localUser != null)
                 return await _service.OldSchoolAccountService.Create(alias, localUser);

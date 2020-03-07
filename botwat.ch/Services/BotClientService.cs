@@ -13,7 +13,7 @@ namespace botwat.ch.Services
     public interface IBotClientService
     {
         Task<BotClient> Find(string name);
-        IAsyncEnumerable<BotClient> FindAll();
+        IAsyncEnumerable<BotClient> All();
         Task<ActionResult<BotClient>> Create(string name, string description, string url, string authors);
     }
 
@@ -37,8 +37,10 @@ namespace botwat.ch.Services
                     Description = description,
                     Url = url
                 });
-            return result.IsKeySet ? result.Entity : null;
+            await _context.SaveChangesAsync();
+            return result.Entity;
         }
+
         public async Task<BotClient> Find(string name)
         {
             return await _context.BotClients.FirstOrDefaultAsync(
@@ -46,7 +48,7 @@ namespace botwat.ch.Services
             );
         }
 
-        public IAsyncEnumerable<BotClient> FindAll()
+        public IAsyncEnumerable<BotClient> All()
         {
             return _context.BotClients.AsAsyncEnumerable();
         }

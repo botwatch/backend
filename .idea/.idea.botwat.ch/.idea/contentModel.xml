@@ -250,6 +250,15 @@
             </e>
             <e p="data" t="Include">
               <e p="dto" t="Include">
+                <e p="account" t="Include">
+                  <e p="IOldSchoolAccount.ts" t="Include" />
+                </e>
+                <e p="client" t="Include">
+                  <e p="IClient.ts" t="Include" />
+                </e>
+                <e p="session" t="Include">
+                  <e p="ISession.ts" t="Include" />
+                </e>
                 <e p="User" t="Include">
                   <e p="IUser.ts" t="Include" />
                 </e>
@@ -259,18 +268,20 @@
             <e p="index.tsx" t="Include" />
             <e p="Pages" t="Include">
               <e p="Accounts.tsx" t="Include" />
+              <e p="Clients.tsx" t="Include" />
               <e p="Home.tsx" t="Include" />
               <e p="Login.tsx" t="Include" />
               <e p="Register.tsx" t="Include" />
+              <e p="Sessions.tsx" t="Include" />
             </e>
             <e p="react-app-env.d.ts" t="Include" />
             <e p="resources" t="Include">
               <e p="hive.png" t="Include" />
             </e>
             <e p="Services" t="Include">
+              <e p="account.service.ts" t="Include" />
               <e p="authentication.service.ts" t="Include" />
               <e p="CurrentHistory.ts" t="Include" />
-              <e p="session.service.ts" t="Include" />
             </e>
             <e p="utilities" t="Include">
               <e p="styles.ts" t="Include" />
