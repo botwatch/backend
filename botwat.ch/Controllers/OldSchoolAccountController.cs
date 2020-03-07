@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using botwat.ch.Data;
-using botwat.ch.Data.Provider;
-using botwat.ch.Data.Transport.Request.Account;
 using botwat.ch.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace botwat.ch.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("account")]
     public class OldSchoolAccountController : ControllerBase
     {
         private readonly ILogger<InteractionController> _logger;
@@ -24,14 +20,19 @@ namespace botwat.ch.Controllers
             _logger = logger;
             _service = service;
         }
+        
+        [HttpGet]
+        public IAsyncEnumerable<OldSchoolAccount> Get() => _service.OldSchoolAccountService.All();
 
         [Authorize]
         [HttpPost("create")]
-        public async Task<ActionResult<OldSchoolAccount>> Create([FromBody] OldSchoolAccountCreateRequest request)
+        public async Task<ActionResult<OldSchoolAccount>> Create(string alias)
         {
-            var name = User.Identity.Name;
+            var name = "test";//User.Identity.Name;
             var localUser = await _service.UserService.Find(name);
-            return await _service.OldSchoolAccountService.Create(request, localUser);
+            if (localUser != null)
+                return await _service.OldSchoolAccountService.Create(alias, localUser);
+            return BadRequest("User does not exist");
         }
     }
 }

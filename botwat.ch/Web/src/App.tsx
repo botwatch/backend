@@ -13,6 +13,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import AnonymousRoute from "./components/AnonymousRoute";
 import Home from "./pages/Home";
 import {authenticationService} from "./services/authentication.service";
+import Accounts from "./pages/Accounts";
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
                 <Switch>
                     <AnonymousRoute path="/login" component={Login}/>
                     <AnonymousRoute path="/register" component={Register}/>
+                    <PrivateRoute path="/accounts" component={Accounts}/>
                     <PrivateRoute path="/" component={Home}/>
                 </Switch>
             </Router>

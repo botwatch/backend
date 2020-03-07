@@ -1,6 +1,6 @@
 export interface IUser {
     id: number;
-    email: string | null;
+    email: string;
     name: string;
     password: string | null;
     discordHandle: string | null;

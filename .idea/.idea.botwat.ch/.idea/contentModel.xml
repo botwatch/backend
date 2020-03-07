@@ -29,35 +29,7 @@
             <e p="DatabaseContext.cs" t="Include" />
           </e>
           <e p="Session.cs" t="Include" />
-          <e p="Transport" t="Include">
-            <e p="Request" t="Include">
-              <e p="Account" t="Include">
-                <e p="OldSchoolAccountCreateRequest.cs" t="Include" />
-              </e>
-              <e p="Client" t="Include">
-                <e p="BotClientCreateRequest.cs" t="Include" />
-              </e>
-              <e p="Experience" t="Include">
-                <e p="ExperienceCreateRequest.cs" t="Include" />
-              </e>
-              <e p="Session" t="Include">
-                <e p="SessionCreateRequest.cs" t="Include" />
-              </e>
-              <e p="User" t="Include">
-                <e p="UserAuthenticateRequest.cs" t="Include" />
-                <e p="UserCreateRequest.cs" t="Include" />
-              </e>
-            </e>
-            <e p="Response" t="Include">
-              <e p="Session" t="Include">
-                <e p="SessionCreateResponse.cs" t="Include" />
-              </e>
-              <e p="User" t="Include">
-                <e p="UserAuthenticateResponse.cs" t="Include" />
-                <e p="UserCreateResponse.cs" t="Include" />
-              </e>
-            </e>
-          </e>
+          <e p="Transport" t="Include" />
           <e p="User.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -258,6 +230,7 @@
             <e p="lib\lib.webworker.importscripts.d.ts" t="IncludeRecursive" />
           </e>
           <e p="node_modules\upath" t="IncludeRecursive" />
+          <e p="node_modules\with-query" t="IncludeRecursive" />
           <e p="node_modules\worker-farm" t="IncludeRecursive" />
           <e p="package-lock.json" t="Include" />
           <e p="package.json" t="Include" />
@@ -276,11 +249,16 @@
               <e p="PrivateRoute.tsx" t="Include" />
             </e>
             <e p="data" t="Include">
-              <e p="IUser.ts" t="Include" />
+              <e p="dto" t="Include">
+                <e p="User" t="Include">
+                  <e p="IUser.ts" t="Include" />
+                </e>
+              </e>
             </e>
             <e p="index.css" t="Include" />
             <e p="index.tsx" t="Include" />
             <e p="Pages" t="Include">
+              <e p="Accounts.tsx" t="Include" />
               <e p="Home.tsx" t="Include" />
               <e p="Login.tsx" t="Include" />
               <e p="Register.tsx" t="Include" />
@@ -290,12 +268,11 @@
               <e p="hive.png" t="Include" />
             </e>
             <e p="Services" t="Include">
-              <e p="auth.header.ts" t="Include" />
               <e p="authentication.service.ts" t="Include" />
               <e p="CurrentHistory.ts" t="Include" />
+              <e p="session.service.ts" t="Include" />
             </e>
             <e p="utilities" t="Include">
-              <e p="Api.ts" t="Include" />
               <e p="styles.ts" t="Include" />
             </e>
           </e>

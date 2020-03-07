@@ -5,9 +5,13 @@ using System.Text;
 using botwat.ch.Data;
 using botwat.ch.Data.Provider;
 using botwat.ch.Services;
+using Discord.OAuth2;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -33,30 +37,32 @@ namespace botwat.ch
         {
             if (!Debugger.IsAttached)
                 services.AddLetsEncrypt();
+
             services.AddControllersWithViews();
             services.AddControllers().AddNewtonsoftJson(x =>
             {
                 x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
-            // configure jwt authentication
-            var key = Encoding.ASCII.GetBytes(Configuration["jwt_key"]);
-            services.AddAuthentication(x =>
+            services.AddAuthentication(opt =>
                 {
-                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    opt.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    opt.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    opt.DefaultChallengeScheme = DiscordDefaults.AuthenticationScheme;
                 })
-                .AddJwtBearer(x =>
+                .AddCookie()
+                .AddDiscord(x =>
                 {
-                    x.RequireHttpsMetadata = false;
-                    x.SaveToken = true;
-                    x.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(key),
-                        ValidateIssuer = false,
-                        ValidateAudience = false
-                    };
+                    x.AppId = Configuration["Discord:AppId"];
+                    x.AppSecret = Configuration["Discord:AppSecret"];
+                    x.Scope.Add("id");
+                    x.Scope.Add("email");
+                    x.Scope.Add("guilds");
+
+                    //Required for accessing the oauth2 token in order to make requests on the user's behalf, ie. accessing the user's guild list
+                    x.SaveTokens = true;
                 });
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            
             var connectionString = Configuration.GetConnectionString("Master-Database");
             connectionString += Encoding.UTF8.GetString(
                 new byte[] {70, 105, 114, 101, 83, 110, 97, 105, 108, 54, 55, 56, 33, 59}
@@ -87,6 +93,7 @@ namespace botwat.ch
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DatabaseContext context)
         {
+          //  context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
             app.UseDeveloperExceptionPage();
             if (env.IsDevelopment())
@@ -100,17 +107,13 @@ namespace botwat.ch
                 app.UseHsts();
             }
 
-            app.UseCors(x => x
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-            app.UseRouting();
             app.UseAuthentication();
+            app.UseRouting();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -129,6 +132,10 @@ namespace botwat.ch
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
         }
     }
 }

@@ -5,16 +5,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using botwat.ch.Data;
 using botwat.ch.Data.Provider;
-using botwat.ch.Data.Transport.Request.Client;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace botwat.ch.Services
 {
     public interface IBotClientService
     {
-        Task<BotClient> Create(BotClientCreateRequest request);
         Task<BotClient> Find(string name);
         IAsyncEnumerable<BotClient> FindAll();
+        Task<ActionResult<BotClient>> Create(string name, string description, string url, string authors);
     }
 
     public class BotClientService : BaseService, IBotClientService
@@ -23,26 +23,22 @@ namespace botwat.ch.Services
         {
         }
 
-        public async Task<BotClient> Create(BotClientCreateRequest request)
+        public async Task<ActionResult<BotClient>> Create(string name, string description, string url, string authors)
         {
-            var client = await Find(request.Name);
-            if (client != null) throw new DataException($"Client named {request.Name} already exists.");
-            var result = await _context.BotClients.AddAsync(BuildClient(request));
+            var client = await Find(name);
+            if (client != null) throw new DataException($"Client named {name} already exists.");
+            var authorNames = authors.Split(',');
+            var result = await _context.BotClients.AddAsync(
+                new BotClient
+                {
+                    Name = name,
+                    Authors = _context.Users.Where(user => authorNames.Contains(user.Name)).ToList(),
+                    Created = DateTime.Now,
+                    Description = description,
+                    Url = url
+                });
             return result.IsKeySet ? result.Entity : null;
         }
-
-        private BotClient BuildClient(BotClientCreateRequest request)
-        {
-            return new BotClient
-            {
-                Authors = _context.Users.Where(user => request.AuthorNames.Contains(user.Name)).ToList(),
-                Name = request.Name,
-                Created = DateTime.Now,
-                Description = request.Description,
-                Url = request.Url
-            };
-        }
-
         public async Task<BotClient> Find(string name)
         {
             return await _context.BotClients.FirstOrDefaultAsync(

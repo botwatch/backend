@@ -13,6 +13,7 @@ import {authenticationService} from "../services/authentication.service";
 import {currentHistory} from "../services/CurrentHistory";
 import {Alert} from "@material-ui/lab";
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import {sessionService} from "../services/session.service";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -37,9 +38,8 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }));
 
-export default function Login() {
-    const [user, setUser] = React.useState("");
-    const [password, setPassword] = React.useState("");
+export default function Accounts() {
+    const [alias, setAlias] = React.useState(""); 
     const [error, setError] = React.useState<null | string>(null);
     const classes = useStyles();
 
@@ -64,7 +64,7 @@ export default function Login() {
     }, []);
 
     async function handleSubmit() {      
-        let response = await authenticationService.authenticate(user, password);
+        let response = await sessionService.createAccount(alias);
         if (typeof response === "string") setError(response as string);
     }
 
@@ -81,7 +81,7 @@ export default function Login() {
                     <LockOutlinedIcon/>
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign in
+                    Create Account
                 </Typography>
                 <ValidatorForm
                     className={classes.form}
@@ -93,8 +93,8 @@ export default function Login() {
                         margin="normal"
                         required
                         fullWidth
-                        value={user}
-                        onChange={(event: any) => setUser(event.target.value)}
+                        value={alias}
+                        onChange={(event: any) => setAlias(event.target.value)}
                         id="user"
                         label="Username"
                         name="user"
@@ -102,22 +102,7 @@ export default function Login() {
                         autoFocus
                         validators={['required']}
                         errorMessages={['this field is required']}
-                    />
-                    <TextValidator
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        value={password}
-                        onChange={(event: any) => setPassword(event.target.value)}
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                        validators={['required', 'isPassword']}
-                        errorMessages={['this field is required', 'Password must be at least 7 characters']}
-                    />
+                    />                  
                     <Button
                         fullWidth
                         type="submit"
@@ -125,20 +110,8 @@ export default function Login() {
                         color="primary"
                         className={classes.submit}
                     >
-                        Sign In
-                    </Button>
-                    <Grid container>
-                        <Grid item xs>
-                            <Link to={"forgotpassword"}>
-                                Forgot password?
-                            </Link>
-                        </Grid>
-                        <Grid item>
-                            <Link to={"/register"}>
-                                {"Don't have an account? Sign Up"}
-                            </Link>
-                        </Grid>
-                    </Grid>
+                        Create Account
+                    </Button>                    
                 </ValidatorForm>
             </div>
         </Container>

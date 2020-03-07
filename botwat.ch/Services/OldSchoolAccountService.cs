@@ -1,15 +1,16 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using botwat.ch.Data;
 using botwat.ch.Data.Provider;
-using botwat.ch.Data.Transport.Request.Account;
 using Microsoft.EntityFrameworkCore;
 
 namespace botwat.ch.Services
 {
     public interface IOldSchoolAccountService
     {
-        Task<OldSchoolAccount> Create(OldSchoolAccountCreateRequest request, User owner);
+        Task<OldSchoolAccount> Create(string request, User owner);
         Task<OldSchoolAccount> Find(string alias);
+        IAsyncEnumerable<OldSchoolAccount> All();
     }
 
     public class OldSchoolAccountService : BaseService, IOldSchoolAccountService
@@ -18,11 +19,12 @@ namespace botwat.ch.Services
         {
         }
         
-        public async Task<OldSchoolAccount> Create(OldSchoolAccountCreateRequest request, User owner)
+        public async Task<OldSchoolAccount> Create(string alias, User owner)
         {
-            if (await Find(request.Alias) != null) return null;
-            var account = new OldSchoolAccount {Alias = request.Alias, Owner = owner};
+            if (await Find(alias) != null) return null;
+            var account = new OldSchoolAccount {Alias = alias, Owner = owner};
             var result = await _context.Accounts.AddAsync(account);
+            await _context.SaveChangesAsync();
             return result.IsKeySet ? result.Entity : null;
         }
 
@@ -31,6 +33,11 @@ namespace botwat.ch.Services
             return await _context.Accounts.FirstOrDefaultAsync(
                 x =>  x.Alias == alias
             );
+        }
+
+        public IAsyncEnumerable<OldSchoolAccount> All()
+        {
+            return _context.Accounts.AsAsyncEnumerable();
         }
     }
 }

@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using botwat.ch.Data;
-using botwat.ch.Data.Provider;
-using botwat.ch.Data.Transport.Request.Session;
 using botwat.ch.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace botwat.ch.Controllers
@@ -27,12 +23,12 @@ namespace botwat.ch.Controllers
 
         [Authorize]
         [HttpPost("create")]
-        public async Task<ActionResult<Session>> Create([FromBody] SessionCreateRequest request) //TODO make DTO not include entire session 
+        public async Task<ActionResult<Session>> Create(string clientName, string aliasName) 
         {
             var name = User.Identity.Name;
             var localUser = await _service.UserService.Find(name);
-            var localClient = await _service.BotClientService.Find(request.ClientName);
-            var localAccount = await _service.OldSchoolAccountService.Find(request.AccountAlias);
+            var localClient = await _service.BotClientService.Find(clientName);
+            var localAccount = await _service.OldSchoolAccountService.Find(aliasName);
             if (localUser == null)
             {
                 return NotFound($"User does not exist.");
@@ -40,12 +36,12 @@ namespace botwat.ch.Controllers
 
             if (localClient == null)
             {
-                return NotFound($"{request.ClientName} does not exist.");
+                return NotFound($"{clientName} does not exist.");
             }
 
             if (localAccount == null)
             {
-                return NotFound($"{request.AccountAlias} does not exist.");
+                return NotFound($"{aliasName} does not exist.");
             }
 
             var localSession = new Session

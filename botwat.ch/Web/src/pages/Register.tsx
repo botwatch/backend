@@ -9,12 +9,10 @@ import Container from '@material-ui/core/Container';
 import {Link} from "react-router-dom";
 import React, {useEffect} from "react";
 import {FaDiscord} from "react-icons/fa";
-import {IUser} from "../data/IUser";
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import {authenticationService} from "../services/authentication.service";
 import {Snackbar} from "@material-ui/core";
 import {Alert} from "@material-ui/lab";
-import {currentHistory} from "../services/CurrentHistory";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -44,22 +42,14 @@ export default function Register() {
     const [error, setError] = React.useState<null | string>(null);
 
     async function handleSubmit() {
-        let iUser: IUser = {
-            id: 0,
-            email: email,
-            name: user,
-            password: password,
-            token: null,
-            discordHandle: null
-        };
-        let response = await authenticationService.create(iUser);
+        let response = await authenticationService.create(user, email, password);
         if (typeof response === "string") setError(response as string);
     }
 
     useEffect(() => {
         ValidatorForm.addValidationRule('isPassword', value => value.length > 6)
     }, []);
-    
+
     const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
         if (reason === 'clickaway') {
             return;
@@ -137,14 +127,16 @@ export default function Register() {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="secondary">
-                                <FaDiscord/>
-                                Register with Discord
-                            </Button>
+                            <a href={"https://discordapp.com/api/oauth2/authorize?client_id=683318843434991617&redirect_uri=https%3A%2F%2Flocalhost%2Fsignin-discord&response_type=code&scope=identify%20email%20guilds"}>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="secondary">
+                                    <FaDiscord/>
+                                    Register with Discord
+                                </Button>
+                            </a>
                         </Grid>
                     </Grid>
                     <Button

@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using botwat.ch.Data;
-using botwat.ch.Data.Provider;
-using botwat.ch.Data.Transport.Request.Client;
 using botwat.ch.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace botwat.ch.Controllers
@@ -27,19 +24,12 @@ namespace botwat.ch.Controllers
         }
 
         [Authorize]
-        [HttpGet("/")]
-        public IAsyncEnumerable<BotClient> GetAll()
-        {
-            return _service.BotClientService.FindAll();
-        }
-
-        [Authorize]
         [HttpPost("create")]
-        public async Task<ActionResult<BotClient>> Create([FromBody] BotClientCreateRequest request)
+        public async Task<ActionResult<BotClient>> Create(string name, string description, string url, string authors)
         {
             try
             {
-                return await _service.BotClientService.Create(request);
+                return await _service.BotClientService.Create(name, description,url, authors);
             }
             catch (DataException e)
             {

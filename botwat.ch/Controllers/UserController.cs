@@ -1,8 +1,7 @@
 using System;
 using System.Data;
 using System.Threading.Tasks;
-using botwat.ch.Data.Transport.Request.User;
-using botwat.ch.Data.Transport.Response.User;
+using botwat.ch.Data;
 using botwat.ch.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,12 +24,26 @@ namespace botwat.ch.Controllers
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public async Task<ActionResult<UserAuthenticateResponse>> Authenticate(
-            [FromBody] UserAuthenticateRequest request)
+        public async Task<ActionResult<User>> Authenticate(string name, string password)
         {
             try
             {
-                var result = await _service.UserService.Authenticate(request);
+                var result = await _service.UserService.Authenticate(name, password, false);
+                return Ok(result);
+            }
+            catch
+            {
+                return NotFound("Invalid Username or Password. Please try again.");
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost("Login")]
+        public async Task<ActionResult<User>> Login(string name, string token)
+        {
+            try
+            {
+                var result = await _service.UserService.Authenticate(name, token);
                 return Ok(result);
             }
             catch
@@ -41,11 +54,11 @@ namespace botwat.ch.Controllers
 
         [AllowAnonymous]
         [HttpPost("create")]
-        public async Task<ActionResult<UserCreateResponse>> Create([FromBody] UserCreateRequest request)
+        public async Task<ActionResult<User>> Create(string name, string email, string password)
         {
             try
             {
-                return Ok(await _service.UserService.Create(request));
+                return Ok(await _service.UserService.Create(name, email, password));
             }
             catch (DataException ex)
             {

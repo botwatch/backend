@@ -6,71 +6,76 @@ using System.Text;
 using System.Threading.Tasks;
 using botwat.ch.Data;
 using botwat.ch.Data.Provider;
-using botwat.ch.Data.Transport.Request;
-using botwat.ch.Data.Transport.Request.User;
-using botwat.ch.Data.Transport.Response;
-using botwat.ch.Data.Transport.Response.User;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace botwat.ch.Services
 {
     public interface IUserService
     {
-        Task<UserAuthenticateResponse> Authenticate(UserAuthenticateRequest user);
-        Task<UserCreateResponse> Create(UserCreateRequest user);
+        Task<User> Authenticate(string name, string tokenOrPassword, bool isToken = true);
+        Task<User> Create(string name, string email, string password);
         Task<User> Find(User user);
         Task<User> Find(string name);
     }
 
     public class UserService : BaseService, IUserService
     {
-        public UserService(DatabaseContext context) : base(context)
+        private readonly IActionContextAccessor _accessor;
+        public UserService(DatabaseContext context, IActionContextAccessor accessor) : base(context)
         {
+            _accessor = accessor;
+        }
+        
+        public async Task<string> GetTokenAsync()
+        {
+            var httpContext = _accessor.ActionContext.HttpContext;
+            if (!httpContext.User.Identity.IsAuthenticated)
+            {
+                return null;
+            }
+
+            var tk = await httpContext.GetTokenAsync("Discord", "access_token");
+            return tk;
         }
 
-        public async Task<UserAuthenticateResponse> Authenticate(UserAuthenticateRequest request)
+        public async Task<User> Authenticate(string name, string tokenOrPassword, bool isToken = true)
         {
-            var result = await Find(request);
+            var result = await Find(name);
             if (result == null) throw new DataException("Credentials invalid.");
-            return new UserAuthenticateResponse {Name = result.Name, Token = request.Token};
+            if (isToken && result.Token == tokenOrPassword) return result.Safe();
+            if (!isToken && result.Password == tokenOrPassword) return result.Safe();
+            throw new DataException("Token/password invalid.");
         }
 
-        public async Task<UserCreateResponse> Create(UserCreateRequest user)
+        public async Task<User> Create(string name, string email, string password)
         {
+            var user = new User {Name = name, Email = email, Password = password};
             var error = await RespondCreateError(user);
             if (error != null) throw new DataException(error);
 
             var result = await Find(user);
             if (result == null)
             {
-                await _context.Users.AddAsync(new User
-                {
-                    Email = user.Email,
-                    Name = user.Name,
-                    Password = user.Password
-                });
-                await _context.SaveChangesAsync();
-                result = await Find(user);
+                var addResult = await _context.Users.AddAsync(user);
+                result = addResult.Entity;
                 if (result != null)
                 {
                     result.Token = GenerateToken(result.Id);
+                    result.IpAddress = _accessor.ActionContext.HttpContext.Connection.RemoteIpAddress.ToString();
                     await _context.SaveChangesAsync();
-                    return new UserCreateResponse
-                    {
-                        Id = result.Id,
-                        Name = result.Name,
-                        Email = result.Email,
-                        DiscordHandle = result.DiscordHandle,
-                        Token = result.Token
-                    };
+                    return result;
                 }
             }
 
             throw new DataException("Unable to create user: unknown reason");
         }
 
-        private async Task<string> RespondCreateError(UserCreateRequest user)
+        private async Task<string> RespondCreateError(User user)
         {
             if (user.Password.Length < 7)
                 return "Password must be at least 7 characters.";
@@ -80,14 +85,6 @@ namespace botwat.ch.Services
                 return "Email already in use. Please use a different email.";
             return null;
         }
-
-        public async Task<User> Find(UserAuthenticateRequest user) => await _context.Users.FirstOrDefaultAsync(x =>
-            x.Name == user.Name && x.Token == user.Token
-        );
-
-        public async Task<User> Find(UserCreateRequest user) => await _context.Users.FirstOrDefaultAsync(x =>
-            x.Name == user.Name || x.Email == user.Email
-        );
 
         public async Task<User> Find(User user) => await _context.Users.FirstOrDefaultAsync(x =>
             x.Name == user.Name && x.Email == user.Email && x.Token == user.Token
