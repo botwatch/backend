@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace botwat.ch.Services
         Task<OldSchoolAccount> Find(string alias);
         IAsyncEnumerable<OldSchoolAccount> All();
         IAsyncEnumerable<OldSchoolAccount> All(User user);
+        Task<OldSchoolAccount> SetBan(OldSchoolAccount account);
     }
 
     public class OldSchoolAccountService : BaseService, IOldSchoolAccountService
@@ -40,6 +42,13 @@ namespace botwat.ch.Services
         public IAsyncEnumerable<OldSchoolAccount> All(User user)
         {
             return _context.Accounts.Where(acc => acc.Owner.Id == user.Id).AsAsyncEnumerable();
+        }
+
+        public async Task<OldSchoolAccount> SetBan(OldSchoolAccount account)
+        {
+            account.BanTime = DateTime.Now;
+            await _context.SaveChangesAsync();
+            return account;
         }
 
         public IAsyncEnumerable<OldSchoolAccount> All()

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using botwat.ch.Data;
 using botwat.ch.Services;
@@ -39,7 +40,24 @@ namespace botwat.ch.Controllers
             var localUser = await _service.UserService.Find(name);
             if (localUser != null)
                 return await _service.OldSchoolAccountService.Create(alias, localUser);
-            return BadRequest("User does not exist");
+            return BadRequest("User does not exist or Account already exists");
+        }
+        
+        [Authorize]
+        [HttpPost("banned")]
+        public async Task<ActionResult<OldSchoolAccount>> Banned(string alias)
+        {
+            var name = User.Identity.Name;
+            var localUser = await _service.UserService.Find(name);
+            if (localUser != null)
+            {
+                var account = await _service.OldSchoolAccountService.Find(alias);
+                if (account != null)
+                {
+                    return await _service.OldSchoolAccountService.SetBan(account);
+                }
+            }
+            return BadRequest("User does not exist or Account does not exist");
         }
     }
 }

@@ -39,7 +39,8 @@ namespace botwat.ch.Controllers
         {
             try
             {
-                return Ok(await _service.BotClientService.Create(name, description, url, authors));
+                var client = await _service.BotClientService.Create(name, description, url, authors);
+                return Ok(client);
             }
             catch (DataException e)
             {

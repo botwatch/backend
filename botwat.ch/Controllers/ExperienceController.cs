@@ -27,15 +27,22 @@ namespace botwat.ch.Controllers
 
         [Authorize]
         [HttpPost("create")]
-        public async Task<ActionResult<Experience>> Create([FromBody] Experience client)
+        public async Task<ActionResult<Experience>> Create(int skillIndex, int experience, int sessionId)
         {
-            if (_service.ExperienceService.Find(client) != null) return null;
+            var name = User.Identity.Name;
+            var localUser = await _service.UserService.Find(name);
+            var session = await _service.SessionService.Find(sessionId);
+            
+            if (localUser == null) return Forbid("Must be logged in to a valid user");
+            if (session == null) return BadRequest("Must have valid session to track experience");
+            if (session.User != localUser) return Forbid("You do not own this session");
+            
             var localClient = new Experience
             {
                 Occurred = DateTime.Now,
-                Owner = client.Owner,
-                SkillExperience = client.SkillExperience,
-                SkillIndex = client.SkillIndex
+                Owner = session.Account,
+                SkillExperience = experience,
+                SkillIndex = skillIndex
             };
 
             return await _service.ExperienceService.Create(localClient);

@@ -95,7 +95,6 @@ namespace botwat.ch
         {
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
-            app.UseDeveloperExceptionPage();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -107,7 +106,7 @@ namespace botwat.ch
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+          //  app.UseHttpsRedirection();
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();

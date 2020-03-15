@@ -11,7 +11,7 @@ namespace botwat.ch.Services
         Task<Experience> Find(Experience experience);
     }
 
-    public class ExperienceService : BaseService,IExperienceService
+    public class ExperienceService : BaseService, IExperienceService
     {
         public ExperienceService(DatabaseContext context) : base(context)
         {
@@ -21,7 +21,8 @@ namespace botwat.ch.Services
         {
             if (await Find(experience) != null) return null;
             var result = await _context.Experiences.AddAsync(experience);
-            return result.IsKeySet ? result.Entity : null;
+            await _context.SaveChangesAsync();
+            return result.Entity;
         }
 
         public async Task<Experience> Find(Experience experience)

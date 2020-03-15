@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using botwat.ch.Data;
 using botwat.ch.Data.Provider;
@@ -21,7 +23,8 @@ namespace botwat.ch.Services
         {
             if (await Find(interaction) != null) return null;
             var result = await _context.Interactions.AddAsync(interaction);
-            return result.IsKeySet ? result.Entity : null;
+            await _context.SaveChangesAsync();
+            return result.Entity;
         }
 
         public async Task<Interaction> Find(Interaction interaction)
@@ -29,6 +32,13 @@ namespace botwat.ch.Services
             return await _context.Interactions.FirstOrDefaultAsync(
                 x => x.Id == interaction.Id
             );
+        }
+
+        public IAsyncEnumerable<Interaction> ForUser(User user)
+        {
+            return _context.Interactions
+                .Where(i => _context.Sessions.FirstOrDefault(s => s.Id == i.SessionId).User == user)
+                .AsAsyncEnumerable();
         }
     }
 }

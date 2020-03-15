@@ -14,7 +14,7 @@ namespace botwat.ch.Services
     {
         Task<BotClient> Find(string name);
         IAsyncEnumerable<BotClient> All();
-        Task<ActionResult<BotClient>> Create(string name, string description, string url, string authors);
+        Task<BotClient> Create(string name, string description, string url, string authors);
     }
 
     public class BotClientService : BaseService, IBotClientService
@@ -23,7 +23,7 @@ namespace botwat.ch.Services
         {
         }
 
-        public async Task<ActionResult<BotClient>> Create(string name, string description, string url, string authors)
+        public async Task<BotClient> Create(string name, string description, string url, string authors)
         {
             var client = await Find(name);
             if (client != null) throw new DataException($"Client named {name} already exists.");

@@ -11,7 +11,7 @@ namespace botwat.ch.Services
     public interface ISessionService
     {
         Task<Session> Create(Session session);
-        Task<Session> Find(Session session);
+        Task<Session> Find(int session);
         Task<Session> End(Session session);
         IAsyncEnumerable<Session> All(User localUser);
     }
@@ -24,20 +24,20 @@ namespace botwat.ch.Services
 
         public async Task<Session> Create(Session session)
         {
-            if (await Find(session) != null) return null;
+            if (await Find(session.Id) != null) return null;
             var result = await _context.Sessions.AddAsync(session);
             await _context.SaveChangesAsync();
             return result.IsKeySet ? result.Entity : null;
         }
 
-        public async Task<Session> Find(Session session)
+        public async Task<Session> Find(int session)
         {
-            return await _context.Sessions.FirstOrDefaultAsync(x => x.Id == session.Id);
+            return await _context.Sessions.FirstOrDefaultAsync(x => x.Id == session);
         }
 
         public async Task<Session> End(Session session)
         {
-            var validSession = await Find(session);
+            var validSession = await Find(session.Id);
             if (validSession == null) return null;
             //End session
             validSession.End = DateTime.Now;

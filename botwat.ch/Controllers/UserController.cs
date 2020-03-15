@@ -38,7 +38,7 @@ namespace botwat.ch.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("Login")]
+        [HttpPost("login")]
         public async Task<ActionResult<User>> Login(string name, string token)
         {
             try
