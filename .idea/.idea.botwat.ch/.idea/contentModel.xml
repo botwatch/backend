@@ -243,9 +243,12 @@
             <e p="App.css" t="Include" />
             <e p="App.tsx" t="Include" />
             <e p="components" t="Include">
+              <e p="AccountCard.tsx" t="Include" />
               <e p="AnonymousRoute.tsx" t="Include" />
+              <e p="ClientCard.tsx" t="Include" />
               <e p="NavigationBar.tsx" t="Include" />
               <e p="PrivateRoute.tsx" t="Include" />
+              <e p="SessionCard.tsx" t="Include" />
             </e>
             <e p="data" t="Include">
               <e p="dto" t="Include">
@@ -254,6 +257,9 @@
                 </e>
                 <e p="client" t="Include">
                   <e p="IClient.ts" t="Include" />
+                </e>
+                <e p="interaction" t="Include">
+                  <e p="IInteraction.ts" t="Include" />
                 </e>
                 <e p="session" t="Include">
                   <e p="ISession.ts" t="Include" />
@@ -280,7 +286,6 @@
             <e p="Services" t="Include">
               <e p="account.service.ts" t="Include" />
               <e p="authentication.service.ts" t="Include" />
-              <e p="CurrentHistory.ts" t="Include" />
             </e>
             <e p="utilities" t="Include">
               <e p="styles.ts" t="Include" />

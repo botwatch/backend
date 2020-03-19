@@ -10,7 +10,6 @@ import {Link} from "react-router-dom";
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import {authenticationService} from "../services/authentication.service";
-import {currentHistory} from "../services/CurrentHistory";
 import {Alert} from "@material-ui/lab";
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
@@ -56,9 +55,7 @@ export default function Login() {
         let user = authenticationService.currentUserValue;
         if (user != null) {
             if (user.token != null) {
-                authenticationService.login(user.name, user.token).then(user => {
-                    currentHistory.push('/');
-                });
+                authenticationService.login(user.name, user.token);
             }
         }
     }, []);

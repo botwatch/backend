@@ -23,6 +23,16 @@ namespace botwat.ch.Controllers
             _logger = logger;
             _service = service;
         }
+        
+        [Authorize]
+        [HttpPost("get")]
+        public async Task<ActionResult<Interaction[][]>> Get([FromBody]int[] ids)
+        {
+            var name = User.Identity.Name;
+            var localUser = await _service.UserService.Find(name);
+            if (localUser != null) return Ok(await _service.InteractionService.Find(ids));
+            return BadRequest("No accounts for current user.");
+        }
 
 
         [Authorize]

@@ -47,7 +47,9 @@ namespace botwat.ch.Services
 
         public IAsyncEnumerable<Session> All(User localUser)
         {
-            return _context.Sessions.Where(session => session.User.Id == localUser.Id).AsAsyncEnumerable();
+            return _context.Sessions.Where(session => session.User.Id == localUser.Id)
+                .Include(session => session.Account)
+                .AsAsyncEnumerable();
         }
     }
 }

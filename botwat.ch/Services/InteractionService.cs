@@ -11,6 +11,7 @@ namespace botwat.ch.Services
     {
         Task<Interaction> Create(Interaction interaction);
         Task<Interaction> Find(Interaction interaction);
+        Task<Interaction[][]> Find(int[] ids);
     }
 
     public class InteractionService : BaseService, IInteractionService
@@ -32,6 +33,14 @@ namespace botwat.ch.Services
             return await _context.Interactions.FirstOrDefaultAsync(
                 x => x.Id == interaction.Id
             );
+        }
+
+        public async Task<Interaction[][]> Find(int[] ids)
+        {
+            var actions = await _context.Interactions.Where(action => ids.Contains(action.SessionId)).ToListAsync();
+            return actions.GroupBy(a => a.SessionId)
+                .Select(group => group.ToArray())
+                .ToArray();
         }
 
         public IAsyncEnumerable<Interaction> ForUser(User user)

@@ -41,6 +41,7 @@ namespace botwat.ch.Controllers
             {
                 Occurred = DateTime.Now,
                 Owner = session.Account,
+                SessionId = sessionId,
                 SkillExperience = experience,
                 SkillIndex = skillIndex
             };

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace botwat.ch.Data
 {
@@ -10,5 +11,9 @@ namespace botwat.ch.Data
         public User User { get; set; }
         public BotClient Client { get; set; }
         public OldSchoolAccount Account { get; set; }
+        
+        public virtual ICollection<Interaction> Actions { get; set; }
+        
+        public virtual ICollection<Experience> Experiences { get; set; }
     }
 }

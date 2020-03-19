@@ -46,6 +46,7 @@ async function authenticate(name: string, password: string) {
     currentUserSubject.next(responseUser);
     return responseUser;
 }
+
 async function login(name: string, token: string) {
     let response = await fetch(withQuery('/user/login', {
         name: name,

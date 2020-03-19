@@ -2,15 +2,28 @@ import {withQuery} from "with-query";
 import {authenticationService} from "./authentication.service";
 
 export const accountService = {
-    createAccount, getAccounts, createClient, getClients, createSession, getSessions
+    createAccount, getAccounts, createClient, getClients, createSession, getSessions,getInteractions
 };
+
+async function getInteractions(ids: number[]) {   
+    let response = await fetch('/interaction/get', {
+        method: 'post',
+        body: JSON.stringify(ids),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authenticationService.currentUserValue.token}`
+        },
+    });
+    return response.ok ? await response.json() : response.text();
+}
 
 async function createAccount(alias: string) {
     const requestHeaders: HeadersInit = new Headers();
     requestHeaders.set('Authorization', `Bearer ${authenticationService.currentUserValue.token}`);
 
     let response = await fetch(withQuery('/account/create', {
-        alias: alias,
+        alias: encodeURIComponent(alias),
     }), {
         method: 'post',
         headers: requestHeaders
