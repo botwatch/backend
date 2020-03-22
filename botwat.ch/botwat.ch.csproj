@@ -44,6 +44,7 @@
       <TypeScriptCompile Include="Web\src\components\SessionCard.tsx" />
       <TypeScriptCompile Include="Web\src\data\dto\account\IOldSchoolAccount.ts" />
       <TypeScriptCompile Include="Web\src\data\dto\client\IClient.ts" />
+      <TypeScriptCompile Include="Web\src\data\dto\experience\IExperience.ts" />
       <TypeScriptCompile Include="Web\src\data\dto\interaction\IInteraction.ts" />
       <TypeScriptCompile Include="Web\src\data\dto\session\ISession.ts" />
       <TypeScriptCompile Include="Web\src\data\dto\user\IUser.ts" />

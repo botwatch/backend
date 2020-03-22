@@ -2,11 +2,24 @@ import {withQuery} from "with-query";
 import {authenticationService} from "./authentication.service";
 
 export const accountService = {
-    createAccount, getAccounts, createClient, getClients, createSession, getSessions,getInteractions
+    createAccount, getAccounts, createClient, getClients, createSession, getSessions, getInteractions, getExperiences
 };
 
-async function getInteractions(ids: number[]) {   
+async function getInteractions(ids: number[]) {
     let response = await fetch('/interaction/get', {
+        method: 'post',
+        body: JSON.stringify(ids),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authenticationService.currentUserValue.token}`
+        },
+    });
+    return response.ok ? await response.json() : response.text();
+}
+
+async function getExperiences(ids: number[]) {
+    let response = await fetch('/experience/get', {
         method: 'post',
         body: JSON.stringify(ids),
         headers: {

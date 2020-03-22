@@ -9,4 +9,5 @@ export interface ISession {
     start: Date;
     end: Date;
     actions: IInteraction[];
+    experiences: IInteraction[];
 }

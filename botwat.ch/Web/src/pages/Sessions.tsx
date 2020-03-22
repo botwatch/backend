@@ -31,6 +31,7 @@ export default function Sessions() {
                     if (await authenticationService.login(user.name, user.token) != null) {
                         let localSessions: ISession[] = await accountService.getSessions();
                         let ids = localSessions.flatMap((s) => s.id);
+                        
                         let localInteractions = await accountService.getInteractions(ids);
                         if (typeof localInteractions !== "string") {
                             localInteractions.forEach(act => {
@@ -39,8 +40,18 @@ export default function Sessions() {
                                 if (session != undefined)
                                     session.actions = act;
                             });
-                            setSessions(localSessions);
                         }
+
+                        let localexperiences = await accountService.getExperiences(ids);
+                        if (typeof localexperiences !== "string") {
+                            localexperiences.forEach(exp => {
+                                let id = exp[0].id;
+                                let session = localSessions.find(sess => sess.id == id);
+                                if (session != undefined)
+                                    session.experiences = exp;
+                            });                        
+                        }
+                        setSessions(localSessions);
                     }
                 }
             }

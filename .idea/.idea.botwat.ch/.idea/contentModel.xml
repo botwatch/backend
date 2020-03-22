@@ -258,6 +258,9 @@
                 <e p="client" t="Include">
                   <e p="IClient.ts" t="Include" />
                 </e>
+                <e p="experience" t="Include">
+                  <e p="IExperience.ts" t="Include" />
+                </e>
                 <e p="interaction" t="Include">
                   <e p="IInteraction.ts" t="Include" />
                 </e>

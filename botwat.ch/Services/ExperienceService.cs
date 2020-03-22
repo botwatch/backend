@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using botwat.ch.Data;
 using botwat.ch.Data.Provider;
@@ -9,6 +10,7 @@ namespace botwat.ch.Services
     {
         Task<Experience> Create(Experience experience);
         Task<Experience> Find(Experience experience);
+        Task<Experience[][]> Find(int[] sessions);
     }
 
     public class ExperienceService : BaseService, IExperienceService
@@ -28,6 +30,14 @@ namespace botwat.ch.Services
         public async Task<Experience> Find(Experience experience)
         {
             return await _context.Experiences.FirstOrDefaultAsync(x => x.Id == experience.Id);
+        }
+
+        public async Task<Experience[][]> Find(int[] sessions)
+        {
+            var actions = await _context.Experiences.Where(action => sessions.Contains(action.SessionId)).ToListAsync();
+            return actions.GroupBy(a => a.SessionId)
+                .Select(group => group.ToArray())
+                .ToArray();
         }
     }
 }

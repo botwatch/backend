@@ -7,6 +7,7 @@ import {ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Grid} from
 import moment from 'moment';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {IInteraction} from "../data/dto/interaction/IInteraction";
+import {IExperience} from "../data/dto/experience/IExperience";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -54,7 +55,9 @@ export default function SessionCard({session}) {
                                 <Typography className={classes.heading}>Actions</Typography>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
-                                {session.actions?.map((action:IInteraction) => <Typography>Mouse: {action.mouseX},{action.mouseY}</Typography>) }
+                                <span>
+                                    {session.actions?.map((action:IInteraction) => <Typography>Mouse: {action.mouseX},{action.mouseY}</Typography>)}
+                                </span>
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
                         <ExpansionPanel>
@@ -67,7 +70,7 @@ export default function SessionCard({session}) {
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
                                 <Typography>
-                                    0 Experience gained, hmm maybe this should be implemented.
+                                    {session.experiences?.map((exp:IExperience) => <Typography>Exp: {exp.skillIndex},{exp.skillExperience}</Typography>) }
                                 </Typography>
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
