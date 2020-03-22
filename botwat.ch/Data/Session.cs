@@ -12,6 +12,6 @@ namespace botwat.ch.Data
         public User User { get; set; }
         public BotClient Client { get; set; }
         public OldSchoolAccount Account { get; set; }
-        [NotMapped] public bool IsActive => End != DateTime.MinValue;
+        [NotMapped] public bool IsActive => Start != DateTime.MinValue && End == DateTime.MinValue;
     }
 }
