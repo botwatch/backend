@@ -32,6 +32,23 @@ namespace botwat.ch.Controllers
         }
 
         [Authorize]
+        [HttpPost("end")]
+        public async Task<ActionResult<Session>> End(int sessionId)
+        {
+            var name = User.Identity.Name;
+            var localUser = await _service.UserService.Find(name);
+            if (localUser == null) return BadRequest("No accounts for current user.");
+            var session = await _service.SessionService.Find(sessionId);
+            if (session != null)
+            {
+                return Ok(await _service.SessionService.End(session));
+            }
+            return BadRequest($"Session id {sessionId} does not exist.");
+
+        }
+
+
+        [Authorize]
         [HttpPost("create")]
         public async Task<ActionResult<Session>> Create(string client, string alias)
         {

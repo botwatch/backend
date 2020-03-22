@@ -36,6 +36,7 @@ namespace botwat.ch.Controllers
             if (localUser == null) return Forbid("Must be logged in to a valid user");
             if (session == null) return BadRequest("Must have valid session to track experience");
             if (session.User != localUser) return Forbid("You do not own this session");
+            if(!session.IsActive) return Forbid("This session has already ended. Start a new session.");
             
             var localClient = new Experience
             {
@@ -45,6 +46,9 @@ namespace botwat.ch.Controllers
                 SkillExperience = experience,
                 SkillIndex = skillIndex
             };
+            
+            //update the session
+            _service.SessionService.Update(session);
 
             return await _service.ExperienceService.Create(localClient);
         }

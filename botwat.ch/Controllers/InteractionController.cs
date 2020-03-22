@@ -23,10 +23,10 @@ namespace botwat.ch.Controllers
             _logger = logger;
             _service = service;
         }
-        
+
         [Authorize]
         [HttpPost("get")]
-        public async Task<ActionResult<Interaction[][]>> Get([FromBody]int[] ids)
+        public async Task<ActionResult<Interaction[][]>> Get([FromBody] int[] ids)
         {
             var name = User.Identity.Name;
             var localUser = await _service.UserService.Find(name);
@@ -47,6 +47,7 @@ namespace botwat.ch.Controllers
             if (localUser == null) return Forbid("Must be logged in to a valid user");
             if (session == null) return BadRequest("Must have valid session to track interactions");
             if (session.User != localUser) return Forbid("You do not own this session");
+            if(!session.IsActive) return Forbid("This session has already ended. Start a new session.");
 
             var interaction = new Interaction
             {
@@ -61,6 +62,9 @@ namespace botwat.ch.Controllers
                 MouseY = mouseY,
                 SessionId = session.Id
             };
+            
+            //update the session
+            _service.SessionService.Update(session);
 
             return await _service.InteractionService.Create(interaction);
         }

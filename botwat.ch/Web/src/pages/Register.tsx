@@ -8,7 +8,6 @@ import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Link} from "react-router-dom";
 import React, {useEffect} from "react";
-import {FaDiscord} from "react-icons/fa";
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import {authenticationService} from "../services/authentication.service";
 import {Snackbar} from "@material-ui/core";
@@ -17,7 +16,7 @@ import {Alert} from "@material-ui/lab";
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         paper: {
-            marginTop: theme.spacing(8),
+            marginTop: theme.spacing(15),
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',

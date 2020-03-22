@@ -5,12 +5,9 @@ using System.Text;
 using botwat.ch.Data;
 using botwat.ch.Data.Provider;
 using botwat.ch.Services;
-using Discord.OAuth2;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
@@ -18,8 +15,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
-using Pomelo.EntityFrameworkCore.MySql.Storage;
 
 namespace botwat.ch
 {
@@ -64,15 +59,9 @@ namespace botwat.ch
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             
             var connectionString = Configuration.GetConnectionString("Master-Database");
-            connectionString += Encoding.UTF8.GetString(
-                new byte[] {70, 105, 114, 101, 83, 110, 97, 105, 108, 54, 55, 56, 33, 59}
-            );
             services.AddDbContextPool<DatabaseContext>(options => options
-                // replace with your connection string
-                .UseMySql(connectionString, mySqlOptions => mySqlOptions
-                    // replace with your Server Version and Type
-                    .ServerVersion(new ServerVersion(new Version(8, 0, 19)))
-                ).EnableDetailedErrors());
+                .UseNpgsql(connectionString)
+            );
             // configure DI for application services
             ConfigureDi(services);
             // In production, the React files will be served from this directory
