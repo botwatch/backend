@@ -30,6 +30,7 @@ namespace botwat.ch.Services
                     await End(pair.Key);
                 }
             };
+            _activeTimer.Start();
         }
 
         //10 minute timeout on session

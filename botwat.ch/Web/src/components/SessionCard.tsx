@@ -8,6 +8,7 @@ import moment from 'moment';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {IInteraction} from "../data/dto/interaction/IInteraction";
 import {IExperience} from "../data/dto/experience/IExperience";
+import {skills} from "../utilities/skills";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -45,6 +46,9 @@ export default function SessionCard({session}) {
                     <Typography variant="h5" component="h2">
                         {moment(session.start).format('HH:mm:ss - MM/DD/YYYY')}
                     </Typography>
+                    <Typography variant="h5" component="h2">
+                        {moment(session.end).format('HH:mm:ss - MM/DD/YYYY')}
+                    </Typography>
                     <div className={classes.expander}>
                         <ExpansionPanel>
                             <ExpansionPanelSummary
@@ -69,8 +73,8 @@ export default function SessionCard({session}) {
                                 <Typography className={classes.heading}>Experience</Typography>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
-                                <Typography>
-                                    {session.experiences?.map((exp:IExperience) => <Typography>Exp: {exp.skillIndex},{exp.skillExperience}</Typography>) }
+                                <Typography>                                   
+                                    {session.experiences?.map((exp:IExperience) => <Typography>Exp: {skills.Skills[exp.skillIndex]},{skills.getLevelAt(exp.skillExperience)}</Typography>) }
                                 </Typography>
                             </ExpansionPanelDetails>
                         </ExpansionPanel>

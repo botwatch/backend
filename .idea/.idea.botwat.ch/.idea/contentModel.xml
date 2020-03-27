@@ -291,6 +291,7 @@
               <e p="authentication.service.ts" t="Include" />
             </e>
             <e p="utilities" t="Include">
+              <e p="skills.ts" t="Include" />
               <e p="styles.ts" t="Include" />
             </e>
           </e>

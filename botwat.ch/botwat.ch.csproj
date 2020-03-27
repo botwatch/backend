@@ -10,6 +10,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="AspNetCoreRateLimit" Version="3.0.5" />
         <PackageReference Include="Discord.OAuth2.AspNetCore" Version="3.0.0" />
         <PackageReference Include="McMaster.AspNetCore.LetsEncrypt" Version="0.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.1" />
@@ -58,6 +59,7 @@
       <TypeScriptCompile Include="Web\src\react-app-env.d.ts" />
       <TypeScriptCompile Include="Web\src\services\authentication.service.ts" />
       <TypeScriptCompile Include="Web\src\services\account.service.ts" />
+      <TypeScriptCompile Include="Web\src\utilities\skills.ts" />
       <TypeScriptCompile Include="Web\src\utilities\styles.ts" />
     </ItemGroup>
 

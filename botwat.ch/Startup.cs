@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using AspNetCoreRateLimit;
 using botwat.ch.Data;
 using botwat.ch.Data.Provider;
 using botwat.ch.Services;
@@ -58,6 +59,13 @@ namespace botwat.ch
                 });
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             
+            services.AddOptions();
+            services.AddMemoryCache();
+            services.Configure<IpRateLimitOptions>(Configuration.GetSection("IpRateLimiting"));
+            services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
+            services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+            services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+            
             var connectionString = Configuration.GetConnectionString("Master-Database");
             services.AddDbContextPool<DatabaseContext>(options => options
                 .UseNpgsql(connectionString)
@@ -98,7 +106,7 @@ namespace botwat.ch
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-
+            app.UseIpRateLimiting();
             app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();
