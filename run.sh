@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+rm -rf production
 git fetch --all
 git reset --hard origin/master
 dotnet publish -c Release --output ./production
