@@ -37,7 +37,6 @@
 
     <ItemGroup>
       <TypeScriptCompile Include="Web\src\App.tsx" />
-      <TypeScriptCompile Include="Web\src\components\AccountCard.tsx" />
       <TypeScriptCompile Include="Web\src\components\AnonymousRoute.tsx" />
       <TypeScriptCompile Include="Web\src\components\ClientCard.tsx" />
       <TypeScriptCompile Include="Web\src\components\NavigationBar.tsx" />

@@ -243,7 +243,6 @@
             <e p="App.css" t="Include" />
             <e p="App.tsx" t="Include" />
             <e p="components" t="Include">
-              <e p="AccountCard.tsx" t="Include" />
               <e p="AnonymousRoute.tsx" t="Include" />
               <e p="ClientCard.tsx" t="Include" />
               <e p="NavigationBar.tsx" t="Include" />
