@@ -38,7 +38,7 @@ namespace botwat.ch.Controllers
         [Authorize]
         [HttpPost("create")]
         public async Task<ActionResult<Interaction>> Create(int param1, int param2, int param3, int identifier,
-            int menuOption, int menuTarget, int mouseX, int mouseY, int sessionId)
+            int menuOption, int menuTarget, int mouseX, int mouseY, int locationX, int locationY, int sessionId)
         {
             var name = User.Identity.Name;
             var localUser = await _service.UserService.Find(name);
@@ -60,6 +60,8 @@ namespace botwat.ch.Controllers
                 MenuTarget = menuTarget,
                 MouseX = mouseX,
                 MouseY = mouseY,
+                LocationX = locationX,
+                LocationY = locationY,
                 SessionId = session.Id
             };
             

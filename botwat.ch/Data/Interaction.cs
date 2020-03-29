@@ -14,6 +14,8 @@ namespace botwat.ch.Data
         public int MenuTarget { get; set; }
         public int MouseX { get; set; }
         public int MouseY { get; set; }
-        public int SessionId {get; set; }
+        public int LocationX { get; set; }
+        public int LocationY { get; set; }
+        public int SessionId { get; set; }
     }
 }
