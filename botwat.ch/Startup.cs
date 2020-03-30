@@ -110,7 +110,7 @@ namespace botwat.ch
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseIpRateLimiting();
-            app.UseAuthentication();
+           // app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();
 
