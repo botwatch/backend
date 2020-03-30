@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 });
 
 interface Column {
-    id: 'name' | 'time' | 'exp' | 'sessions' | 'bantime';
+    id: 'alias' | 'banTime' | 'exp' | 'sessions' | 'bantime';
     label: string;
     minWidth?: number;
     align?: 'right';
@@ -32,11 +32,11 @@ interface Column {
 }
 
 const columns: Column[] = [
-    {id: 'name', label: 'Name', minWidth: 170},
+    {id: 'alias', label: 'Name', minWidth: 170},
    // {id: 'time', label: 'Time', minWidth: 100},
    // {id: 'exp', label: 'Experience', minWidth: 170,},
    // {id: 'sessions', label: 'Sessions', minWidth: 170},
-    {id: 'bantime', label: 'Banned', minWidth: 170}
+    {id: 'banTime', label: 'Banned', minWidth: 170}
 ];
 export default function Accounts() {
     const classes = useStyles();
@@ -89,7 +89,7 @@ export default function Accounts() {
                                         const value = row[column.id];
                                         return (
                                             <TableCell key={column.id} align={column.align}>
-                                                {column.format && typeof value === 'number' ? column.format(value) : value}
+                                                {value}
                                             </TableCell>
                                         );
                                     })}

@@ -5,12 +5,8 @@ import {
 import React, {useEffect} from "react";
 import {authenticationService} from "../services/authentication.service";
 import {accountService} from "../services/account.service";
-import {IClient} from "../data/dto/client/IClient";
-import AccountCard from "../components/AccountCard";
-import {IOldSchoolAccount} from "../data/dto/account/IOldSchoolAccount";
 import {ISession} from "../data/dto/session/ISession";
 import SessionCard from "../components/SessionCard";
-import {IInteraction} from "../data/dto/interaction/IInteraction";
 
 const useStyles = makeStyles({
     root: {
