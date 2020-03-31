@@ -58,6 +58,7 @@ namespace botwat.ch.Services
             //End session
             _activeSessions.Remove(session);
             session.End = DateTime.Now;
+            _context.Update(session);
             await _context.SaveChangesAsync();
             return session;
         }
