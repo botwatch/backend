@@ -26,28 +26,30 @@ export default function Sessions() {
                 if (user.token != null) {
                     if (await authenticationService.login(user.name, user.token) != null) {
                         let localSessions: ISession[] = await accountService.getSessions();
-                        let ids = localSessions.flatMap((s) => s.id);
-                        
-                        let localInteractions = await accountService.getInteractions(ids);
-                        if (typeof localInteractions !== "string") {
-                            localInteractions.forEach(act => {
-                                let id = act[0].id;
-                                let session = localSessions.find(sess => sess.id == id);
-                                if (session != undefined)
-                                    session.actions = act;
-                            });
-                        }
+                        if (typeof localSessions !== "string") {
+                            let ids = localSessions.flatMap((s) => s.id);
 
-                        let localexperiences = await accountService.getExperiences(ids);
-                        if (typeof localexperiences !== "string") {
-                            localexperiences.forEach(exp => {
-                                let id = exp[0].id;
-                                let session = localSessions.find(sess => sess.id == id);
-                                if (session != undefined)
-                                    session.experiences = exp;
-                            });                        
+                            let localInteractions = await accountService.getInteractions(ids);
+                            if (typeof localInteractions !== "string") {
+                                localInteractions.forEach(act => {
+                                    let id = act[0].id;
+                                    let session = localSessions.find(sess => sess.id == id);
+                                    if (session != undefined)
+                                        session.actions = act;
+                                });
+
+                                let localexperiences = await accountService.getExperiences(ids);
+                                if (typeof localexperiences !== "string") {
+                                    localexperiences.forEach(exp => {
+                                        let id = exp[0].id;
+                                        let session = localSessions.find(sess => sess.id == id);
+                                        if (session != undefined)
+                                            session.experiences = exp;
+                                    });
+                                }
+                                setSessions(localSessions);
+                            }
                         }
-                        setSessions(localSessions);
                     }
                 }
             }

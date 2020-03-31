@@ -33,9 +33,9 @@ interface Column {
 
 const columns: Column[] = [
     {id: 'alias', label: 'Name', minWidth: 170},
-   // {id: 'time', label: 'Time', minWidth: 100},
-   // {id: 'exp', label: 'Experience', minWidth: 170,},
-   // {id: 'sessions', label: 'Sessions', minWidth: 170},
+    // {id: 'time', label: 'Time', minWidth: 100},
+    // {id: 'exp', label: 'Experience', minWidth: 170,},
+    // {id: 'sessions', label: 'Sessions', minWidth: 170},
     {id: 'banTime', label: 'Banned', minWidth: 170}
 ];
 export default function Accounts() {
@@ -82,20 +82,22 @@ export default function Accounts() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {accounts.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
-                            return (
-                                <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                                    {columns.map(column => {
-                                        const value = row[column.id];
-                                        return (
-                                            <TableCell key={column.id} align={column.align}>
-                                                {value}
-                                            </TableCell>
-                                        );
-                                    })}
-                                </TableRow>
-                            );
-                        })}
+                        {accounts.length > 0 ?
+                            accounts.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
+                                return (
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                                        {columns.map(column => {
+                                            const value = row[column.id];
+                                            return (
+                                                <TableCell key={column.id} align={column.align}>
+                                                    {value}
+                                                </TableCell>
+                                            );
+                                        })}
+                                    </TableRow>
+                                );
+                            }) : <p></p>
+                        }
                     </TableBody>
                 </Table>
             </TableContainer>
