@@ -21,6 +21,7 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import {ISession} from "../data/dto/session/ISession";
 import moment from "moment";
 import {Theme} from "@material-ui/core/styles";
+import {Skeleton} from "@material-ui/lab";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {width: '100%'},
@@ -47,7 +48,7 @@ export default function SessionsChart({sessions}) {
     let weeklySessions = localSessions.filter(session => moment(session.start).isBetween(
         moment().startOf('day').subtract(1, 'week'), moment()
     ));
-    if (weeklySessions.length == 0) return <p>No Sessions...</p>;
+    if (weeklySessions.length == 0) return <Skeleton animation="wave" variant="rect" width={'100%'} height={400}/>;
 
     weeklySessions.forEach(session => {
         for (let i = 0; i < 7; i++) {
@@ -59,6 +60,7 @@ export default function SessionsChart({sessions}) {
             }
         }
     });
+
 
     console.info(count);
     return (
@@ -78,7 +80,7 @@ export default function SessionsChart({sessions}) {
             <CardContent>
                 <Chart data={count}>
                     <ArgumentAxis/>
-                    <ValueAxis />
+                    <ValueAxis/>
                     <BarSeries
                         valueField="count"
                         argumentField="date"

@@ -16,6 +16,7 @@ import {
 import Accounts from "./Accounts";
 import Sessions from "./Sessions";
 import Clients from "./Clients";
+import { MenuItem } from 'material-ui';
 
 const drawerWidth = 240;
 
@@ -41,7 +42,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function ClippedDrawer() {
     const classes = useStyles();
-
     return (
         <div className={classes.root}>
             <Drawer

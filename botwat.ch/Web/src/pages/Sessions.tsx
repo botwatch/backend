@@ -12,8 +12,6 @@ import SessionsChart from "../components/SessionsChart";
 const useStyles = makeStyles({
     root: {
         width: '100%',
-        paddingTop: 10,
-        backgroundColor: '#f5f5f5'
     }
 });
 
@@ -59,11 +57,5 @@ export default function Sessions() {
         })()
     }, []);
 
-    return (
-        <Paper className={classes.root}>
-            <Grid container spacing={6}>
-                <SessionsChart sessions={sessions}/>
-            </Grid>
-        </Paper>
-    );
+    return <SessionsChart sessions={sessions}/>;
 }
