@@ -86,6 +86,8 @@
           </e>
           <e p="node_modules\@babel\parser" t="IncludeRecursive" />
           <e p="node_modules\@babel\types" t="IncludeRecursive" />
+          <e p="node_modules\@devexpress\dx-react-chart" t="IncludeRecursive" />
+          <e p="node_modules\@devexpress\dx-react-core" t="IncludeRecursive" />
           <e p="node_modules\@emotion\hash" t="IncludeRecursive" />
           <e p="node_modules\@jest\console" t="IncludeRecursive" />
           <e p="node_modules\@jest\fake-timers" t="IncludeRecursive" />
@@ -162,6 +164,7 @@
           <e p="node_modules\jss-plugin-rule-value-function" t="IncludeRecursive" />
           <e p="node_modules\jss-plugin-vendor-prefixer" t="IncludeRecursive" />
           <e p="node_modules\material-ui" t="IncludeRecursive" />
+          <e p="node_modules\moment" t="IncludeRecursive" />
           <e p="node_modules\normalize-scroll-left" t="IncludeRecursive" />
           <e p="node_modules\popper.js" t="IncludeRecursive" />
           <e p="node_modules\pretty-format" t="IncludeRecursive" />
@@ -248,6 +251,7 @@
               <e p="NavigationBar.tsx" t="Include" />
               <e p="PrivateRoute.tsx" t="Include" />
               <e p="SessionCard.tsx" t="Include" />
+              <e p="SessionsChart.tsx" t="Include" />
             </e>
             <e p="data" t="Include">
               <e p="dto" t="Include">

@@ -42,6 +42,7 @@
       <TypeScriptCompile Include="Web\src\components\NavigationBar.tsx" />
       <TypeScriptCompile Include="Web\src\components\PrivateRoute.tsx" />
       <TypeScriptCompile Include="Web\src\components\SessionCard.tsx" />
+      <TypeScriptCompile Include="Web\src\components\SessionsChart.tsx" />
       <TypeScriptCompile Include="Web\src\data\dto\account\IOldSchoolAccount.ts" />
       <TypeScriptCompile Include="Web\src\data\dto\client\IClient.ts" />
       <TypeScriptCompile Include="Web\src\data\dto\experience\IExperience.ts" />
