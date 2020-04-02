@@ -1,22 +1,24 @@
 import {
+    Card,
     Container,
-    CssBaseline, Grid, makeStyles, Paper
+    CssBaseline, Grid, makeStyles, Paper, Theme
 } from "@material-ui/core";
 import React, {useEffect} from "react";
-import {authenticationService} from "../services/authentication.service";
-import {accountService} from "../services/account.service";
-import {ISession} from "../data/dto/session/ISession";
-import SessionCard from "../components/SessionCard";
-import SessionsChart from "../components/SessionsChart";
+import {authenticationService} from "../../services/authentication.service";
+import {accountService} from "../../services/account.service";
+import {ISession} from "../../data/dto/ISession";
+import SessionsChart from "./components/SessionsChart";
+import ExperienceCard from "./components/ExperienceCard";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
     root: {
-        width: '100%',
-    }
-});
+        padding: theme.spacing(4)
+    },
+}));
 
-export default function Sessions() {
-    const classes = useStyles({});
+
+export default function Dashboard() {
+    const classes = useStyles();
     const [sessions, setSessions] = React.useState<ISession[]>([]);
 
     useEffect(() => {
@@ -57,5 +59,58 @@ export default function Sessions() {
         })()
     }, []);
 
-    return <SessionsChart sessions={sessions}/>;
+    return (
+        <div className={classes.root}>
+            <Grid
+                container
+                spacing={4}
+            >
+                <Grid
+                    item
+                    lg={3}
+                    sm={6}
+                    xl={3}
+                    xs={12}
+                >
+                    <ExperienceCard/>
+                </Grid>
+                <Grid
+                    item
+                    lg={3}
+                    sm={6}
+                    xl={3}
+                    xs={12}
+                >
+                    <ExperienceCard/>
+                </Grid>
+                <Grid
+                    item
+                    lg={3}
+                    sm={6}
+                    xl={3}
+                    xs={12}
+                >
+                    <ExperienceCard/>
+                </Grid>
+                <Grid
+                    item
+                    lg={3}
+                    sm={6}
+                    xl={3}
+                    xs={12}
+                >
+                    <ExperienceCard/>
+                </Grid>
+                <Grid
+                    item
+                    lg={8}
+                    md={12}
+                    xl={9}
+                    xs={12}
+                >
+                    <SessionsChart sessions={sessions}/>
+                </Grid>
+            </Grid>
+        </div>
+    );
 }

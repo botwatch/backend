@@ -243,59 +243,53 @@
           </e>
           <e p="README.md" t="Include" />
           <e p="src" t="Include">
-            <e p="App.css" t="Include" />
             <e p="App.tsx" t="Include" />
             <e p="components" t="Include">
-              <e p="AnonymousRoute.tsx" t="Include" />
-              <e p="ClientCard.tsx" t="Include" />
               <e p="NavigationBar.tsx" t="Include" />
-              <e p="PrivateRoute.tsx" t="Include" />
-              <e p="SessionCard.tsx" t="Include" />
-              <e p="SessionsChart.tsx" t="Include" />
+              <e p="routing" t="Include">
+                <e p="AnonymousRoute.tsx" t="Include" />
+                <e p="PrivateRoute.tsx" t="Include" />
+              </e>
             </e>
             <e p="data" t="Include">
               <e p="dto" t="Include">
-                <e p="account" t="Include">
-                  <e p="IOldSchoolAccount.ts" t="Include" />
-                </e>
-                <e p="client" t="Include">
-                  <e p="IClient.ts" t="Include" />
-                </e>
-                <e p="experience" t="Include">
-                  <e p="IExperience.ts" t="Include" />
-                </e>
-                <e p="interaction" t="Include">
-                  <e p="IInteraction.ts" t="Include" />
-                </e>
-                <e p="session" t="Include">
-                  <e p="ISession.ts" t="Include" />
-                </e>
-                <e p="User" t="Include">
-                  <e p="IUser.ts" t="Include" />
-                </e>
+                <e p="IClient.ts" t="Include" />
+                <e p="IExperience.ts" t="Include" />
+                <e p="IInteraction.ts" t="Include" />
+                <e p="IOldSchoolAccount.ts" t="Include" />
+                <e p="ISession.ts" t="Include" />
+                <e p="IUser.ts" t="Include" />
               </e>
             </e>
-            <e p="index.css" t="Include" />
             <e p="index.tsx" t="Include" />
             <e p="Pages" t="Include">
-              <e p="Accounts.tsx" t="Include" />
-              <e p="Clients.tsx" t="Include" />
+              <e p="accounts" t="Include">
+                <e p="Accounts.tsx" t="Include" />
+              </e>
+              <e p="clients" t="Include">
+                <e p="Clients.tsx" t="Include" />
+                <e p="components" t="Include">
+                  <e p="ClientCard.tsx" t="Include" />
+                </e>
+              </e>
+              <e p="dashboard" t="Include">
+                <e p="components" t="Include">
+                  <e p="ExperienceCard.tsx" t="Include" />
+                  <e p="Profile.tsx" t="Include" />
+                  <e p="SessionsChart.tsx" t="Include" />
+                </e>
+                <e p="Dashboard.tsx" t="Include" />
+              </e>
               <e p="Home.tsx" t="Include" />
               <e p="Login.tsx" t="Include" />
               <e p="Register.tsx" t="Include" />
-              <e p="Sessions.tsx" t="Include" />
             </e>
-            <e p="react-app-env.d.ts" t="Include" />
             <e p="resources" t="Include">
               <e p="hive.png" t="Include" />
             </e>
             <e p="Services" t="Include">
               <e p="account.service.ts" t="Include" />
               <e p="authentication.service.ts" t="Include" />
-            </e>
-            <e p="utilities" t="Include">
-              <e p="skills.ts" t="Include" />
-              <e p="styles.ts" t="Include" />
             </e>
           </e>
           <e p="tsconfig.json" t="Include" />

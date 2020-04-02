@@ -1,6 +1,6 @@
-import {IClient} from "../client/IClient";
-import {IOldSchoolAccount} from "../account/IOldSchoolAccount";
-import {IInteraction} from "../interaction/IInteraction";
+import {IClient} from "./IClient";
+import {IOldSchoolAccount} from "./IOldSchoolAccount";
+import {IInteraction} from "./IInteraction";
 
 export interface ISession {
     id: number;

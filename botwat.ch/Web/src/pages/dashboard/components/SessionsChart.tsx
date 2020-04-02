@@ -18,13 +18,15 @@ import {
 import {Animation} from '@devexpress/dx-react-chart';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import {ISession} from "../data/dto/session/ISession";
 import moment from "moment";
 import {Theme} from "@material-ui/core/styles";
 import {Skeleton} from "@material-ui/lab";
+import {ISession} from "../../../data/dto/ISession";
 
 const useStyles = makeStyles((theme: Theme) => ({
-    root: {width: '100%'},
+    root: {
+        width: '100%'
+    },
     chartContainer: {
         height: 400
     },

@@ -6,7 +6,7 @@
   "dependencies": {
     "@devexpress/dx-react-chart": "latest",
     "@devexpress/dx-react-chart-material-ui": "latest",
-    "@devexpress/dx-react-core": "^2.6.0",
+    "@devexpress/dx-react-core": "latest",
     "@material-ui/core": "^4.7.1",
     "@material-ui/icons": "latest",
     "@material-ui/lab": "^4.0.0-alpha.34",

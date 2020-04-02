@@ -1,5 +1,5 @@
 import {BehaviorSubject} from 'rxjs';
-import {IUser} from "../data/dto/user/IUser";
+import {IUser} from "../data/dto/IUser";
 import {withQuery} from 'with-query';
 
 const currentUserSubject = new BehaviorSubject(JSON.parse(<string>localStorage.getItem('currentUser')));

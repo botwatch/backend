@@ -3,10 +3,11 @@ import {
     CssBaseline, Grid, makeStyles
 } from "@material-ui/core";
 import React, {useEffect} from "react";
-import {authenticationService} from "../services/authentication.service";
-import {accountService} from "../services/account.service";
-import {IClient} from "../data/dto/client/IClient";
-import ClientCard from "../components/ClientCard";
+import {IClient} from "../../data/dto/IClient";
+import {authenticationService} from "../../services/authentication.service";
+import {accountService} from "../../services/account.service";
+import ClientCard from "./components/ClientCard";
+
 
 const useStyles = makeStyles({
     root: {

@@ -1,4 +1,4 @@
-import {IOldSchoolAccount} from "../account/IOldSchoolAccount";
+import {IOldSchoolAccount} from "./IOldSchoolAccount";
 
 export interface IExperience {
     id: number;
@@ -7,4 +7,4 @@ export interface IExperience {
     occurred: Date;
     skillIndex: number;
     skillExperience: number;
-}
+} 

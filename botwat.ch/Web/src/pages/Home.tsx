@@ -1,29 +1,38 @@
 import {createStyles, Theme, makeStyles} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import TimelineIcon from '@material-ui/icons/Timeline';
+import HomeIcon from '@material-ui/icons/Home';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import React from 'react';
 import {
     Switch,
     Route, Link
 } from "react-router-dom";
-import Accounts from "./Accounts";
-import Sessions from "./Sessions";
-import Clients from "./Clients";
-import { MenuItem } from 'material-ui';
+import Dashboard from "./dashboard/Dashboard";
+import Accounts from "./accounts/Accounts";
+import Clients from "./clients/Clients";
+import {Divider, useMediaQuery} from "@material-ui/core";
+import {useTheme} from "@material-ui/styles";
+import Profile from "./dashboard/components/Profile";
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        top: {
+            marginTop: '60px'
+        },
         root: {
+            backgroundColor: theme.palette.background.paper,
             display: 'flex',
+            flexDirection: 'column',
+            height: '100%',
+            marginTop: '60px',
+            padding: theme.spacing(2)
         },
         drawer: {
             width: drawerWidth,
@@ -32,46 +41,58 @@ const useStyles = makeStyles((theme: Theme) =>
         drawerPaper: {
             width: drawerWidth,
         },
+        divider: {
+            margin: theme.spacing(2, 0)
+        },
         content: {
             flexGrow: 1,
-            padding: theme.spacing(3),
+            marginTop: '60px',
+            marginLeft: '240px'
         },
-        toolbar: theme.mixins.toolbar,
+        nav: {
+            padding: theme.spacing(2),
+            marginBottom: theme.spacing(2)
+        }   
     }),
 );
 
 export default function ClippedDrawer() {
     const classes = useStyles();
+    const isDesktop = useMediaQuery('(min-width:780px)');
+
     return (
-        <div className={classes.root}>
+        <div>
             <Drawer
                 className={classes.drawer}
-                variant="permanent"
+                variant={isDesktop ? "permanent" : "temporary"}
                 classes={{
                     paper: classes.drawerPaper,
                 }}
             >
-                <div className={classes.toolbar}/>
-                <List>
-                    <ListItem button key="Accounts" component={Link} to="/accounts" >
-                        <ListItemIcon>{<AccountCircleIcon/>}</ListItemIcon>
-                        <ListItemText primary="Accounts"/>
-                    </ListItem>
-                    <ListItem button key="Sessions" component={Link} to="/sessions">
-                        <ListItemIcon>{<TimelineIcon/>}</ListItemIcon>
-                        <ListItemText primary="Sessions"/>
-                    </ListItem>
-                    <ListItem button key="Clients" component={Link} to="/clients">
-                        <ListItemIcon>{<EqualizerIcon/>}</ListItemIcon>
-                        <ListItemText primary="Clients"/>
-                    </ListItem>
-                </List>
+                <div className={classes.root}>
+                    <Profile/>
+                    <Divider className={classes.divider}/>
+                    <div/>
+                    <List className={classes.nav}>
+                        <ListItem button key="Dashboard" component={Link} to="/dashboard" disableGutters>
+                            <ListItemIcon>{<HomeIcon/>}</ListItemIcon>
+                            <ListItemText primary="Dashboard"/>
+                        </ListItem>
+                        <ListItem button key="Accounts" component={Link} to="/accounts" disableGutters>
+                            <ListItemIcon>{<AccountCircleIcon/>}</ListItemIcon>
+                            <ListItemText primary="Accounts"/>
+                        </ListItem>
+                        <ListItem button key="Clients" component={Link} to="/clients" disableGutters>
+                            <ListItemIcon>{<EqualizerIcon/>}</ListItemIcon>
+                            <ListItemText primary="Clients"/>
+                        </ListItem>
+                    </List>
+                </div>
             </Drawer>
             <main className={classes.content}>
-                <div className={classes.toolbar}/>
                 <Switch>
+                    <Route path="/dashboard" component={Dashboard}/>
                     <Route path="/accounts" exact component={Accounts}/>
-                    <Route path="/sessions" component={Sessions}/>
                     <Route path="/clients" component={Clients}/>
                 </Switch>
             </main>

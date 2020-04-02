@@ -10,6 +10,7 @@ import hiveImage from '../resources/hive.png';
 import {authenticationService} from "../services/authentication.service";
 import {Link} from "react-router-dom";
 import {Fade, Menu, MenuItem} from "@material-ui/core";
+import {ExitToApp} from "@material-ui/icons";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -29,9 +30,8 @@ const useStyles = makeStyles((theme: Theme) =>
         menuButton: {
             marginRight: theme.spacing(2),
         },
-        purpleAvatar: {
+        logout: {
             color: '#fff',
-            backgroundColor: red[500],
         },
         title: {
             flexGrow: 1,
@@ -43,41 +43,14 @@ export default function NavigationBar() {
     const classes = useStyles({});
 
     function RenderLogin({loggedIn}) {
-        const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-        const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-            setAnchorEl(event.currentTarget);
-        };
-
-        const handleClose = () => {
-            setAnchorEl(null);
-        };
-        const handleMenuClick = () => {
+        const handleLogout = () => {
             authenticationService.logout();
-            handleClose();
         };
         if (loggedIn)
             return (
-                <div>
-                    <Button aria-controls="fade-menu" aria-haspopup="true" onClick={handleClick}>
-                        <Avatar className={classes.purpleAvatar}>
-                            {authenticationService.currentUserValue.name.charAt(0).toUpperCase()}
-                        </Avatar>
-                    </Button>
-                    <Menu
-                        id="fade-menu"
-                        anchorEl={anchorEl}
-                        keepMounted
-                        getContentAnchorEl={null}
-                        anchorOrigin={{vertical: "bottom", horizontal: "center"}}
-                        transformOrigin={{vertical: "top", horizontal: "center"}}
-                        open={anchorEl != null}
-                        TransitionComponent={Fade}
-                        onClose={handleClose}
-                    >
-                        <MenuItem onClick={handleMenuClick}>Logout</MenuItem>
-                    </Menu>
-                </div>
+                <Button aria-controls="fade-menu" aria-haspopup="true" onClick={handleLogout}>
+                    <ExitToApp className={classes.logout} />
+                </Button>
             );
         return (
             <Button component={Link} to="/login" variant="contained" color="primary" style={{boxShadow: "none"}}>

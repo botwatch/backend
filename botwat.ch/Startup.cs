@@ -60,7 +60,7 @@ namespace botwat.ch
                     };
                 });
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-            
+
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddOptions();
             services.AddMemoryCache();
@@ -68,8 +68,10 @@ namespace botwat.ch
             services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
             services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
             services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
-            
-            var connectionString = Configuration.GetConnectionString("Master-Database");
+            //use the debug connection string in debug mode
+            var connectionString = Configuration.GetConnectionString(
+                (Debugger.IsAttached ? "Debug" : "Master") + "-Database"
+            );
             services.AddDbContextPool<DatabaseContext>(options => options
                 .UseNpgsql(connectionString)
             );

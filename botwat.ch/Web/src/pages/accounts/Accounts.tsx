@@ -10,9 +10,9 @@ import {
     TableRow
 } from "@material-ui/core";
 import React, {useEffect} from "react";
-import {authenticationService} from "../services/authentication.service";
-import {accountService} from "../services/account.service";
-import {IOldSchoolAccount} from "../data/dto/account/IOldSchoolAccount";
+import {authenticationService} from "../../services/authentication.service";
+import {accountService} from "../../services/account.service";
+import {IOldSchoolAccount} from "../../data/dto/IOldSchoolAccount";
 
 const useStyles = makeStyles({
     root: {
