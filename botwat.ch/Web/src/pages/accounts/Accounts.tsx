@@ -96,7 +96,7 @@ export default function Accounts() {
                                         })}
                                     </TableRow>
                                 );
-                            }) : <p></p>
+                            }) : <TableRow />
                         }
                     </TableBody>
                 </Table>

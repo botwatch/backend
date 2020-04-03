@@ -11,11 +11,13 @@ const useStyles = makeStyles((theme: Theme) => ({
         alignItems: 'center',
         minHeight: 'fit-content'
     },
-    purpleAvatar: {
+    avatar: {
         width: 60,
         height: 60,
+        fontSize: 28,
+        fontWeight: 400,
         color: '#fff',
-        backgroundColor: purple[500],
+        backgroundColor: theme.palette.primary.main,
     },
     name: {
         marginTop: theme.spacing(1)
@@ -27,7 +29,7 @@ export default function Profile() {
     
     return (
         <div className={classes.root}>
-            <Avatar className={classes.purpleAvatar}>
+            <Avatar className={classes.avatar}>
                 {authenticationService.currentUserValue.name.charAt(0).toUpperCase()}
             </Avatar>
             <Typography

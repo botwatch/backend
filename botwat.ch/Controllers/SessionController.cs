@@ -55,7 +55,7 @@ namespace botwat.ch.Controllers
             var name = User.Identity.Name;
             var localUser = await _service.UserService.Find(name);
             var localClient = await _service.BotClientService.Find(client);
-            var localAccount = await _service.OldSchoolAccountService.Find(alias);
+            var localAccount = await _service.OldSchoolAccountService.Find(alias, localUser);
             if (localUser == null)
             {
                 return NotFound($"User does not exist.");

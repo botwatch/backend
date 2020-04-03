@@ -51,10 +51,10 @@ namespace botwat.ch.Controllers
             var localUser = await _service.UserService.Find(name);
             if (localUser != null)
             {
-                var account = await _service.OldSchoolAccountService.Find(alias);
+                var account = await _service.OldSchoolAccountService.Find(alias, localUser);
                 if (account != null)
                 {
-                    return await _service.OldSchoolAccountService.SetBan(account);
+                    return await _service.OldSchoolAccountService.SetBan(account, localUser);
                 }
             }
             return BadRequest("User does not exist or Account does not exist");

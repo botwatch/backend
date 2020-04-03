@@ -11,10 +11,10 @@ namespace botwat.ch.Services
     public interface IOldSchoolAccountService
     {
         Task<OldSchoolAccount> Create(string request, User owner);
-        Task<OldSchoolAccount> Find(string alias);
+        Task<OldSchoolAccount> Find(string alias, User owner);
         IAsyncEnumerable<OldSchoolAccount> All();
         IAsyncEnumerable<OldSchoolAccount> All(User user);
-        Task<OldSchoolAccount> SetBan(OldSchoolAccount account);
+        Task<OldSchoolAccount> SetBan(OldSchoolAccount account, User owner);
     }
 
     public class OldSchoolAccountService : BaseService, IOldSchoolAccountService
@@ -25,18 +25,19 @@ namespace botwat.ch.Services
 
         public async Task<OldSchoolAccount> Create(string alias, User owner)
         {
-            if (await Find(alias) != null) return null;
+            if (await Find(alias, owner) != null) return null;
             var account = new OldSchoolAccount {Alias = alias, Owner = owner};
             var result = await _context.Accounts.AddAsync(account);
             await _context.SaveChangesAsync();
             return result.IsKeySet ? result.Entity : null;
         }
 
-        public async Task<OldSchoolAccount> Find(string alias)
+        public async Task<OldSchoolAccount> Find(string alias, User owner)
         {
-            return await _context.Accounts.FirstOrDefaultAsync(
+            var account = await _context.Accounts.FirstOrDefaultAsync(
                 x => x.Alias == alias
             );
+            return account.Owner == owner ? account : null;
         }
 
         public IAsyncEnumerable<OldSchoolAccount> All(User user)
@@ -44,10 +45,15 @@ namespace botwat.ch.Services
             return _context.Accounts.Where(acc => acc.Owner.Id == user.Id).AsAsyncEnumerable();
         }
 
-        public async Task<OldSchoolAccount> SetBan(OldSchoolAccount account)
+        public async Task<OldSchoolAccount> SetBan(OldSchoolAccount account, User owner)
         {
-            account.BanTime = DateTime.Now;
-            await _context.SaveChangesAsync();
+            if (account.Owner == owner)
+            {
+                account.BanTime = DateTime.Now;
+                _context.Update(account);
+                await _context.SaveChangesAsync();
+            }
+
             return account;
         }
 

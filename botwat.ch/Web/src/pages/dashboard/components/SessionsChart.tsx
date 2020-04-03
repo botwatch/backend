@@ -48,7 +48,7 @@ export default function SessionsChart({sessions}) {
     for (let i = 0; i < 7; i++) count.push({date: "", count: 0} as Count);
     let localSessions = sessions as ISession[];
     let weeklySessions = localSessions.filter(session => moment(session.start).isBetween(
-        moment().startOf('day').subtract(1, 'week'), moment()
+        moment().endOf('day').subtract(1, 'week'), moment()
     ));
     if (weeklySessions.length == 0) return <Skeleton animation="wave" variant="rect" width={'100%'} height={400}/>;
 
@@ -56,7 +56,7 @@ export default function SessionsChart({sessions}) {
         for (let i = 0; i < 7; i++) {
             let day = moment().subtract(i, 'days');
             let index = 6 - i;
-            count[index].date = i == 0 ? "Today" : moment().subtract(i, 'days').format('dddd');
+            count[index].date = i == 0 ? "Today" : day.format('dddd');
             if (moment(session.start).isSame(day, 'day')) {
                 count[index].count++;
             }
