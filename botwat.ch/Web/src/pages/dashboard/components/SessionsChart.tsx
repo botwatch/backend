@@ -51,13 +51,13 @@ export default function SessionsChart({sessions}) {
     } 
     let localSessions = sessions as ISession[];
     let weeklySessions = localSessions.filter(session => moment(session.start).isAfter(
-        moment().startOf('day').subtract(1, 'week')
+        moment().endOf('day').subtract(1, 'week')
     ));
     if (weeklySessions.length == 0) return <Skeleton animation="wave" variant="rect" width={'100%'} height={400}/>;
     
     weeklySessions.map(session => {
         let sessionDate = moment(session.start);
-        let daysDifference = sessionDate.diff(moment(), 'days');
+        let daysDifference = moment().diff(sessionDate,'days');
         let dateName = daysDifference === 0 ? "Today" : sessionDate.format('dddd');
         let index = 6 - daysDifference;
         count[index].date = dateName;
