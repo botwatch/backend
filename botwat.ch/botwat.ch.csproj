@@ -12,7 +12,7 @@
     <ItemGroup>
         <PackageReference Include="AspNetCoreRateLimit" Version="3.0.5" />
         <PackageReference Include="Discord.OAuth2.AspNetCore" Version="3.0.0" />
-        <PackageReference Include="McMaster.AspNetCore.LetsEncrypt" Version="0.2.0" />
+        <PackageReference Include="McMaster.AspNetCore.LetsEncrypt" Version="0.3.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.1" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.1" />
         <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.1" />

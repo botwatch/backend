@@ -6,6 +6,7 @@ using AspNetCoreRateLimit;
 using botwat.ch.Data;
 using botwat.ch.Data.Provider;
 using botwat.ch.Services;
+using McMaster.AspNetCore.LetsEncrypt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,7 +35,10 @@ namespace botwat.ch
         public void ConfigureServices(IServiceCollection services)
         {
             if (!Debugger.IsAttached)
-                services.AddLetsEncrypt();
+            {
+                services.AddLetsEncrypt()
+                    .PersistDataToDirectory(new DirectoryInfo("/home/LetsEncrypt/"), "botwat.ch");
+            }
 
             services.AddControllersWithViews();
             services.AddControllers().AddNewtonsoftJson(x =>
