@@ -29,12 +29,14 @@ namespace botwat.ch.Services
                 {
                     await End(pair.Key);
                 }
+
+                await _context.SaveChangesAsync();
             };
             _activeTimer.Start();
         }
 
         //10 minute timeout on session
-        private const double Timeout = 600000;
+        private const double Timeout = 300000;
         private readonly Dictionary<Session, DateTime> _activeSessions = new Dictionary<Session, DateTime>();
         private readonly Timer _activeTimer = new Timer(Timeout);
 
@@ -58,8 +60,7 @@ namespace botwat.ch.Services
             //End session
             _activeSessions.Remove(session);
             session.End = DateTime.Now;
-            _context.Update(session);
-            await _context.SaveChangesAsync();
+            _context.Entry(session).CurrentValues.SetValues(session);
             return session;
         }
 

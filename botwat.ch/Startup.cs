@@ -76,9 +76,8 @@ namespace botwat.ch
             var connectionString = Configuration.GetConnectionString(
                 (Debugger.IsAttached ? "Debug" : "Master") + "-Database"
             );
-            services.AddDbContextPool<DatabaseContext>(options => options
-                .UseNpgsql(connectionString)
-            );
+            services.AddDbContext<DatabaseContext>((provider, options) => { options.UseNpgsql(connectionString); },
+                ServiceLifetime.Singleton);
             // configure DI for application services
             ConfigureDi(services);
             // In production, the React files will be served from this directory
@@ -87,13 +86,13 @@ namespace botwat.ch
 
         private static void ConfigureDi(IServiceCollection services)
         {
-            services.AddScoped<IServicesPool, ServicesPool>();
-            services.AddScoped<IBotClientService, BotClientService>();
-            services.AddScoped<IExperienceService, ExperienceService>();
-            services.AddScoped<IInteractionService, InteractionService>();
-            services.AddScoped<IOldSchoolAccountService, OldSchoolAccountService>();
-            services.AddScoped<ISessionService, SessionService>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddSingleton<IServicesPool, ServicesPool>();
+            services.AddSingleton<IBotClientService, BotClientService>();
+            services.AddSingleton<IExperienceService, ExperienceService>();
+            services.AddSingleton<IInteractionService, InteractionService>();
+            services.AddSingleton<IOldSchoolAccountService, OldSchoolAccountService>();
+            services.AddSingleton<ISessionService, SessionService>();
+            services.AddSingleton<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -110,6 +109,7 @@ namespace botwat.ch
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             if (!Debugger.IsAttached)
                 app.UseHttpsRedirection();
 
