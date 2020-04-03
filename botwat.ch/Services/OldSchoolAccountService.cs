@@ -37,7 +37,7 @@ namespace botwat.ch.Services
             var account = await _context.Accounts.FirstOrDefaultAsync(
                 x => x.Alias == alias
             );
-            return account.Owner == owner ? account : null;
+            return account?.Owner == owner ? account : null;
         }
 
         public IAsyncEnumerable<OldSchoolAccount> All(User user)

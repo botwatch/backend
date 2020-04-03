@@ -10,7 +10,7 @@ import EqualizerIcon from '@material-ui/icons/Equalizer';
 import React from 'react';
 import {
     Switch,
-    Route, Link
+    Route, Link, Redirect
 } from "react-router-dom";
 import Dashboard from "./dashboard/Dashboard";
 import Accounts from "./accounts/Accounts";
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
         nav: {
             padding: theme.spacing(2),
             marginBottom: theme.spacing(2)
-        }   
+        }
     }),
 );
 
@@ -91,8 +91,9 @@ export default function ClippedDrawer() {
             </Drawer>
             <main className={classes.content}>
                 <Switch>
+                    <Redirect from="/" exact to="/dashboard" />
                     <Route path="/dashboard" component={Dashboard}/>
-                    <Route path="/accounts" exact component={Accounts}/>
+                    <Route path="/accounts" component={Accounts}/>
                     <Route path="/clients" component={Clients}/>
                 </Switch>
             </main>

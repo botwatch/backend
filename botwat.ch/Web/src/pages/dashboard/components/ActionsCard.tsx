@@ -1,12 +1,13 @@
 import {Avatar, Card, CardContent, Grid, Theme, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
-import FilterHdrIcon from '@material-ui/icons/FilterHdr';
+import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import DateRangeRoundedIcon from '@material-ui/icons/DateRangeRounded';
 import React, {useEffect} from "react";
 import {ISession} from "../../../data/dto/ISession";
 import moment from "moment";
 import groupArray from "group-array";
 import {IExperience} from "../../../data/dto/IExperience";
+import {IInteraction} from "../../../data/dto/IInteraction";
 import {Skeleton} from "@material-ui/lab";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }));
 
-export default function ExperienceCard({sessions}) {
+export default function ActionsCard({sessions}) {
     const classes = useStyles();
 
     let localSessions = sessions as ISession[];
@@ -53,17 +54,7 @@ export default function ExperienceCard({sessions}) {
         moment().endOf('day').subtract(1, 'week')
     ));
 
-    let exp: IExperience[] = weeklySessions.flatMap(session => session.experiences);
-    let groups: Array<IExperience[]> = groupArray(exp, 'skillIndex') as Array<IExperience[]>;
-    let expAccumulator = 0;
-
-    for (let i = 0; i < 22; i++) {
-        let arr = groups[i];
-        if (arr == null) continue;
-        let sorted: IExperience[] = arr.sort((a: IExperience, b: IExperience) => a.skillExperience - b.skillExperience);
-        let gain = sorted[sorted.length - 1].skillExperience - sorted[0].skillExperience;
-        expAccumulator += gain;
-    }
+    let actions: IInteraction[] = weeklySessions.flatMap(session => session.actions);
 
     return (
         <Card className={classes.root}>
@@ -79,13 +70,13 @@ export default function ExperienceCard({sessions}) {
                             gutterBottom
                             variant="body2"
                         >
-                            Experience
+                            Actions
                         </Typography>
-                        <Typography variant="h3">{(expAccumulator / 1000).toFixed(2)}K</Typography>
+                        <Typography variant="h3">{(actions.length / 1000).toFixed(2)}K</Typography>
                     </Grid>
                     <Grid item>
                         <Avatar className={classes.avatar}>
-                            <FilterHdrIcon className={classes.icon}/>
+                            <DirectionsRunIcon className={classes.icon}/>
                         </Avatar>
                     </Grid>
                 </Grid>
@@ -100,7 +91,7 @@ export default function ExperienceCard({sessions}) {
                             className={classes.differenceValue}
                             variant="body2"
                         >
-                            {(expAccumulator / 7000).toFixed(2)}K / day
+                            {(actions.length / 7000).toFixed(2)}K / day
                         </Typography>
                     </Grid>
                     <Grid item>

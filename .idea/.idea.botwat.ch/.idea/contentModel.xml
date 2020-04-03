@@ -87,6 +87,7 @@
           <e p="node_modules\@babel\parser" t="IncludeRecursive" />
           <e p="node_modules\@babel\types" t="IncludeRecursive" />
           <e p="node_modules\@devexpress\dx-react-chart" t="IncludeRecursive" />
+          <e p="node_modules\@devexpress\dx-react-chart-material-ui" t="IncludeRecursive" />
           <e p="node_modules\@devexpress\dx-react-core" t="IncludeRecursive" />
           <e p="node_modules\@emotion\hash" t="IncludeRecursive" />
           <e p="node_modules\@jest\console" t="IncludeRecursive" />
@@ -144,6 +145,7 @@
           <e p="node_modules\dotenv" t="IncludeRecursive" />
           <e p="node_modules\dotenv-expand" t="IncludeRecursive" />
           <e p="node_modules\fast-glob" t="IncludeRecursive" />
+          <e p="node_modules\group-array" t="IncludeRecursive" />
           <e p="node_modules\is-in-browser" t="IncludeRecursive" />
           <e p="node_modules\jest" t="IncludeRecursive" />
           <e p="node_modules\jest-diff" t="IncludeRecursive" />
@@ -274,6 +276,7 @@
               </e>
               <e p="dashboard" t="Include">
                 <e p="components" t="Include">
+                  <e p="ActionsCard.tsx" t="Include" />
                   <e p="ExperienceCard.tsx" t="Include" />
                   <e p="Profile.tsx" t="Include" />
                   <e p="SessionsChart.tsx" t="Include" />

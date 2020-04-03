@@ -48,6 +48,7 @@
       <TypeScriptCompile Include="Web\src\pages\accounts\Accounts.tsx" />
       <TypeScriptCompile Include="Web\src\pages\clients\Clients.tsx" />
       <TypeScriptCompile Include="Web\src\pages\clients\components\ClientCard.tsx" />
+      <TypeScriptCompile Include="Web\src\pages\dashboard\components\ActionsCard.tsx" />
       <TypeScriptCompile Include="Web\src\pages\dashboard\components\ExperienceCard.tsx" />
       <TypeScriptCompile Include="Web\src\pages\dashboard\components\Profile.tsx" />
       <TypeScriptCompile Include="Web\src\pages\dashboard\components\SessionsChart.tsx" />

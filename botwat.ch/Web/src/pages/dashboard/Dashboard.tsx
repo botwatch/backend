@@ -9,6 +9,7 @@ import {accountService} from "../../services/account.service";
 import {ISession} from "../../data/dto/ISession";
 import SessionsChart from "./components/SessionsChart";
 import ExperienceCard from "./components/ExperienceCard";
+import ActionsCard from "./components/ActionsCard";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -22,37 +23,36 @@ export default function Dashboard() {
     const [sessions, setSessions] = React.useState<ISession[]>([]);
 
     useEffect(() => {
-        (async function anyNameFunction() {
+        (async function fun() {
             let user = authenticationService.currentUserValue;
             if (user != null) {
                 if (user.token != null) {
                     if (await authenticationService.login(user.name, user.token) != null) {
                         let localSessions: any = await accountService.getSessions();
-                        setSessions(localSessions);
-                        /* if (typeof localSessions !== "string") {
-                             let ids = localSessions.flatMap((s) => s.id);
- 
-                             let localInteractions = await accountService.getInteractions(ids);
-                             if (typeof localInteractions !== "string") {
-                                 localInteractions.forEach(act => {
-                                     let id = act[0].id;
-                                     let session = localSessions.find(sess => sess.id == id);
-                                     if (session != undefined)
-                                         session.actions = act;
-                                 });
- 
-                                 let localexperiences = await accountService.getExperiences(ids);
-                                 if (typeof localexperiences !== "string") {
-                                     localexperiences.forEach(exp => {
-                                         let id = exp[0].id;
-                                         let session = localSessions.find(sess => sess.id == id);
-                                         if (session != undefined)
-                                             session.experiences = exp;
-                                     });
-                                 }
-                                 setSessions(localSessions);
-                             }
-                         }*/
+                        if (typeof localSessions !== "string") {
+                            let ids = localSessions.flatMap((s) => s.id);
+
+                            let localInteractions = await accountService.getInteractions(ids);
+                            if (typeof localInteractions !== "string") {
+                                localInteractions.forEach(act => {
+                                    let id = act[0].id;
+                                    let session = localSessions.find(sess => sess.id == id);
+                                    if (session != undefined)
+                                        session.actions = act;
+                                });
+
+                                let localexperiences = await accountService.getExperiences(ids);
+                                if (typeof localexperiences !== "string") {
+                                    localexperiences.forEach(exp => {
+                                        let id = exp[0].id;
+                                        let session = localSessions.find(sess => sess.id == id);
+                                        if (session != undefined)
+                                            session.experiences = exp;
+                                    });
+                                }
+                                setSessions(localSessions);
+                            }
+                        }
                     }
                 }
             }
@@ -72,7 +72,7 @@ export default function Dashboard() {
                     xl={3}
                     xs={12}
                 >
-                    <ExperienceCard/>
+                    <ExperienceCard sessions={sessions}/>
                 </Grid>
                 <Grid
                     item
@@ -81,25 +81,7 @@ export default function Dashboard() {
                     xl={3}
                     xs={12}
                 >
-                    <ExperienceCard/>
-                </Grid>
-                <Grid
-                    item
-                    lg={3}
-                    sm={6}
-                    xl={3}
-                    xs={12}
-                >
-                    <ExperienceCard/>
-                </Grid>
-                <Grid
-                    item
-                    lg={3}
-                    sm={6}
-                    xl={3}
-                    xs={12}
-                >
-                    <ExperienceCard/>
+                    <ActionsCard sessions={sessions}/>
                 </Grid>
                 <Grid
                     item
