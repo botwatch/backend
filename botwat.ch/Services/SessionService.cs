@@ -13,7 +13,7 @@ namespace botwat.ch.Services
     {
         Task<Session> Create(Session session);
         Task<Session> Find(int session);
-        Task<Session> End(Session session);
+        Session End(Session session);
         void Update(Session session);
         IAsyncEnumerable<Session> All(User localUser);
     }
@@ -25,11 +25,9 @@ namespace botwat.ch.Services
             _activeTimer.Elapsed += async (_, __) =>
             {
                 foreach (var pair in _activeSessions.Where(pair =>
-                    DateTime.Now.Subtract(pair.Value).TotalMilliseconds >= Timeout))
-                {
-                    await End(pair.Key);
-                }
-
+                    DateTime.Now.Subtract(pair.Value).TotalMilliseconds >= Timeout)
+                ) End(pair.Key);
+                
                 await _context.SaveChangesAsync();
             };
             _activeTimer.Start();
@@ -54,7 +52,7 @@ namespace botwat.ch.Services
             return await _context.Sessions.FirstOrDefaultAsync(x => x.Id == session);
         }
 
-        public async Task<Session> End(Session session)
+        public Session End(Session session)
         {
             if (session == null) return null;
             //End session

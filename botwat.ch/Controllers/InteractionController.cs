@@ -42,10 +42,11 @@ namespace botwat.ch.Controllers
         {
             var name = User.Identity.Name;
             var localUser = await _service.UserService.Find(name);
-            var session = await _service.SessionService.Find(sessionId);
-
             if (localUser == null) return Forbid("Must be logged in to a valid user");
+            
+            var session = await _service.SessionService.Find(sessionId);
             if (session == null) return BadRequest("Must have valid session to track interactions");
+            
             if (session.User != localUser) return Forbid("You do not own this session");
             if(!session.IsActive) return Forbid("This session has already ended. Start a new session.");
 

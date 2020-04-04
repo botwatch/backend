@@ -13,6 +13,7 @@ import React, {useEffect} from "react";
 import {authenticationService} from "../../services/authentication.service";
 import {accountService} from "../../services/account.service";
 import {IOldSchoolAccount} from "../../data/dto/IOldSchoolAccount";
+import moment from "moment";
 
 const useStyles = makeStyles({
     root: {
@@ -64,6 +65,15 @@ export default function Accounts() {
         }
     }, []);
 
+    const displayValue = (value: any) => {
+        let date = moment(value);
+        if (date.isValid()) {
+            if (date.year() < 2000) return "No";
+            return date.format("dddd, MMMM Do YYYY, h:mm:ss a");
+        }
+        return value;
+    };
+
     return (
         <Paper className={classes.root}>
             <TableContainer className={classes.container}>
@@ -90,13 +100,13 @@ export default function Accounts() {
                                             const value = row[column.id];
                                             return (
                                                 <TableCell key={column.id} align={column.align}>
-                                                    {value}
+                                                    {displayValue(value)}
                                                 </TableCell>
                                             );
                                         })}
                                     </TableRow>
                                 );
-                            }) : <TableRow />
+                            }) : <TableRow/>
                         }
                     </TableBody>
                 </Table>

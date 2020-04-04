@@ -41,10 +41,10 @@ namespace botwat.ch.Controllers
             var session = await _service.SessionService.Find(sessionId);
             if (session != null)
             {
-                return Ok(await _service.SessionService.End(session));
+                return Ok(_service.SessionService.End(session));
             }
-            return BadRequest($"Session id {sessionId} does not exist.");
 
+            return BadRequest($"Session id {sessionId} does not exist.");
         }
 
 
@@ -54,15 +54,15 @@ namespace botwat.ch.Controllers
         {
             var name = User.Identity.Name;
             var localUser = await _service.UserService.Find(name);
-            
+
             if (localUser == null)
             {
                 return NotFound($"User does not exist.");
             }
-            
+
             var localClient = await _service.BotClientService.Find(client);
             var localAccount = await _service.OldSchoolAccountService.Find(alias, localUser);
-            
+
 
             if (localClient == null)
             {
