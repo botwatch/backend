@@ -37,7 +37,7 @@ namespace botwat.ch
             if (!Debugger.IsAttached)
             {
                 services.AddLetsEncrypt()
-                    .PersistDataToDirectory(new DirectoryInfo("/home/LetsEncrypt/"), "botwat.ch");
+                    .PersistDataToDirectory(new DirectoryInfo("/root/.aspnet/DataProtection-Keys/"), "botwat.ch");
             }
 
             services.AddControllersWithViews();
