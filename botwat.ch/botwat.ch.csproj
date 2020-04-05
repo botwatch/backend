@@ -28,6 +28,7 @@
         <Content Include="Web\public\index.html" />
         <Content Include="Web\public\robots.txt" />
         <Content Include="Web\src\resources\hive.png" />
+        <Content Include="Web\src\resources\osrs_world_map.png" />
         <Content Include="Web\tsconfig.json" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
@@ -55,6 +56,7 @@
       <TypeScriptCompile Include="Web\src\pages\dashboard\Dashboard.tsx" />
       <TypeScriptCompile Include="Web\src\pages\Home.tsx" />
       <TypeScriptCompile Include="Web\src\pages\Login.tsx" />
+      <TypeScriptCompile Include="Web\src\pages\map\GameMap.tsx" />
       <TypeScriptCompile Include="Web\src\pages\Register.tsx" />
       <TypeScriptCompile Include="Web\src\services\authentication.service.ts" />
       <TypeScriptCompile Include="Web\src\services\account.service.ts" />

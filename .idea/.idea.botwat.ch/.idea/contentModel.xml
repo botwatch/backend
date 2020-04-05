@@ -113,10 +113,12 @@
             <e p="babel__traverse" t="IncludeRecursive" />
             <e p="crypto-js" t="IncludeRecursive" />
             <e p="events" t="IncludeRecursive" />
+            <e p="geojson" t="IncludeRecursive" />
             <e p="history" t="IncludeRecursive" />
             <e p="istanbul-lib-coverage" t="IncludeRecursive" />
             <e p="istanbul-lib-report" t="IncludeRecursive" />
             <e p="jest" t="IncludeRecursive" />
+            <e p="leaflet" t="IncludeRecursive" />
             <e p="match-sorter" t="IncludeRecursive" />
             <e p="material-ui" t="IncludeRecursive" />
             <e p="minimatch" t="IncludeRecursive" />
@@ -126,6 +128,7 @@
             <e p="react" t="IncludeRecursive" />
             <e p="react-addons-linked-state-mixin" t="IncludeRecursive" />
             <e p="react-dom" t="IncludeRecursive" />
+            <e p="react-leaflet" t="IncludeRecursive" />
             <e p="react-router" t="IncludeRecursive" />
             <e p="react-router-dom" t="IncludeRecursive" />
             <e p="testing-library__dom" t="IncludeRecursive" />
@@ -165,6 +168,7 @@
           <e p="node_modules\jss-plugin-props-sort" t="IncludeRecursive" />
           <e p="node_modules\jss-plugin-rule-value-function" t="IncludeRecursive" />
           <e p="node_modules\jss-plugin-vendor-prefixer" t="IncludeRecursive" />
+          <e p="node_modules\leaflet" t="IncludeRecursive" />
           <e p="node_modules\material-ui" t="IncludeRecursive" />
           <e p="node_modules\moment" t="IncludeRecursive" />
           <e p="node_modules\normalize-scroll-left" t="IncludeRecursive" />
@@ -173,6 +177,7 @@
           <e p="node_modules\react" t="IncludeRecursive" />
           <e p="node_modules\react-dom" t="IncludeRecursive" />
           <e p="node_modules\react-icons" t="IncludeRecursive" />
+          <e p="node_modules\react-leaflet" t="IncludeRecursive" />
           <e p="node_modules\react-material-ui-form-validator" t="IncludeRecursive" />
           <e p="node_modules\react-router-dom" t="IncludeRecursive" />
           <e p="node_modules\react-scripts" t="IncludeRecursive" />
@@ -285,11 +290,15 @@
               </e>
               <e p="Home.tsx" t="Include" />
               <e p="Login.tsx" t="Include" />
+              <e p="map" t="Include">
+                <e p="GameMap.tsx" t="Include" />
+              </e>
               <e p="Register.tsx" t="Include" />
             </e>
             <e p="react-app-env.d.ts" t="Include" />
             <e p="resources" t="Include">
               <e p="hive.png" t="Include" />
+              <e p="osrs_world_map.png" t="Include" />
             </e>
             <e p="Services" t="Include">
               <e p="account.service.ts" t="Include" />

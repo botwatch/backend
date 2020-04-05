@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import MapIcon from '@material-ui/icons/Map';
 import HomeIcon from '@material-ui/icons/Home';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import React from 'react';
@@ -16,7 +17,7 @@ import Dashboard from "./dashboard/Dashboard";
 import Accounts from "./accounts/Accounts";
 import Clients from "./clients/Clients";
 import {Divider, useMediaQuery} from "@material-ui/core";
-import {useTheme} from "@material-ui/styles";
+import GameMap from "./map/GameMap";
 import Profile from "./dashboard/components/Profile";
 
 const drawerWidth = 240;
@@ -78,6 +79,10 @@ export default function ClippedDrawer() {
                             <ListItemIcon>{<HomeIcon/>}</ListItemIcon>
                             <ListItemText primary="Dashboard"/>
                         </ListItem>
+                        <ListItem button key="Map" component={Link} to="/map" disableGutters>
+                            <ListItemIcon>{<MapIcon/>}</ListItemIcon>
+                            <ListItemText primary="Map"/>
+                        </ListItem>
                         <ListItem button key="Accounts" component={Link} to="/accounts" disableGutters>
                             <ListItemIcon>{<AccountCircleIcon/>}</ListItemIcon>
                             <ListItemText primary="Accounts"/>
@@ -93,6 +98,7 @@ export default function ClippedDrawer() {
                 <Switch>
                     <Redirect from="/" exact to="/dashboard" />
                     <Route path="/dashboard" component={Dashboard}/>
+                    <Route path="/map" component={GameMap}/>
                     <Route path="/accounts" component={Accounts}/>
                     <Route path="/clients" component={Clients}/>
                 </Switch>
