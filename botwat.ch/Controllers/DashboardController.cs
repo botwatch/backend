@@ -40,7 +40,8 @@ namespace botwat.ch.Controllers
 
                     var sessions = _context.Sessions.Where(session =>
                         session.User == localUser &&
-                        session.Start <= max
+                        session.Start <= max &&
+                        session.Start >= start
                     );
 
                     var totalExp = _context.Experiences.Where(exp => sessions.Any(s => s.Id == exp.SessionId))
