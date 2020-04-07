@@ -18,10 +18,10 @@ import {
 import {Animation} from '@devexpress/dx-react-chart';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import moment from "moment";
 import {Theme} from "@material-ui/core/styles";
 import {Skeleton} from "@material-ui/lab";
-import {ISession} from "../../../data/dto/ISession";
+import {IDashboard, IGraph} from "../../../data/dto/IDashboard";
+import moment from "moment";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -35,36 +35,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }));
 
-interface Count {
-    date: string,
-    count: number
-}
-
-
-export default function SessionsChart({sessions}) {
+export default function SessionsChart({graphData}) {
     const classes = useStyles();
-
-    let count: Count[] = [];
-    for (let i = 0; i < 7; i++){
-        let day = moment().subtract(i,'days').format('dddd');
-        count.push({date: day, count: 0} as Count);  
-    } 
-    let localSessions = sessions as ISession[];
-    let weeklySessions = localSessions.filter(session => moment(session.start).isAfter(
-        moment().endOf('day').subtract(1, 'week')
-    ));
-    if (weeklySessions.length == 0) return <Skeleton animation="wave" variant="rect" width={'100%'} height={400}/>;
-    
-    weeklySessions.map(session => {
-        let sessionDate = moment(session.start);
-        let daysDifference = moment().diff(sessionDate,'days');
-        let dateName = daysDifference === 0 ? "Today" : sessionDate.format('dddd');
-        let index = 6 - daysDifference;
-        count[index].date = dateName;
-        count[index].count++
-    });
-
-    console.info(count);
+    if (graphData == undefined) return <Skeleton animation="wave" variant="rect" width={'100%'} height={400}/>;
+    (graphData as IGraph[])?.forEach(graph => graph.dateString = moment().dayOfYear(graph.date).format('M-D'));
     return (
         <Card className={classes.root}>
             <CardHeader
@@ -80,12 +54,12 @@ export default function SessionsChart({sessions}) {
             />
             <Divider/>
             <CardContent>
-                <Chart data={count}>
+                <Chart data={graphData}>
                     <ArgumentAxis/>
                     <ValueAxis/>
                     <BarSeries
                         valueField="count"
-                        argumentField="date"
+                        argumentField="dateString"
                         color={'#3F51B5'}
                     />
                     <Title text="Sessions run"/>

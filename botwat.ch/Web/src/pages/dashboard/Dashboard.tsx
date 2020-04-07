@@ -10,6 +10,8 @@ import {ISession} from "../../data/dto/ISession";
 import SessionsChart from "./components/SessionsChart";
 import ExperienceCard from "./components/ExperienceCard";
 import ActionsCard from "./components/ActionsCard";
+import moment from "moment";
+import {IDashboard} from "../../data/dto/IDashboard";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -20,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function Dashboard() {
     const classes = useStyles();
-    const [sessions, setSessions] = React.useState<ISession[]>([]);
+    const [data, setData] = React.useState<IDashboard>();
 
     useEffect(() => {
         (async function fun() {
@@ -28,30 +30,9 @@ export default function Dashboard() {
             if (user != null) {
                 if (user.token != null) {
                     if (await authenticationService.login(user.name, user.token) != null) {
-                        let localSessions: any = await accountService.getSessions();
-                        if (typeof localSessions !== "string") {
-                            let ids = localSessions.flatMap((s) => s.id);
-
-                            let localInteractions = await accountService.getInteractions(ids);
-                            if (typeof localInteractions !== "string") {
-                                localInteractions.forEach(act => {
-                                    let id = act[0].id;
-                                    let session = localSessions.find(sess => sess.id == id);
-                                    if (session != undefined)
-                                        session.actions = act;
-                                });
-
-                                let localexperiences = await accountService.getExperiences(ids);
-                                if (typeof localexperiences !== "string") {
-                                    localexperiences.forEach(exp => {
-                                        let id = exp[0].id;
-                                        let session = localSessions.find(sess => sess.id == id);
-                                        if (session != undefined)
-                                            session.experiences = exp;
-                                    });
-                                }
-                                setSessions(localSessions);
-                            }
+                        let localData: any = await accountService.getDashboard(moment().subtract(7, 'days').toDate(), 7);
+                        if (typeof localData !== "string") {
+                            setData(localData as IDashboard);
                         }
                     }
                 }
@@ -72,7 +53,7 @@ export default function Dashboard() {
                     xl={3}
                     xs={12}
                 >
-                    <ExperienceCard sessions={sessions}/>
+                    <ExperienceCard expCount={data?.totalExp}/>
                 </Grid>
                 <Grid
                     item
@@ -81,7 +62,7 @@ export default function Dashboard() {
                     xl={3}
                     xs={12}
                 >
-                    <ActionsCard sessions={sessions}/>
+                    <ActionsCard actionCount={data?.totalActions}/>
                 </Grid>
                 <Grid
                     item
@@ -90,7 +71,7 @@ export default function Dashboard() {
                     xl={9}
                     xs={12}
                 >
-                    <SessionsChart sessions={sessions}/>
+                    <SessionsChart graphData={data?.graph}/>
                 </Grid>
             </Grid>
         </div>

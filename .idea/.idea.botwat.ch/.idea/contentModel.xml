@@ -13,6 +13,7 @@
         <e p="botwat.ch.csproj" t="IncludeRecursive" />
         <e p="Controllers" t="Include">
           <e p="BotClientController.cs" t="Include" />
+          <e p="DashboardController.cs" t="Include" />
           <e p="ExperienceController.cs" t="Include" />
           <e p="InteractionController.cs" t="Include" />
           <e p="OldSchoolAccountController.cs" t="Include" />
@@ -261,6 +262,7 @@
             <e p="data" t="Include">
               <e p="dto" t="Include">
                 <e p="IClient.ts" t="Include" />
+                <e p="IDashboard.ts" t="Include" />
                 <e p="IExperience.ts" t="Include" />
                 <e p="IInteraction.ts" t="Include" />
                 <e p="IOldSchoolAccount.ts" t="Include" />

@@ -44,18 +44,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }));
 
-export default function ActionsCard({sessions}) {
+export default function ActionsCard({actionCount}) {
     const classes = useStyles();
-
-    let localSessions = sessions as ISession[];
-    if (localSessions.length == 0) return <Skeleton animation="wave" variant="rect" width={'100%'} height={185}/>;
-
-    let weeklySessions = localSessions.filter(session => moment(session.start).isAfter(
-        moment().endOf('day').subtract(1, 'week')
-    ));
-
-    let actions: IInteraction[] = weeklySessions.flatMap(session => session.actions);
-
+    
     return (
         <Card className={classes.root}>
             <CardContent>
@@ -72,7 +63,7 @@ export default function ActionsCard({sessions}) {
                         >
                             Actions
                         </Typography>
-                        <Typography variant="h3">{(actions.length / 1000).toFixed(2)}K</Typography>
+                        <Typography variant="h3">{(actionCount / 1000).toFixed(2)}K</Typography>
                     </Grid>
                     <Grid item>
                         <Avatar className={classes.avatar}>
@@ -91,7 +82,7 @@ export default function ActionsCard({sessions}) {
                             className={classes.differenceValue}
                             variant="body2"
                         >
-                            {(actions.length / 7000).toFixed(2)}K / day
+                            {(actionCount / 7000).toFixed(2)}K / day
                         </Typography>
                     </Grid>
                     <Grid item>
