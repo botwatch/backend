@@ -300,6 +300,27 @@
             <e p="react-app-env.d.ts" t="Include" />
             <e p="resources" t="Include">
               <e p="hive.png" t="Include" />
+              <e p="map" t="Include">
+                <e p="0" t="Include">
+                  <e p="0" t="Include">
+                    <e p="0.png" t="Include" />
+                  </e>
+                </e>
+                <e p="1" t="Include">
+                  <e p="0" t="Include">
+                    <e p="0.png" t="Include" />
+                  </e>
+                  <e p="1" t="Include">
+                    <e p="0.png" t="Include" />
+                  </e>
+                </e>
+                <e p="10" t="Include">
+                  <e p="0" t="Include">
+                    <e p="0.png" t="Include" />
+                  </e>
+                </e>
+                <e p="tilemapresource.xml" t="Include" />
+              </e>
               <e p="osrs_world_map.png" t="Include" />
             </e>
             <e p="Services" t="Include">

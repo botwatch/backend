@@ -28,6 +28,11 @@
         <Content Include="Web\public\index.html" />
         <Content Include="Web\public\robots.txt" />
         <Content Include="Web\src\resources\hive.png" />
+        <Content Include="Web\src\resources\map\0\0\0.png" />
+        <Content Include="Web\src\resources\map\10\0\0.png" />
+        <Content Include="Web\src\resources\map\1\0\0.png" />
+        <Content Include="Web\src\resources\map\1\1\0.png" />
+        <Content Include="Web\src\resources\map\tilemapresource.xml" />
         <Content Include="Web\src\resources\osrs_world_map.png" />
         <Content Include="Web\tsconfig.json" />
         <None Remove="$(SpaRoot)**" />

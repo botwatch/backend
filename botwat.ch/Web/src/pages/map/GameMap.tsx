@@ -17,8 +17,8 @@ const useStyles = makeStyles((theme: Theme) =>
     }));
 
 export default function GameMap() {
-    const [position, setPosition] = React.useState<LatLngTuple>([2500, 5500]);
-    const [zoom, setZoom] = React.useState<number>(-1);
+    const [position, setPosition] = React.useState<LatLngTuple>([-79, -134]);
+    const [zoom, setZoom] = React.useState<number>(8);
     const [coords, setCoords] = React.useState<string>("");
 
     const gameMap = React.createRef<Map>();
@@ -69,12 +69,11 @@ export default function GameMap() {
                          onmousemove={handleClick}
                          center={position}
                          zoom={zoom}
-                         className={classes.mapId}
-                         crs={CRS.Simple}
-                         minZoom={-2}
-                         maxZoom={4}
+                         className={classes.mapId}                    
+                         minZoom={5}
+                         maxZoom={11}                         
                     >
-                        <ImageOverlay url={mapImage} bounds={[[0, 0], [4850, 8306]]}/>
+                        <TileLayer tms noWrap url="https://raw.githubusercontent.com/botwatch/osrs_map_full_2020_03_07/master/0/{z}/{x}/{y}.png"/>
                         <CircleMarker center={marker} radius={20}/>
                     </Map>
                 </Grid>
