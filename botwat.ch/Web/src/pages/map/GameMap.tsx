@@ -90,7 +90,7 @@ export default function GameMap() {
                             points={heatMap}
                             gradient={gradient}
                             max={1.0}
-                            radius={60}
+                            radius={10}
                             longitudeExtractor={pos => extractLng(pos)}
                             latitudeExtractor={pos => extractLat(pos)}
                             intensityExtractor={pos => extractIntensity(pos)}
