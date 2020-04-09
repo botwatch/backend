@@ -1,9 +1,14 @@
-import React from "react";
-import {CircleMarker, ImageOverlay, LatLng, Map, Marker, Point, Popup, TileLayer} from "react-leaflet";
-import {CRS, LatLngTuple} from "leaflet";
+import React, {useEffect} from "react";
+import {Map, TileLayer} from "react-leaflet";
+import HeatmapLayer from "react-leaflet-heatmap-layer";
+import {LatLngExpression, LatLngTuple} from "leaflet";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {Grid, Typography} from "@material-ui/core";
-import mapImage from '../../resources/osrs_world_map.png';
+import Position, {IPosition} from "./Position";
+import {authenticationService} from "../../services/authentication.service";
+import {accountService} from "../../services/account.service";
+import moment from "moment";
+import {IDashboard} from "../../data/dto/IDashboard";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -16,41 +21,48 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }));
 
+interface HeatMap {
+    heatMap: IPosition[]
+}
+
 export default function GameMap() {
     const [position, setPosition] = React.useState<LatLngTuple>([-79, -134]);
     const [zoom, setZoom] = React.useState<number>(8);
     const [coords, setCoords] = React.useState<string>("");
 
-    const gameMap = React.createRef<Map>();
+    let gameMap = React.useRef<Map>(null);
 
     const handleClick = (e) => {
-        const {lat, lng} = e.latlng;
-        let val = pixelToCoord(lat, lng);
-        let ex = coordToPixel(val[0], val[1]);
-        setCoords(` coords(${val[0]},${val[1]}) lat ${lat} - ${ex[0]} lng ${lng} - ${ex[1]}`);
+        let val: Position = Position.fromLatLng(gameMap.current, e.latlng);
+        setCoords(`coords(${val.x},${val.y})`);
     };
 
-    const pixelToCoord = (lat: number, lng: number) => {
-        let xPixel = lng / 3.012;
-        let yPixel = (4850 - lat) / 3.026;
+    const extractLat = (pos: IPosition) => Position.toLatLng(gameMap.current, pos.x, pos.y).lat;
+    const extractLng = (pos: IPosition) => Position.toLatLng(gameMap.current, pos.x, pos.y).lng;
+    const extractIntensity = (pos: IPosition) => pos.z;
 
-        let xOffset = 1152;
-        let yOffset = 4096;
+    const [heatMap, setHeatMap] = React.useState<IPosition[]>([]);
 
-        return [Math.round(xPixel + xOffset), Math.round(yOffset - yPixel)];
+    useEffect(() => {
+        (async function fun() {
+            let user = authenticationService.currentUserValue;
+            if (user != null) {
+                if (user.token != null) {
+                    if (await authenticationService.login(user.name, user.token) != null) {
+                        let localData: any = await accountService.getMap(moment().subtract(7, 'days').toDate(), 7);
+                        if (typeof localData !== "string") {
+                            let data = localData as HeatMap;
+                            setHeatMap(data.heatMap);
+                        }
+                    }
+                }
+            }
+        })()
+    }, []);
+    const gradient = {
+        0.1: '#0c14e0', 0.2: '#4a86e6', 0.3: '#3dce46',
+        0.4: '#faeb4d', 0.6: '#f56a29', 0.8: '#de3737'
     };
-
-    const coordToPixel = (x: number, y: number) => {
-        let xOffset = 1152;
-        let yOffset = 4096;
-
-        let xPixel = (y - xOffset) * 3.0125 - 4018;
-        let yPixel = ((x + yOffset) * 3.026) - 15880;
-
-        return [Math.round(xPixel), Math.round(yPixel)];
-    };
-    
-    const [marker, setMarker] = React.useState<LatLngTuple>(coordToPixel(3245, 3225) as LatLngTuple);
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -69,12 +81,22 @@ export default function GameMap() {
                          onmousemove={handleClick}
                          center={position}
                          zoom={zoom}
-                         className={classes.mapId}                    
+                         className={classes.mapId}
                          minZoom={5}
-                         maxZoom={11}                         
+                         maxZoom={11}
                     >
-                        <TileLayer tms noWrap url="https://raw.githubusercontent.com/botwatch/osrs_map_full_2020_03_07/master/0/{z}/{x}/{y}.png"/>
-                        <CircleMarker center={marker} radius={20}/>
+                        <HeatmapLayer
+                            fitBoundsOnLoad
+                            points={heatMap}
+                            gradient={gradient}
+                            max={1.0}
+                            radius={60}
+                            longitudeExtractor={pos => extractLng(pos)}
+                            latitudeExtractor={pos => extractLat(pos)}
+                            intensityExtractor={pos => extractIntensity(pos)}
+                        />
+                        <TileLayer tms noWrap
+                                   url="https://raw.githubusercontent.com/botwatch/osrs_map_full_2020_03_07/master/0/{z}/{x}/{y}.png"/>
                     </Map>
                 </Grid>
             </Grid>

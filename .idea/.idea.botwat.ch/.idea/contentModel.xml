@@ -16,6 +16,7 @@
           <e p="DashboardController.cs" t="Include" />
           <e p="ExperienceController.cs" t="Include" />
           <e p="InteractionController.cs" t="Include" />
+          <e p="MapController.cs" t="Include" />
           <e p="OldSchoolAccountController.cs" t="Include" />
           <e p="SessionController.cs" t="Include" />
           <e p="UserController.cs" t="Include" />
@@ -179,6 +180,7 @@
           <e p="node_modules\react-dom" t="IncludeRecursive" />
           <e p="node_modules\react-icons" t="IncludeRecursive" />
           <e p="node_modules\react-leaflet" t="IncludeRecursive" />
+          <e p="node_modules\react-leaflet-heatmap-layer" t="IncludeRecursive" />
           <e p="node_modules\react-material-ui-form-validator" t="IncludeRecursive" />
           <e p="node_modules\react-router-dom" t="IncludeRecursive" />
           <e p="node_modules\react-scripts" t="IncludeRecursive" />
@@ -294,6 +296,7 @@
               <e p="Login.tsx" t="Include" />
               <e p="map" t="Include">
                 <e p="GameMap.tsx" t="Include" />
+                <e p="Position.ts" t="Include" />
               </e>
               <e p="Register.tsx" t="Include" />
             </e>

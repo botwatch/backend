@@ -3,7 +3,7 @@ import {authenticationService} from "./authentication.service";
 
 export const accountService = {
     createAccount, getAccounts, createClient, getClients, createSession, getSessions, getInteractions, getExperiences,
-    getDashboard
+    getDashboard, getMap
 };
 
 async function getDashboard(date: Date, span: number) {
@@ -11,6 +11,20 @@ async function getDashboard(date: Date, span: number) {
     requestHeaders.set('Authorization', `Bearer ${authenticationService.currentUserValue.token}`);
 
     let response = await fetch(withQuery('/dashboard/data', {
+        startDay: date,
+        daySpan: span
+    }), {
+        method: 'post',
+        headers: requestHeaders
+    });
+    return response.ok ? await response.json() : response.text();
+}
+
+async function getMap(date: Date, span: number) {
+    const requestHeaders: HeadersInit = new Headers();
+    requestHeaders.set('Authorization', `Bearer ${authenticationService.currentUserValue.token}`);
+
+    let response = await fetch(withQuery('/map/heatmap', {
         startDay: date,
         daySpan: span
     }), {

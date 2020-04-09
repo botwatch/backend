@@ -63,6 +63,7 @@
       <TypeScriptCompile Include="Web\src\pages\Home.tsx" />
       <TypeScriptCompile Include="Web\src\pages\Login.tsx" />
       <TypeScriptCompile Include="Web\src\pages\map\GameMap.tsx" />
+      <TypeScriptCompile Include="Web\src\pages\map\Position.ts" />
       <TypeScriptCompile Include="Web\src\pages\Register.tsx" />
       <TypeScriptCompile Include="Web\src\services\authentication.service.ts" />
       <TypeScriptCompile Include="Web\src\services\account.service.ts" />
