@@ -117,7 +117,7 @@ export default function StatisticCard({statistic, previous, title, iconName}) {
                                 className={change >= 0 ? classes.differenceIconUp : classes.differenceIconDown}
                                 variant="body2"
                             >
-                                {change.toFixed(2)}%
+                                {humanFormat(change, {decimals: 0, separator: ''})}%
                             </Typography>
                         </div>
                         <Typography className={classes.caption} variant="caption">
