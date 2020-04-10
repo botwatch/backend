@@ -19,6 +19,8 @@ import Clients from "./clients/Clients";
 import {Divider, useMediaQuery} from "@material-ui/core";
 import GameMap from "./map/GameMap";
 import Profile from "./dashboard/components/Profile";
+import Mouse from "./mouse/Mouse";
+import MouseIcon from '@material-ui/icons/Mouse';
 
 const drawerWidth = 240;
 
@@ -83,6 +85,10 @@ export default function ClippedDrawer() {
                             <ListItemIcon>{<MapIcon/>}</ListItemIcon>
                             <ListItemText primary="Map"/>
                         </ListItem>
+                        <ListItem button key="Mouse" component={Link} to="/mouse" disableGutters>
+                            <ListItemIcon>{<MouseIcon/>}</ListItemIcon>
+                            <ListItemText primary="Mouse"/>
+                        </ListItem>
                         <ListItem button key="Accounts" component={Link} to="/accounts" disableGutters>
                             <ListItemIcon>{<AccountCircleIcon/>}</ListItemIcon>
                             <ListItemText primary="Accounts"/>
@@ -96,9 +102,10 @@ export default function ClippedDrawer() {
             </Drawer>
             <main className={classes.content}>
                 <Switch>
-                    <Redirect from="/" exact to="/dashboard" />
+                    <Redirect from="/" exact to="/dashboard"/>
                     <Route path="/dashboard" component={Dashboard}/>
                     <Route path="/map" component={GameMap}/>
+                    <Route path="/mouse" component={Mouse}/>
                     <Route path="/accounts" component={Accounts}/>
                     <Route path="/clients" component={Clients}/>
                 </Switch>

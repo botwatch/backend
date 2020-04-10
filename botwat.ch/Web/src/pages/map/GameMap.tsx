@@ -85,6 +85,8 @@ export default function GameMap() {
                          minZoom={5}
                          maxZoom={11}
                     >
+                        <TileLayer tms noWrap
+                                   url="https://raw.githubusercontent.com/botwatch/osrs_map_full_2020_03_07/master/0/{z}/{x}/{y}.png"/>
                         <HeatmapLayer
                             fitBoundsOnLoad
                             points={heatMap}
@@ -94,8 +96,6 @@ export default function GameMap() {
                             latitudeExtractor={pos => extractLat(pos)}
                             intensityExtractor={pos => extractIntensity(pos)}
                         />
-                        <TileLayer tms noWrap
-                                   url="https://raw.githubusercontent.com/botwatch/osrs_map_full_2020_03_07/master/0/{z}/{x}/{y}.png"/>
                     </Map>
                 </Grid>
             </Grid>

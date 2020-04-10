@@ -55,8 +55,7 @@
       <TypeScriptCompile Include="Web\src\pages\accounts\Accounts.tsx" />
       <TypeScriptCompile Include="Web\src\pages\clients\Clients.tsx" />
       <TypeScriptCompile Include="Web\src\pages\clients\components\ClientCard.tsx" />
-      <TypeScriptCompile Include="Web\src\pages\dashboard\components\ActionsCard.tsx" />
-      <TypeScriptCompile Include="Web\src\pages\dashboard\components\ExperienceCard.tsx" />
+      <TypeScriptCompile Include="Web\src\pages\dashboard\components\StatisticCard.tsx" />
       <TypeScriptCompile Include="Web\src\pages\dashboard\components\Profile.tsx" />
       <TypeScriptCompile Include="Web\src\pages\dashboard\components\SessionsChart.tsx" />
       <TypeScriptCompile Include="Web\src\pages\dashboard\Dashboard.tsx" />
@@ -64,6 +63,8 @@
       <TypeScriptCompile Include="Web\src\pages\Login.tsx" />
       <TypeScriptCompile Include="Web\src\pages\map\GameMap.tsx" />
       <TypeScriptCompile Include="Web\src\pages\map\Position.ts" />
+      <TypeScriptCompile Include="Web\src\pages\mouse\components\MouseChart.tsx" />
+      <TypeScriptCompile Include="Web\src\pages\mouse\Mouse.tsx" />
       <TypeScriptCompile Include="Web\src\pages\Register.tsx" />
       <TypeScriptCompile Include="Web\src\services\authentication.service.ts" />
       <TypeScriptCompile Include="Web\src\services\account.service.ts" />

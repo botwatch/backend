@@ -13,13 +13,13 @@ namespace botwat.ch.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class DashboardController : ControllerBase
+    public class MouseController : ControllerBase
     {
         private readonly ILogger<InteractionController> _logger;
         private readonly IServicesPool _service;
         private readonly DatabaseContext _context;
 
-        public DashboardController(ILogger<InteractionController> logger, IServicesPool service, DatabaseContext ctx)
+        public MouseController(ILogger<InteractionController> logger, IServicesPool service, DatabaseContext ctx)
         {
             _logger = logger;
             _service = service;
@@ -44,36 +44,13 @@ namespace botwat.ch.Controllers
                         session.Start >= start
                     );
 
-                    var totalExp = _context.Experiences.Where(exp => sessions.Any(s => s.Id == exp.SessionId))
-                        .ToList()
-                        .GroupBy(exp => exp.SkillIndex)
-                        .Select(group => group.OrderBy(exp => exp.SkillExperience))
-                        .Sum(sorted => sorted.Last().SkillExperience - sorted.First().SkillExperience);
-
-                    var totalActions = await _context.Interactions
+                    var actions = await _context.Interactions
                         .Where(action => sessions.Any(s => action.SessionId == s.Id))
-                        .CountAsync();
+                        .ToListAsync();
 
-                    var graph = sessions.ToList().GroupBy(session => session.Start.DayOfYear)
-                        .ToDictionary(group => group.Key, group => group.Count());
+                    var mouseData = actions.Select(a => new {X = a.MouseX, Y = a.MouseY, Time = a.Time});
 
-                    //fill in missing days
-                    var day = start.DayOfYear;
-                    for (var i = day; i < day + daySpan; i++)
-                        if (!graph.ContainsKey(i))
-                            graph[i] = 0;
-
-                    var totalTime = (await sessions.ToListAsync()).Sum(session => session.Elapsed.TotalMinutes);
-
-                    return Ok(new
-                    {
-                        Graph = graph
-                            .OrderBy(g => g.Key)
-                            .Select(v => new {Date = v.Key, Count = v.Value}),
-                        TotalExp = totalExp,
-                        TotalActions = totalActions,
-                        TotalTime = totalTime
-                    });
+                    return Ok(mouseData);
                 }
 
                 return BadRequest("Unable to parse date.");

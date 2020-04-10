@@ -17,6 +17,7 @@
           <e p="ExperienceController.cs" t="Include" />
           <e p="InteractionController.cs" t="Include" />
           <e p="MapController.cs" t="Include" />
+          <e p="MouseController.cs" t="Include" />
           <e p="OldSchoolAccountController.cs" t="Include" />
           <e p="SessionController.cs" t="Include" />
           <e p="UserController.cs" t="Include" />
@@ -285,10 +286,9 @@
               </e>
               <e p="dashboard" t="Include">
                 <e p="components" t="Include">
-                  <e p="ActionsCard.tsx" t="Include" />
-                  <e p="ExperienceCard.tsx" t="Include" />
                   <e p="Profile.tsx" t="Include" />
                   <e p="SessionsChart.tsx" t="Include" />
+                  <e p="StatisticCard.tsx" t="Include" />
                 </e>
                 <e p="Dashboard.tsx" t="Include" />
               </e>
@@ -297,6 +297,12 @@
               <e p="map" t="Include">
                 <e p="GameMap.tsx" t="Include" />
                 <e p="Position.ts" t="Include" />
+              </e>
+              <e p="mouse" t="Include">
+                <e p="components" t="Include">
+                  <e p="MouseChart.tsx" t="Include" />
+                </e>
+                <e p="Mouse.tsx" t="Include" />
               </e>
               <e p="Register.tsx" t="Include" />
             </e>
