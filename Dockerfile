@@ -3,7 +3,7 @@ WORKDIR /app
 EXPOSE 80 
 EXPOSE 443
 
-RUN curl -sL https://deb.nodesource.com/setup_10.x |  bash -
+RUN curl -sL https://deb.nodesource.com/setup_12.x |  bash -
 RUN apt-get install -y nodejs
 
 # copy csproj and restore as distinct layers
