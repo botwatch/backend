@@ -24,6 +24,7 @@
     "@types/react-leaflet": "^2.5.1",
     "crypto-js": "latest",
     "group-array": "^1.0.0",
+    "human-format": "^0.10.1",
     "leaflet": "^1.6.0",
     "material-ui": "^0.20.2",
     "moment": "latest",
