@@ -31,7 +31,7 @@ export default function Dashboard() {
                         if (typeof localData === "string") return "";
                         localData = localData as IDashboard;
                         //last timeframe
-                        let localPreviousData: any = await accountService.getDashboard(moment().subtract(10, 'days').toDate(), 7);
+                        let localPreviousData: any = await accountService.getDashboard(moment().subtract(14, 'days').toDate(), 7);
                         if (typeof localPreviousData !== "string") {
                             setPreviousData(localPreviousData as IDashboard);
                             //fill into other variable because graphing libs...

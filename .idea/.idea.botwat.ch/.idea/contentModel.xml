@@ -152,6 +152,7 @@
           <e p="node_modules\dotenv-expand" t="IncludeRecursive" />
           <e p="node_modules\fast-glob" t="IncludeRecursive" />
           <e p="node_modules\group-array" t="IncludeRecursive" />
+          <e p="node_modules\human-format" t="IncludeRecursive" />
           <e p="node_modules\is-in-browser" t="IncludeRecursive" />
           <e p="node_modules\jest" t="IncludeRecursive" />
           <e p="node_modules\jest-diff" t="IncludeRecursive" />
