@@ -23,12 +23,12 @@ namespace botwat.ch.Controllers
         }
 
         [Authorize]
-        [HttpPost("all")]
-        public async Task<ActionResult<OldSchoolAccount>> Get()
+        [HttpPost("get")]
+        public async Task<ActionResult<OldSchoolAccount>> Get(string alias)
         {
             var name = User.Identity.Name;
             var localUser = await _service.UserService.Find(name);
-            if (localUser != null) return Ok(_service.OldSchoolAccountService.All(localUser));
+            if (localUser != null) return Ok(_service.OldSchoolAccountService.Find(alias, localUser));
             return BadRequest("No accounts for current user.");
         }
 

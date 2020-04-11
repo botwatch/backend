@@ -24,12 +24,12 @@ namespace botwat.ch.Controllers
         }
 
         [Authorize]
-        [HttpPost("all")]
-        public async Task<ActionResult<BotClient>> Get()
+        [HttpPost("get")]
+        public async Task<ActionResult<BotClient>> Get(string clientName)
         {
             var name = User.Identity.Name;
             var localUser = await _service.UserService.Find(name);
-            if (localUser != null) return Ok(_service.BotClientService.All());
+            if (localUser != null) return Ok(await _service.BotClientService.Find(clientName));
             return BadRequest("Must be logged in to view clients.");
         }
 
