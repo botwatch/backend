@@ -9,13 +9,22 @@ import {red} from "@material-ui/core/colors";
 import hiveImage from '../resources/hive.png';
 import {authenticationService} from "../services/authentication.service";
 import {Link} from "react-router-dom";
-import {Fade, Menu, MenuItem} from "@material-ui/core";
+import {Badge, Fade, Hidden, IconButton, Menu, MenuItem} from "@material-ui/core";
 import {ExitToApp} from "@material-ui/icons";
+import NotificationsIcon from "@material-ui/icons/NotificationsOutlined";
+import InputIcon from "@material-ui/icons/Input";
+import MenuIcon from "@material-ui/icons/Menu";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            flexGrow: 1,
+            boxShadow: 'none'
+        },
+        flexGrow: {
+            flexGrow: 1
+        },
+        signOutButton: {
+            marginLeft: theme.spacing(1)
         },
         icon: {
             marginRight: theme.spacing(1),
@@ -39,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }));
 
 
-export default function NavigationBar() {
+export default function NavigationBar({setOpenSidebar}) {
     const classes = useStyles({});
 
     function RenderLogin({loggedIn}) {
@@ -49,7 +58,7 @@ export default function NavigationBar() {
         if (loggedIn)
             return (
                 <Button aria-controls="fade-menu" aria-haspopup="true" onClick={handleLogout}>
-                    <ExitToApp className={classes.logout} />
+                    <ExitToApp className={classes.logout}/>
                 </Button>
             );
         return (
@@ -69,7 +78,18 @@ export default function NavigationBar() {
                     <Typography variant="h6" className={classes.title}>
                         Botwatch
                     </Typography>
-                    <RenderLogin loggedIn={authenticationService.currentUserValue != null}/>
+                    <div className={classes.flexGrow}/>
+                    <Hidden mdDown>
+                        <RenderLogin loggedIn={authenticationService.currentUserValue != null}/>
+                    </Hidden>
+                    <Hidden lgUp>
+                        <IconButton
+                            color="inherit"
+                            onClick={()=> setOpenSidebar(true)}
+                        >
+                            <MenuIcon/>
+                        </IconButton>
+                    </Hidden>
                 </Toolbar>
             </AppBar>
         </div>

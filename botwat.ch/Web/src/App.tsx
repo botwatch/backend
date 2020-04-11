@@ -1,6 +1,6 @@
 import NavigationBar from "./components/NavigationBar";
-import React, {useEffect} from "react";
-import {createMuiTheme, CssBaseline, MuiThemeProvider} from "@material-ui/core";
+import React, {useEffect, useState} from "react";
+import {createMuiTheme, CssBaseline, MuiThemeProvider, useMediaQuery} from "@material-ui/core";
 import Login from "./pages/Login";
 import {
     BrowserRouter as Router,
@@ -25,20 +25,31 @@ function App() {
             }
         }
     });
-    
+
     useEffect(() => {
         authenticationService.currentUser.subscribe(x => setCurrentUser(x));
     }, []);
 
+    const isDesktop = useMediaQuery(muiTheme.breakpoints.up('lg'), {
+        defaultMatches: true
+    });
+    const [openSidebar, setOpenSidebar] = useState(!isDesktop);
+
     return (
         <MuiThemeProvider theme={muiTheme}>
             <Router>
-            <CssBaseline/>
-            <NavigationBar/>           
+                <CssBaseline/>
+                <NavigationBar setOpenSidebar={setOpenSidebar}/>
                 <Switch>
-                    <AnonymousRoute path="/login" component={Login}/>
-                    <AnonymousRoute path="/register" component={Register}/>
-                    <PrivateRoute path="/" component={Home}/>
+                    <AnonymousRoute path="/login"
+                                    component={Login}/>
+                    <AnonymousRoute path="/register"
+                                    component={Register}/>
+                    <PrivateRoute path="/"
+                                  component={Home}
+                                  openSidebar={openSidebar}
+                                  setOpenSidebar={setOpenSidebar}
+                                  isDesktop={isDesktop}/>
                 </Switch>
             </Router>
         </MuiThemeProvider>

@@ -8,7 +8,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MapIcon from '@material-ui/icons/Map';
 import HomeIcon from '@material-ui/icons/Home';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Switch,
     Route, Link, Redirect
@@ -21,6 +21,7 @@ import GameMap from "./map/GameMap";
 import Profile from "./dashboard/components/Profile";
 import Mouse from "./mouse/Mouse";
 import MouseIcon from '@material-ui/icons/Mouse';
+import {useTheme} from "@material-ui/styles";
 
 const drawerWidth = 240;
 
@@ -40,6 +41,10 @@ const useStyles = makeStyles((theme: Theme) =>
         drawer: {
             width: drawerWidth,
             flexShrink: 0,
+            [theme.breakpoints.up('lg')]: {
+                marginTop: 64,
+                height: 'calc(100% - 64px)'
+            }
         },
         drawerPaper: {
             width: drawerWidth,
@@ -50,7 +55,9 @@ const useStyles = makeStyles((theme: Theme) =>
         content: {
             flexGrow: 1,
             marginTop: '60px',
-            marginLeft: '240px'
+            [theme.breakpoints.up('lg')]: {
+                marginLeft: '240px'
+            }
         },
         nav: {
             padding: theme.spacing(2),
@@ -59,13 +66,15 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function ClippedDrawer() {
-    const classes = useStyles();
-    const isDesktop = useMediaQuery('(min-width:780px)');
+export default function Home({openSidebar, setOpenSidebar, isDesktop}) {
+    const classes = useStyles(); 
 
     return (
         <div>
             <Drawer
+                open={openSidebar}
+                onClose={() => setOpenSidebar(false)}
+                anchor="left"
                 className={classes.drawer}
                 variant={isDesktop ? "permanent" : "temporary"}
                 classes={{

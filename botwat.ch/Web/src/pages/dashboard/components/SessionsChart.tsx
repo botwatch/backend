@@ -70,9 +70,9 @@ export default function SessionsChart({graphData, previousData}) {
                         valueField="count"
                         argumentField="dateString"
                         color={'#3F51B5'}
-                    />                 
-                    <Stack />
-                    <Legend/>
+                    />
+                    <Stack/>
+                    <Legend position="top"/>
                     <Title text="Sessions run"/>
                     <Animation/>
                 </Chart>
